@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import cheerio from 'cheerio';
 
 var url;
 
@@ -42,7 +43,17 @@ class login extends Component {
                         mode: 'cors'
                     })
                         .then(res => {
-                            console.log(res);
+                            var username = res.data.username;
+                            return username;
+                        })
+                        .then(username => {
+                            fetch('http://localhost:5000/' + username)
+                                .then(res => {
+                                    return res.json();
+                                })
+                                .then(resdata => {
+                                    console.log(resdata);
+                                });
                         });
 
                 });

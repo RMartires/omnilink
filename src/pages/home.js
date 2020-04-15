@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import userProfile from './components/userProfile';
+import UserProfile from './components/UserProfile';
+import Link from './components/Links';
 
 
 class home extends Component {
@@ -15,7 +16,10 @@ class home extends Component {
     render() {
         return (
             <div>
-                <userProfile />
+                <UserProfile
+                    user_name='rebel_just_for_kicks98'
+                />
+                <Link />
             </div>
         );
     }
