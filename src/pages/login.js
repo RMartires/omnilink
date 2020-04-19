@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import cheerio from 'cheerio';
+import Cookies from 'js-cookie';
+import { Redirect } from 'react-router-dom';
 
 var url;
 
-class login extends Component {
+class Login extends Component {
 
     state = {
-
+        redirect: false,
+        token: undefined
     };
 
     componentDidMount() {
+
         var code = window.location.href.split('code=')[1];
-        if (code) {
+        if (code && !this.state.redirect) {
             var formdata = new FormData();
             formdata.set('client_id', '640026383445330');
             formdata.set('client_secret', '3e17b845507a5eff7f2bc6d9c6cb1942');
@@ -47,12 +50,18 @@ class login extends Component {
                             return username;
                         })
                         .then(username => {
-                            fetch('http://localhost:5000/' + username)
+                            fetch('http://localhost:5000/auth/' + username)
                                 .then(res => {
                                     return res.json();
                                 })
                                 .then(resdata => {
-                                    console.log(resdata);
+                                    this.setState(
+                                        {
+                                            redirect: true,
+                                            token: resdata.token
+                                        }
+                                    );
+                                    this.props.setToken(resdata.token);
                                 });
                         });
 
@@ -71,9 +80,17 @@ class login extends Component {
         window.location.href = url;
     }
 
+    redirecthome = () => {
+        if (this.state.redirect) {
+            return <Redirect to='' />
+        }
+    }
+
     render() {
+
         return (
             <div>
+                {this.redirecthome()}
                 <p>hello</p>
                 <button onClick={this.clickInstagram.bind(this)}>instagram login</button>
             </div>
@@ -82,4 +99,4 @@ class login extends Component {
 
 }
 
-export default login;
+export default Login;

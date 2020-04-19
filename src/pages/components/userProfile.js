@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '120%',
         textAlign: 'center',
-        fontSize: '2rem'
-    }
+        fontSize: '1.5rem',
+        paddingTop: '0px'
+    },
 }));
 
 const UserProfile = (props) => {
@@ -30,12 +31,13 @@ const UserProfile = (props) => {
                 alignItems='center'
                 justify='space-around'
                 spacing='3'
+                style={{ marginBottom: '5%' }}
             >
-                <Grid item lg={8} md={8} sm={5} xs={8}>
+                <Grid item xl={3} lg={4} md={4} sm={5} xs={8} >
                     <Avatar alt="Profile_picture" src={props.profile_picture} className={classes.avatar} />
                 </Grid>
-                <Grid item>
-                    <Paper className={classes.paper}>{props.user_name}</Paper>
+                <Grid item style={{ paddingTop: '0px' }} >
+                    <Paper style={{ backgroundColor: props.color.accent1 }} className={classes.paper}>{props.user_name}</Paper>
                 </Grid>
 
             </Grid>
