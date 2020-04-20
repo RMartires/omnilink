@@ -5,13 +5,18 @@ import Grid from '@material-ui/core/Grid';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 
-import { FormControl } from '@material-ui/core';
 import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
+
+import CoustomModal from './CoustomModal';
+
 
 const Link = (props) => {
 
     const [anchorEl, setAnchorEl] = useState();
+
+    const [edit, setEdit] = useState(false);
+    const [del, setDel] = useState(false);
 
     const handleclick = (event) => {
         //console.log(event);
@@ -28,8 +33,10 @@ const Link = (props) => {
                 <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
                     action={
                         <div>
-                            <IconButton aria-controls={`simple-menu${props.id}`} aria-haspopup="true">
-                                <MoreVertIcon onClick={(e) => { handleclick(e) }} />
+                            <IconButton aria-controls={`simple-menu${props.id}`} aria-haspopup="true"
+                                onClick={(e) => { handleclick(e) }}
+                            >
+                                <MoreVertIcon />
                             </IconButton>
                             <Menu
                                 id={`simple-menu${props.id}`}
@@ -38,8 +45,8 @@ const Link = (props) => {
                                 open={Boolean(anchorEl)}
                                 onClose={() => { handleClose() }}
                             >
-                                <MenuItem onClick={() => { handleClose() }}>Edit</MenuItem>
-                                <MenuItem onClick={() => { handleClose() }}>Delete</MenuItem>
+                                <MenuItem onClick={() => { setEdit(true) }}>Edit</MenuItem>
+                                <MenuItem onClick={() => { setDel(true) }}>Delete</MenuItem>
                             </Menu>
                         </div>
                     }
@@ -48,6 +55,12 @@ const Link = (props) => {
                 >
                 </CardHeader>
             </Card >
+            <CoustomModal
+                edit={edit}
+                del={del}
+                setEdit={setEdit}
+                setDel={setDel}
+            />
         </Grid>
     );
 };
