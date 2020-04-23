@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Redirect } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 var url;
-
 class Login extends Component {
 
     state = {
@@ -55,12 +56,6 @@ class Login extends Component {
                                     return res.json();
                                 })
                                 .then(resdata => {
-                                    this.setState(
-                                        {
-                                            redirect: true,
-                                            token: resdata.token
-                                        }
-                                    );
                                     this.props.setToken(resdata.token);
                                 });
                         });
@@ -80,20 +75,22 @@ class Login extends Component {
         window.location.href = url;
     }
 
-    redirecthome = () => {
-        if (this.state.redirect) {
-            return <Redirect to='' />
-        }
-    }
-
     render() {
 
         return (
-            <div>
-                {this.redirecthome()}
-                <p>hello</p>
-                <button onClick={this.clickInstagram.bind(this)}>instagram login</button>
-            </div>
+            <Grid container
+                direction='column'
+                justify='space-around'
+                spacing='3'
+                alignItems='center'
+                style={{ margin: '0%', backgroundColor: '#FFDC80', height: '100vh', width: '100vw' }}
+            >
+                <Grid item style={{ width: '100%' }}>
+                    <Button variant="contained" color="primary" onClick={this.clickInstagram.bind(this)} style={{ width: '90%', height: '8vh', left: '5%' }}>
+                        instagram login
+                </Button>
+                </Grid>
+            </Grid>
         );
     }
 

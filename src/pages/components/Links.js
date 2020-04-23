@@ -27,41 +27,64 @@ const Link = (props) => {
         setAnchorEl(null);
     };
 
+    const card = () => {
+        if (props.token) {
+            return (
+                <Card style={{ backgroundColor: props.color.accent2 }} onClick={() => { /*window.location.href = 'http://www.google.com'*/ }}>
+                    <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
+                        action={
+                            <div>
+                                <IconButton aria-controls={`simple-menu`} aria-haspopup="true"
+                                    onClick={(e) => { handleclick(e) }}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Menu
+                                    id={`simple-menu`}
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={() => { handleClose() }}
+                                >
+                                    <MenuItem onClick={() => { setEdit(true) }}>Edit</MenuItem>
+                                    <MenuItem onClick={() => { setDel(true) }}>Delete</MenuItem>
+                                </Menu>
+                            </div>
+                        }
+                        title={props.title}
+                        subheader={props.link}
+                    >
+                    </CardHeader>
+                    <CoustomModal
+                        edit={edit}
+                        del={del}
+                        setEdit={setEdit}
+                        setDel={setDel}
+                        recordid={props.recordid}
+                        title={props.title}
+                        link={props.link}
+                        token={props.token}
+                        refreshlinks={props.refreshlinks}
+                    />
+                </Card >
+            );
+        } else {
+            return (
+                <Card style={{ backgroundColor: props.color.accent2 }} onClick={() => { window.location.href = props.link }}>
+                    <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
+                        title={props.title}
+                        subheader={props.link}
+                    >
+                    </CardHeader>
+                </Card >
+            );
+        }
+    };
+
     return (
         <Grid item style={{ width: '90%', backgroundColor: props.color.dominant }}>
-            <Card style={{ backgroundColor: props.color.accent2 }} onClick={() => { /*window.location.href = 'http://www.google.com'*/ }}>
-                <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
-                    action={
-                        <div>
-                            <IconButton aria-controls={`simple-menu${props.id}`} aria-haspopup="true"
-                                onClick={(e) => { handleclick(e) }}
-                            >
-                                <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                                id={`simple-menu${props.id}`}
-                                anchorEl={anchorEl}
-                                keepMounted
-                                open={Boolean(anchorEl)}
-                                onClose={() => { handleClose() }}
-                            >
-                                <MenuItem onClick={() => { setEdit(true) }}>Edit</MenuItem>
-                                <MenuItem onClick={() => { setDel(true) }}>Delete</MenuItem>
-                            </Menu>
-                        </div>
-                    }
-                    title="link 1"
-                    subheader="www.google.com"
-                >
-                </CardHeader>
-            </Card >
-            <CoustomModal
-                edit={edit}
-                del={del}
-                setEdit={setEdit}
-                setDel={setDel}
-            />
-        </Grid>
+            {card()}
+        </Grid >
     );
 };
 

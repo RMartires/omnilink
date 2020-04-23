@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
+var Airtable = require('airtable');
+var base = new Airtable({ apiKey: 'key6g32DRULc2ELR4' }).base('app0XNGZWSAZxUY6M');
+
+
 const useStyles = makeStyles((theme) => ({
     paper: {
         textAlign: 'center',
@@ -37,6 +41,54 @@ function CoustomModal(props) {
 
     const classes = useStyles();
 
+    const [link, setLink] = useState(undefined);
+    const [title, setTitle] = useState(undefined);
+
+    const handlechange = (e) => {
+        if (e.target.name == 'title') {
+            setTitle(e.target.value);
+        } else if (e.target.name == 'link') {
+            setLink(e.target.value)
+        }
+    };
+
+    const send = (e) => {
+
+        base('links').update([
+            {
+                "id": props.recordid,
+                "fields": {
+                    "links": link,
+                    "users": [
+                        props.token.recordid
+                    ],
+                    "title": title
+                }
+            }
+        ], function (err, records) {
+            if (err) {
+                console.error(err);
+                return;
+            } else {
+                props.setEdit(false);
+                props.refreshlinks();
+            }
+        });
+
+    };
+
+    const dele = (e) => {
+        base('links').destroy([props.recordid], function (err, deletedRecords) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('Deleted', deletedRecords.length, 'records');
+            props.setDel(false);
+            props.refreshlinks();
+        });
+    };
+
 
     var edit = props.edit;
     var del = props.del;
@@ -58,10 +110,10 @@ function CoustomModal(props) {
                     <Paper elevation={0} className={classes.paper}>
                         <div>
                             <p>Edit</p>
-                            <TextField id="outlined-basic" label="Title" variant="outlined" />
-                            <TextField id="outlined-basic" label="link" variant="outlined" style={{ marginTop: '10px' }} />
+                            <TextField id="outlined-basic" label="Title" variant="outlined" onChange={(e) => { handlechange(e) }} name='title' />
+                            <TextField id="outlined-basic" label="link" variant="outlined" style={{ marginTop: '10px' }} onChange={(e) => { handlechange(e) }} name='link' />
                             <div style={{ marginTop: '10px' }}>
-                                <Button variant="contained" color="primary">
+                                <Button variant="contained" color="primary" onClick={(e) => { send(e) }}>
                                     Save
                             </Button>
                             </div>
@@ -84,6 +136,7 @@ function CoustomModal(props) {
                                 color="secondary"
                                 className={classes.button}
                                 startIcon={<DeleteIcon />}
+                                onClick={(e) => { dele(e) }}
                             >
                                 Delete
                             </Button>

@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
+import { Redirect } from 'react-router-dom';
 
 class App extends Component {
 
@@ -26,16 +27,8 @@ class App extends Component {
     if (!this.state.token) {
       var decodedtoken;
       var token = Cookies.get('jwttoken');
-      try {
-        decodedtoken = jwt.verify(token, 'heyphil123');
-      } catch (err) {
-        console.log(err);
-      }
-      if (decodedtoken) {
-        console.log(decodedtoken);
-        this.setState({
-          token: decodedtoken
-        });
+      if (token) {
+        this.setToken(token);
       }
     }
   }
@@ -73,11 +66,19 @@ class App extends Component {
       />
     }
 
+    const redirecthome = () => {
+      if (this.state.token) {
+        console.log(this.state.token);
+        return <Redirect to={`/:${this.state.token.username}`} />
+      }
+    }
+
     return (
       <div className="App">
+        {redirecthome()}
         <Switch>
           <Route path='/login' component={login} />
-          <Route path='/:' component={home} />
+          <Route path='/:username' component={home} />
         </Switch>
       </div>
     );
