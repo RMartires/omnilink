@@ -1,0 +1,8 @@
+.toolbar{
+    align-self: flex-end;
+}
+
+.appbar{
+    display: flex;
+    flex-direction: row;
+}

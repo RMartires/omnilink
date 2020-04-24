@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Main from './pages/Main';
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import { Redirect } from 'react-router-dom';
@@ -79,6 +80,7 @@ class App extends Component {
         <Switch>
           <Route path='/login' component={login} />
           <Route path='/:username' component={home} />
+          <Route path='' component={() => { return <Main /> }} />
         </Switch>
       </div>
     );

@@ -10,6 +10,9 @@ function LoadingScreen() {
             <div className={classes.leoborder2}>
                 <div className={classes.leocore2}></div>
             </div>
+            <p style={{ fontSize: '1.8rem' }}>
+                Loading...
+            </p>
         </div>
     );
 }

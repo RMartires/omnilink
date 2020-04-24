@@ -22,7 +22,7 @@ class Home extends Component {
     };
 
     componentDidMount() {
-        username = window.location.href.split('/:')[1];
+        username = window.location.href.split('0/')[1];
         console.log(username);
         this.refreshlinks();
     }
@@ -34,12 +34,15 @@ class Home extends Component {
                 view: "Grid view",
                 filterByFormula: `{username} = '${username}'`
             }).eachPage((records, fetchNextPage) => {
-                links = records[0].get('links');
-                linkslu = records[0].get('linkslu');
-                titlelu = records[0].get('titlelu');
-                profile_picture = records[0].get('profile_picture');
-                console.log(linkslu);
-                fetchNextPage();
+                console.log(records);
+                if (records[0]) {
+                    links = records[0].get('links');
+                    linkslu = records[0].get('linkslu');
+                    titlelu = records[0].get('titlelu');
+                    profile_picture = records[0].get('profile_picture');
+                    console.log(linkslu);
+                    fetchNextPage();
+                }
 
             }, (err) => {
                 if (err) { console.error(err); return; }
@@ -95,10 +98,7 @@ class Home extends Component {
         const fullscreen = () => {
             if (this.state.isloading) {
                 return (
-                    //<LoadingScreen />
-                    <p>
-                        LoadingScreen
-                    </p>
+                    <LoadingScreen />
                 );
             } else {
                 return (
