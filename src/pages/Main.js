@@ -3,8 +3,22 @@ import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import classes from './Main.module.css';
+
+const styles = theme => ({
+    title: {
+        [theme.breakpoints.up('md')]: {
+            variant: "h2"
+        }, [theme.breakpoints.down('md')]: {
+            variant: "h3"
+        },
+    },
+});
+
+const classes1 = makeStyles(styles);
 
 class Main extends Component {
     state = {};
@@ -14,8 +28,6 @@ class Main extends Component {
             <Grid container
                 direction='column'
                 alignItems='center'
-                style={{ width: '100vw', height: '100vh' }}
-                md={12}
             >
                 <Grid item style={{ width: '100%' }}>
                     <AppBar position="static" color='secondary' className={classes.appbar}>
@@ -25,10 +37,15 @@ class Main extends Component {
                         </Toolbar>
                     </AppBar>
                 </Grid>
-                <Grid item style={{ width: '100%', textAlign: 'center', paddingTop: '15%', fontSize: '1.3rem' }}>
-                    <h1>Omnilink</h1>
-                    <h3>we provide link solutions for ur link needs, we give u one link for all your</h3>
-                    <h3>links so you can link ur links with all your other links.</h3>
+                <Grid item style={{ width: '100%', textAlign: 'center', paddingTop: '15%' }}
+                    xs={6}
+                >
+                    <Typography gutterBottom className={classes1.title}>
+                        Omnilink
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        A home 🏡 for your links
+                    </Typography>
                 </Grid>
             </Grid>
         );

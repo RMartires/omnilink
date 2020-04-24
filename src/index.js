@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
