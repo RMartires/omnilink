@@ -1,0 +1,928 @@
+diff --git a/package-lock.json b/package-lock.json
+index 3247935..2aec461 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -2208,6 +2208,60 @@
+         "indent-string": "^4.0.0"
+       }
+     },
++    "airtable": {
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/airtable/-/airtable-0.8.1.tgz",
++      "integrity": "sha512-Cxw55ta1olDwDERz++HFJOBX6LONtg+d7+wOcYguqI4PR4P5RHmgjTbY8tPKgLHb8U3FVOyAbpb7NpLRSnLGgg==",
++      "requires": {
++        "es6-promise": "4.2.8",
++        "lodash": "4.17.15",
++        "request": "2.88.0",
++        "xhr": "2.3.3"
++      },
++      "dependencies": {
++        "punycode": {
++          "version": "1.4.1",
++          "resolved": "https://registry.npmjs.org/punycode/-/punycode-1.4.1.tgz",
++          "integrity": "sha1-wNWmOycYgArY4esPpSachN1BhF4="
++        },
++        "request": {
++          "version": "2.88.0",
++          "resolved": "https://registry.npmjs.org/request/-/request-2.88.0.tgz",
++          "integrity": "sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==",
++          "requires": {
++            "aws-sign2": "~0.7.0",
++            "aws4": "^1.8.0",
++            "caseless": "~0.12.0",
++            "combined-stream": "~1.0.6",
++            "extend": "~3.0.2",
++            "forever-agent": "~0.6.1",
++            "form-data": "~2.3.2",
++            "har-validator": "~5.1.0",
++            "http-signature": "~1.2.0",
++            "is-typedarray": "~1.0.0",
++            "isstream": "~0.1.2",
++            "json-stringify-safe": "~5.0.1",
++            "mime-types": "~2.1.19",
++            "oauth-sign": "~0.9.0",
++            "performance-now": "^2.1.0",
++            "qs": "~6.5.2",
++            "safe-buffer": "^5.1.2",
++            "tough-cookie": "~2.4.3",
++            "tunnel-agent": "^0.6.0",
++            "uuid": "^3.3.2"
++          }
++        },
++        "tough-cookie": {
++          "version": "2.4.3",
++          "resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.4.3.tgz",
++          "integrity": "sha512-Q5srk/4vDM54WJsJio3XNn6K2sCG+CQ8G5Wz6bZhRZoAe/+TxjWB/GlFAnYEbkYVlON9FMk/fE3h2RLpPXo4lQ==",
++          "requires": {
++            "psl": "^1.1.24",
++            "punycode": "^1.4.1"
++          }
++        }
++      }
++    },
+     "ajv": {
+       "version": "6.12.0",
+       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.12.0.tgz",
+@@ -4827,6 +4881,11 @@
+         }
+       }
+     },
++    "dom-walk": {
++      "version": "0.1.2",
++      "resolved": "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.2.tgz",
++      "integrity": "sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w=="
++    },
+     "domain-browser": {
+       "version": "1.2.0",
+       "resolved": "https://registry.npmjs.org/domain-browser/-/domain-browser-1.2.0.tgz",
+@@ -5105,6 +5164,11 @@
+         "es6-symbol": "^3.1.1"
+       }
+     },
++    "es6-promise": {
++      "version": "4.2.8",
++      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.8.tgz",
++      "integrity": "sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w=="
++    },
+     "es6-symbol": {
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-3.1.3.tgz",
+@@ -6416,6 +6480,22 @@
+       "resolved": "https://registry.npmjs.org/glob-to-regexp/-/glob-to-regexp-0.3.0.tgz",
+       "integrity": "sha1-jFoUlNIGbFcMw7/kSWF1rMTVAqs="
+     },
++    "global": {
++      "version": "4.3.2",
++      "resolved": "https://registry.npmjs.org/global/-/global-4.3.2.tgz",
++      "integrity": "sha1-52mJJopsdMOJCLEwWxD8DjlOnQ8=",
++      "requires": {
++        "min-document": "^2.19.0",
++        "process": "~0.5.1"
++      },
++      "dependencies": {
++        "process": {
++          "version": "0.5.2",
++          "resolved": "https://registry.npmjs.org/process/-/process-0.5.2.tgz",
++          "integrity": "sha1-FjjYqONML0QKkduVq5rrZ3/Bhc8="
++        }
++      }
++    },
+     "global-modules": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/global-modules/-/global-modules-2.0.0.tgz",
+@@ -7228,6 +7308,11 @@
+       "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",
+       "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg=="
+     },
++    "is-function": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/is-function/-/is-function-1.0.1.tgz",
++      "integrity": "sha1-Es+5i2W1fdPRk6MSH19uL0N2ArU="
++    },
+     "is-generator-fn": {
+       "version": "2.1.0",
+       "resolved": "https://registry.npmjs.org/is-generator-fn/-/is-generator-fn-2.1.0.tgz",
+@@ -9228,6 +9313,14 @@
+       "resolved": "https://registry.npmjs.org/mimic-response/-/mimic-response-2.1.0.tgz",
+       "integrity": "sha512-wXqjST+SLt7R009ySCglWBCFpjUygmCIfD790/kVbiGmUgfYGuB14PiTd5DwVxSV4NcYHjzMkoj5LjQZwTQLEA=="
+     },
++    "min-document": {
++      "version": "2.19.0",
++      "resolved": "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz",
++      "integrity": "sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU=",
++      "requires": {
++        "dom-walk": "^0.1.0"
++      }
++    },
+     "min-indent": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/min-indent/-/min-indent-1.0.0.tgz",
+@@ -10094,6 +10187,11 @@
+         "safe-buffer": "^5.1.1"
+       }
+     },
++    "parse-headers": {
++      "version": "2.0.3",
++      "resolved": "https://registry.npmjs.org/parse-headers/-/parse-headers-2.0.3.tgz",
++      "integrity": "sha512-QhhZ+DCCit2Coi2vmAKbq5RGTRcQUOE2+REgv8vdyu7MnYx2eZztegqtTx99TZ86GTIwqiy3+4nQTWZ2tgmdCA=="
++    },
+     "parse-json": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/parse-json/-/parse-json-4.0.0.tgz",
+@@ -16299,6 +16397,17 @@
+         "async-limiter": "~1.0.0"
+       }
+     },
++    "xhr": {
++      "version": "2.3.3",
++      "resolved": "https://registry.npmjs.org/xhr/-/xhr-2.3.3.tgz",
++      "integrity": "sha1-rWuBDgkXznK17HBPXUHxUDuOdSQ=",
++      "requires": {
++        "global": "~4.3.0",
++        "is-function": "^1.0.1",
++        "parse-headers": "^2.0.0",
++        "xtend": "^4.0.0"
++      }
++    },
+     "xml-name-validator": {
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-3.0.0.tgz",
+diff --git a/package.json b/package.json
+index 88be3b2..0d904f0 100644
+--- a/package.json
++++ b/package.json
+@@ -8,6 +8,7 @@
+     "@testing-library/jest-dom": "^4.2.4",
+     "@testing-library/react": "^9.5.0",
+     "@testing-library/user-event": "^7.2.1",
++    "airtable": "^0.8.1",
+     "axios": "^0.19.2",
+     "cheerio": "^1.0.0-rc.3",
+     "js-cookie": "^2.2.1",
+diff --git a/src/App.js b/src/App.js
+index f9a7ae8..8ce7308 100644
+--- a/src/App.js
++++ b/src/App.js
+@@ -4,6 +4,7 @@ import Login from './pages/Login';
+ import Home from './pages/Home';
+ import Cookies from 'js-cookie';
+ import jwt from 'jsonwebtoken';
++import { Redirect } from 'react-router-dom';
+ 
+ class App extends Component {
+ 
+@@ -26,16 +27,8 @@ class App extends Component {
+     if (!this.state.token) {
+       var decodedtoken;
+       var token = Cookies.get('jwttoken');
+-      try {
+-        decodedtoken = jwt.verify(token, 'heyphil123');
+-      } catch (err) {
+-        console.log(err);
+-      }
+-      if (decodedtoken) {
+-        console.log(decodedtoken);
+-        this.setState({
+-          token: decodedtoken
+-        });
++      if (token) {
++        this.setToken(token);
+       }
+     }
+   }
+@@ -73,11 +66,19 @@ class App extends Component {
+       />
+     }
+ 
++    const redirecthome = () => {
++      if (this.state.token) {
++        console.log(this.state.token);
++        return <Redirect to={`/:${this.state.token.username}`} />
++      }
++    }
++
+     return (
+       <div className="App">
++        {redirecthome()}
+         <Switch>
+           <Route path='/login' component={login} />
+-          <Route path='/:' component={home} />
++          <Route path='/:username' component={home} />
+         </Switch>
+       </div>
+     );
+diff --git a/src/pages/components/Addlinkbutton.js b/src/pages/components/Addlinkbutton.js
+new file mode 100644
+index 0000000..1d8933b
+--- /dev/null
++++ b/src/pages/components/Addlinkbutton.js
+@@ -0,0 +1,110 @@
++import React, { useState } from 'react';
++import Card from '@material-ui/core/Card';
++import CardHeader from '@material-ui/core/CardHeader';
++import Modal from '@material-ui/core/Modal';
++import Paper from '@material-ui/core/Paper';
++import TextField from '@material-ui/core/TextField';
++import Button from '@material-ui/core/Button';
++import MoreVertIcon from '@material-ui/icons/MoreVert';
++import IconButton from '@material-ui/core/IconButton';
++import Grid from '@material-ui/core/Grid';
++import { makeStyles } from '@material-ui/core/styles';
++
++var Airtable = require('airtable');
++var base = new Airtable({ apiKey: 'key6g32DRULc2ELR4' }).base('app0XNGZWSAZxUY6M');
++
++
++const useStyles = makeStyles((theme) => ({
++    paper: {
++        textAlign: 'center',
++        fontSize: '1.5rem',
++        position: 'absolute',
++        top: '50%',
++        left: '50%',
++        marginTop: '-150px',
++        marginLeft: '-150px',
++        width: '300px',
++        height: '300px'
++    }
++}));
++
++
++function Addlinkbutton(props) {
++
++    const [link, setLink] = useState(undefined);
++    const [title, setTitle] = useState(undefined);
++    const [addmodal, setAddmodal] = useState(false);
++
++    const handlechange = (e) => {
++        if (e.target.name == 'title') {
++            setTitle(e.target.value);
++        } else if (e.target.name == 'link') {
++            setLink(e.target.value)
++        }
++    };
++
++    const send = (e) => {
++
++        base('links').create([
++            {
++                "fields": {
++                    "links": link,
++                    "users": [
++                        props.token.recordid
++                    ],
++                    "title": title
++                }
++            }
++        ], function (err, records) {
++            if (err) {
++                console.error(err);
++                return;
++            } else {
++                setAddmodal(false);
++                props.refreshlinks();
++            }
++        });
++
++    };
++
++    const classes = useStyles();
++
++    return (
++        <Grid item style={{ width: '90%', backgroundColor: props.color.dominant }}>
++            <Card style={{ backgroundColor: '#F77737' }} onClick={() => { setAddmodal(true) }}>
++                <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
++                    action={
++                        <div>
++                            <IconButton aria-controls={`simple-menu`} aria-haspopup="true" style={{ opacity: '0%' }}>
++                                <MoreVertIcon />
++                            </IconButton>
++                        </div>
++                    }
++                    title="Add link"
++                >
++                </CardHeader>
++            </Card >
++            <Modal
++                open={addmodal}
++                onClose={() => { setAddmodal(false) }}
++                aria-labelledby="simple-modal-title"
++                aria-describedby="simple-modal-description"
++            >
++                <Paper elevation={0} className={classes.paper} >
++                    <div>
++                        <p>Add link</p>
++                        <TextField id="outlined-basic" label="Title" variant="outlined" onChange={(e) => { handlechange(e) }} name='title' />
++                        <TextField id="outlined-basic" label="link" variant="outlined" style={{ marginTop: '10px' }} onChange={(e) => { handlechange(e) }} name='link' />
++                        <div style={{ marginTop: '10px' }}>
++                            <Button variant="contained" color="primary" onClick={(e) => { send(e) }}>
++                                Save
++                            </Button>
++                        </div>
++                    </div>
++                </Paper>
++            </Modal>
++        </Grid>
++    );
++}
++
++export default Addlinkbutton;
+\ No newline at end of file
+diff --git a/src/pages/components/CoustomModal.js b/src/pages/components/CoustomModal.js
+index f64bb64..8ede7d4 100644
+--- a/src/pages/components/CoustomModal.js
++++ b/src/pages/components/CoustomModal.js
+@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
+ import DeleteIcon from '@material-ui/icons/Delete';
+ 
+ 
++var Airtable = require('airtable');
++var base = new Airtable({ apiKey: 'key6g32DRULc2ELR4' }).base('app0XNGZWSAZxUY6M');
++
++
+ const useStyles = makeStyles((theme) => ({
+     paper: {
+         textAlign: 'center',
+@@ -37,6 +41,54 @@ function CoustomModal(props) {
+ 
+     const classes = useStyles();
+ 
++    const [link, setLink] = useState(undefined);
++    const [title, setTitle] = useState(undefined);
++
++    const handlechange = (e) => {
++        if (e.target.name == 'title') {
++            setTitle(e.target.value);
++        } else if (e.target.name == 'link') {
++            setLink(e.target.value)
++        }
++    };
++
++    const send = (e) => {
++
++        base('links').update([
++            {
++                "id": props.recordid,
++                "fields": {
++                    "links": link,
++                    "users": [
++                        props.token.recordid
++                    ],
++                    "title": title
++                }
++            }
++        ], function (err, records) {
++            if (err) {
++                console.error(err);
++                return;
++            } else {
++                props.setEdit(false);
++                props.refreshlinks();
++            }
++        });
++
++    };
++
++    const dele = (e) => {
++        base('links').destroy([props.recordid], function (err, deletedRecords) {
++            if (err) {
++                console.error(err);
++                return;
++            }
++            console.log('Deleted', deletedRecords.length, 'records');
++            props.setDel(false);
++            props.refreshlinks();
++        });
++    };
++
+ 
+     var edit = props.edit;
+     var del = props.del;
+@@ -58,10 +110,10 @@ function CoustomModal(props) {
+                     <Paper elevation={0} className={classes.paper}>
+                         <div>
+                             <p>Edit</p>
+-                            <TextField id="outlined-basic" label="Title" variant="outlined" />
+-                            <TextField id="outlined-basic" label="link" variant="outlined" style={{ marginTop: '10px' }} />
++                            <TextField id="outlined-basic" label="Title" variant="outlined" onChange={(e) => { handlechange(e) }} name='title' />
++                            <TextField id="outlined-basic" label="link" variant="outlined" style={{ marginTop: '10px' }} onChange={(e) => { handlechange(e) }} name='link' />
+                             <div style={{ marginTop: '10px' }}>
+-                                <Button variant="contained" color="primary">
++                                <Button variant="contained" color="primary" onClick={(e) => { send(e) }}>
+                                     Save
+                             </Button>
+                             </div>
+@@ -84,6 +136,7 @@ function CoustomModal(props) {
+                                 color="secondary"
+                                 className={classes.button}
+                                 startIcon={<DeleteIcon />}
++                                onClick={(e) => { dele(e) }}
+                             >
+                                 Delete
+                             </Button>
+diff --git a/src/pages/components/Links.js b/src/pages/components/Links.js
+index ef7a9d3..3e3ba3d 100644
+--- a/src/pages/components/Links.js
++++ b/src/pages/components/Links.js
+@@ -27,41 +27,64 @@ const Link = (props) => {
+         setAnchorEl(null);
+     };
+ 
++    const card = () => {
++        if (props.token) {
++            return (
++                <Card style={{ backgroundColor: props.color.accent2 }} onClick={() => { /*window.location.href = 'http://www.google.com'*/ }}>
++                    <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
++                        action={
++                            <div>
++                                <IconButton aria-controls={`simple-menu`} aria-haspopup="true"
++                                    onClick={(e) => { handleclick(e) }}
++                                >
++                                    <MoreVertIcon />
++                                </IconButton>
++                                <Menu
++                                    id={`simple-menu`}
++                                    anchorEl={anchorEl}
++                                    keepMounted
++                                    open={Boolean(anchorEl)}
++                                    onClose={() => { handleClose() }}
++                                >
++                                    <MenuItem onClick={() => { setEdit(true) }}>Edit</MenuItem>
++                                    <MenuItem onClick={() => { setDel(true) }}>Delete</MenuItem>
++                                </Menu>
++                            </div>
++                        }
++                        title={props.title}
++                        subheader={props.link}
++                    >
++                    </CardHeader>
++                    <CoustomModal
++                        edit={edit}
++                        del={del}
++                        setEdit={setEdit}
++                        setDel={setDel}
++                        recordid={props.recordid}
++                        title={props.title}
++                        link={props.link}
++                        token={props.token}
++                        refreshlinks={props.refreshlinks}
++                    />
++                </Card >
++            );
++        } else {
++            return (
++                <Card style={{ backgroundColor: props.color.accent2 }} onClick={() => { window.location.href = props.link }}>
++                    <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
++                        title={props.title}
++                        subheader={props.link}
++                    >
++                    </CardHeader>
++                </Card >
++            );
++        }
++    };
++
+     return (
+         <Grid item style={{ width: '90%', backgroundColor: props.color.dominant }}>
+-            <Card style={{ backgroundColor: props.color.accent2 }} onClick={() => { /*window.location.href = 'http://www.google.com'*/ }}>
+-                <CardHeader style={{ textAlign: 'center', fontSize: '0.6rem' }}
+-                    action={
+-                        <div>
+-                            <IconButton aria-controls={`simple-menu${props.id}`} aria-haspopup="true"
+-                                onClick={(e) => { handleclick(e) }}
+-                            >
+-                                <MoreVertIcon />
+-                            </IconButton>
+-                            <Menu
+-                                id={`simple-menu${props.id}`}
+-                                anchorEl={anchorEl}
+-                                keepMounted
+-                                open={Boolean(anchorEl)}
+-                                onClose={() => { handleClose() }}
+-                            >
+-                                <MenuItem onClick={() => { setEdit(true) }}>Edit</MenuItem>
+-                                <MenuItem onClick={() => { setDel(true) }}>Delete</MenuItem>
+-                            </Menu>
+-                        </div>
+-                    }
+-                    title="link 1"
+-                    subheader="www.google.com"
+-                >
+-                </CardHeader>
+-            </Card >
+-            <CoustomModal
+-                edit={edit}
+-                del={del}
+-                setEdit={setEdit}
+-                setDel={setDel}
+-            />
+-        </Grid>
++            {card()}
++        </Grid >
+     );
+ };
+ 
+diff --git a/src/pages/components/LoadingScreen.js b/src/pages/components/LoadingScreen.js
+new file mode 100644
+index 0000000..f5f0c20
+--- /dev/null
++++ b/src/pages/components/LoadingScreen.js
+@@ -0,0 +1,17 @@
++import React from 'react';
++import classes from './LoadingScreen.module.css'
++function LoadingScreen() {
++
++    return (
++        <div className={classes.spinnerbox}>
++            <div className={classes.leoborder1}>
++                <div className={classes.leocore1}></div>
++            </div>
++            <div className={classes.leoborder2}>
++                <div className={classes.leocore2}></div>
++            </div>
++        </div>
++    );
++}
++
++export default LoadingScreen;
+\ No newline at end of file
+diff --git a/src/pages/components/LoadingScreen.module.css b/src/pages/components/LoadingScreen.module.css
+new file mode 100644
+index 0000000..d3e8cf4
+--- /dev/null
++++ b/src/pages/components/LoadingScreen.module.css
+@@ -0,0 +1,136 @@
++/* KEYFRAMES */
++
++@keyframes spin {
++    from {
++      transform: rotate(0);
++    }
++    to{
++      transform: rotate(359deg);
++    }
++  }
++  
++  @keyframes spin3D {
++    from {
++      transform: rotate3d(.5,.5,.5, 360deg);
++    }
++    to{
++      transform: rotate3d(0deg);
++    }
++  }
++  
++  @keyframes configure-clockwise {
++    0% {
++      transform: rotate(0);
++    }
++    25% {
++      transform: rotate(90deg);
++    }
++    50% {
++      transform: rotate(180deg);
++    }
++    75% {
++      transform: rotate(270deg);
++    }
++    100% {
++      transform: rotate(360deg);
++    }
++  }
++  
++  @keyframes configure-xclockwise {
++    0% {
++      transform: rotate(45deg);
++    }
++    25% {
++      transform: rotate(-45deg);
++    }
++    50% {
++      transform: rotate(-135deg);
++    }
++    75% {
++      transform: rotate(-225deg);
++    }
++    100% {
++      transform: rotate(-315deg);
++    }
++  }
++  
++  @keyframes pulse {
++    from {
++      opacity: 1;
++      transform: scale(1);
++    }
++    to {
++      opacity: .25;
++      transform: scale(.75);
++    }
++  }
++  
++  /* GRID STYLING */
++  
++  * {
++    box-sizing: border-box;
++  }
++  
++  body {
++    min-height: 100vh;
++    background-color: #37474f;
++    display: flex;
++    justify-content: space-between;
++    flex-wrap: wrap;
++    align-items: flex-start;
++  }
++  
++  .spinnerbox {
++    width: 300px;
++    height: 300px;
++    display: flex;
++    justify-content: center;
++    align-items: center;
++    background-color: transparent;
++  }
++  
++  /* SPINNING CIRCLE */
++  
++  .leoborder1 {
++    position: absolute;
++    width: 150px;
++    height: 150px;
++    padding: 3px;
++    display: flex;
++    justify-content: center;
++    align-items: center;
++    border-radius: 50%;
++    background: rgb(63,249,220);
++    background: linear-gradient(0deg, rgba(63,249,220,0.1) 33%, rgba(63,249,220,1) 100%);
++    animation: spin3D 1.8s linear 0s infinite;
++  }
++  
++  .leocore1 {
++    width: 100%;
++    height: 100%;
++    background-color: #37474faa;
++    border-radius: 50%;
++  }
++  
++  .leoborder2 {
++    position: absolute;
++    width: 150px;
++    height: 150px;
++    padding: 3px;
++    display: flex;
++    justify-content: center;
++    align-items: center;
++    border-radius: 50%;
++    background: rgb(63,249,220);
++    background: linear-gradient(0deg, rgba(255, 171, 145,0.1) 33%, rgba(255, 171, 145,1) 100%);
++    animation: spin3D 2.2s linear 0s infinite;
++  }
++  
++  .leocore2 {
++    width: 100%;
++    height: 100%;
++    background-color: #ffab91aa;
++    border-radius: 50%;
++  }
++  
++  
+\ No newline at end of file
+diff --git a/src/pages/home.js b/src/pages/home.js
+index 1e0eb11..998a390 100644
+--- a/src/pages/home.js
++++ b/src/pages/home.js
+@@ -2,50 +2,126 @@ import React, { Component } from 'react';
+ import UserProfile from './components/UserProfile';
+ import Link from './components/Links';
+ import Grid from '@material-ui/core/Grid';
++import LoadingScreen from './components/LoadingScreen';
+ 
++import Addlinkbutton from './components/Addlinkbutton';
++var Airtable = require('airtable');
++var base = new Airtable({ apiKey: 'key6g32DRULc2ELR4' }).base('app0XNGZWSAZxUY6M');
+ 
+-
++var username;
+ class Home extends Component {
+ 
+     state = {
+-        token: undefined
++        token: undefined,
++        links: [],
++        linkslu: [],
++        titlelu: [],
++        username: undefined,
++        profile_picture: undefined,
++        isloading: true
+     };
+ 
+     componentDidMount() {
++        username = window.location.href.split('/:')[1];
++        console.log(username);
++        this.refreshlinks();
++    }
++
++    refreshlinks() {
++        if (username) {
++            var links, linkslu, titlelu, profile_picture;
++            base('users').select({
++                view: "Grid view",
++                filterByFormula: `{username} = '${username}'`
++            }).eachPage((records, fetchNextPage) => {
++                links = records[0].get('links');
++                linkslu = records[0].get('linkslu');
++                titlelu = records[0].get('titlelu');
++                profile_picture = records[0].get('profile_picture');
++                console.log(linkslu);
++                fetchNextPage();
++
++            }, (err) => {
++                if (err) { console.error(err); return; }
++                else {
++                    this.setState({
++                        links: links,
++                        linkslu: linkslu,
++                        titlelu: titlelu,
++                        profile_picture: profile_picture,
++                        username: username,
++                        isloading: false
++                    });
++                }
++            });
++            console.log('refreshed');
++        }
+     }
+ 
+     render() {
+         const userprofile = () => {
+-            if (this.props.token) {
++            if (this.state.username) {
+                 return <UserProfile
+-                    user_name={this.props.token.username}
+-                    profile_picture={this.props.token.profile_picture}
++                    user_name={this.state.username}
++                    profile_picture={this.state.profile_picture}
+                     color={this.props.color}
+                 />
+-            } else {
+-                return <UserProfile color={this.props.color} />
+             }
+         };
+ 
+-        const links = () => {
+-            var x = [1, 2, 3, 4, 5, 6];
+-            return x.map(x => {
+-                return <Link color={this.props.color} id={x} />
++        const alllink = () => {
++            return this.state.links.map((linkid, index) => {
++                return <Link color={this.props.color}
++                    recordid={linkid}
++                    title={this.state.titlelu[index]}
++                    link={this.state.linkslu[index]}
++                    token={this.props.token}
++                    refreshlinks={this.refreshlinks.bind(this)}
++                />
+             });
+         };
+ 
++        const addbutton = () => {
++            if (this.props.token) {
++                return <Addlinkbutton
++                    color={this.props.color}
++                    token={this.props.token}
++                    refreshlinks={this.refreshlinks.bind(this)}
++                />
++            }
++        };
++
++
++        const fullscreen = () => {
++            if (this.state.isloading) {
++                return (
++                    //<LoadingScreen />
++                    <p>
++                        LoadingScreen
++                    </p>
++                );
++            } else {
++                return (
++                    <div>
++                        {userprofile()}
++                        <Grid
++                            container
++                            direction='column'
++                            justify='space-around'
++                            spacing='3'
++                            alignItems='center'
++                        >
++                            {alllink()}
++                            {addbutton()}
++                        </Grid>
++                    </div>
++                );
++            }
++        };
++
+         return (
+             <div style={{ backgroundColor: this.props.color.accent1 }}>
+-                {userprofile()}
+-                <Grid
+-                    container
+-                    direction='column'
+-                    justify='space-around'
+-                    spacing='3'
+-                    alignItems='center'
+-                >
+-                    {links()}
+-                </Grid>
++                {fullscreen()}
+             </div>
+         );
+     }
+diff --git a/src/pages/login.js b/src/pages/login.js
+index 6391676..a4ed0f8 100644
+--- a/src/pages/login.js
++++ b/src/pages/login.js
+@@ -1,10 +1,11 @@
+ import React, { Component } from "react";
+ import axios from 'axios';
+ import Cookies from 'js-cookie';
+-import { Redirect } from 'react-router-dom';
++import jwt from 'jsonwebtoken';
++import Button from '@material-ui/core/Button';
++import Grid from '@material-ui/core/Grid';
+ 
+ var url;
+-
+ class Login extends Component {
+ 
+     state = {
+@@ -55,12 +56,6 @@ class Login extends Component {
+                                     return res.json();
+                                 })
+                                 .then(resdata => {
+-                                    this.setState(
+-                                        {
+-                                            redirect: true,
+-                                            token: resdata.token
+-                                        }
+-                                    );
+                                     this.props.setToken(resdata.token);
+                                 });
+                         });
+@@ -80,20 +75,22 @@ class Login extends Component {
+         window.location.href = url;
+     }
+ 
+-    redirecthome = () => {
+-        if (this.state.redirect) {
+-            return <Redirect to='' />
+-        }
+-    }
+-
+     render() {
+ 
+         return (
+-            <div>
+-                {this.redirecthome()}
+-                <p>hello</p>
+-                <button onClick={this.clickInstagram.bind(this)}>instagram login</button>
+-            </div>
++            <Grid container
++                direction='column'
++                justify='space-around'
++                spacing='3'
++                alignItems='center'
++                style={{ margin: '0%', backgroundColor: '#FFDC80', height: '100vh', width: '100vw' }}
++            >
++                <Grid item style={{ width: '100%' }}>
++                    <Button variant="contained" color="primary" onClick={this.clickInstagram.bind(this)} style={{ width: '90%', height: '8vh', left: '5%' }}>
++                        instagram login
++                </Button>
++                </Grid>
++            </Grid>
+         );
+     }
+ 
