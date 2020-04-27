@@ -1,5 +1,14 @@
-/* KEYFRAMES */
+/*KEYFRAMES*/
+/*@keyframes spin3D {
+  from {
+    transform: rotate3d(.5,.5,.5, 360deg);
+  }
+  to{
+    transform: rotate3d(0deg);
+  }
+}
 
+/*
   @keyframes spin {
     from {
       transform: rotate(0);
@@ -8,16 +17,7 @@
       transform: rotate(359deg);
     }
   }
-  
-  @keyframes spin3D {
-    from {
-      transform: rotate3d(.5,.5,.5, 360deg);
-    }
-    to{
-      transform: rotate3d(0deg);
-    }
-  }
-  
+
   @keyframes configure-clockwise {
     0% {
       transform: rotate(0);
@@ -66,7 +66,7 @@
   }
   
   /* GRID STYLING */
-  
+/*
   * {
     box-sizing: border-box;
   } 
@@ -80,7 +80,6 @@
     background-color: transparent;
   }
   
-  /* SPINNING CIRCLE */
   
   .leoborder1 {
     position: absolute;

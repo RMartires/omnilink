@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "-150px",
     width: "300px",
     height: "200px",
-  },
+  }
 }));
 
 function CoustomModal(props) {
