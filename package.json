@@ -14,6 +14,7 @@
     "dotenv": "^8.2.0",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
+    "netlify-lambda": "^1.6.3",
     "pattern.css": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -26,6 +27,7 @@
   "scripts": {
     "prestart": "react-env",
     "start": "react-scripts start",
+    "postinstall": "netlify-lambda install",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
