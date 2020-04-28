@@ -14,25 +14,24 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    console.log(window._env);
     var code = window.location.href.split("code=")[1];
     if (code && !this.state.redirect) {
       var formdata = new FormData();
       var t;
-      if(process.env.NODE_ENV=='production'){
-      formdata.set("client_id", process.env.REACT_APP_CLIENT_ID);
-      formdata.set("client_secret", process.env.REACT_APP_CLIENT_SECRET);
-      formdata.set("grant_type", "authorization_code");
-      formdata.set("redirect_uri", process.env.REACT_APP_REDIRECT_URI);
-      t = code.split("#_")[0];
-      formdata.set("code", t);
-      }else{
-      formdata.set("client_id", window._env.REACT_APP_CLIENT_ID);
-      formdata.set("client_secret", window._env.REACT_APP_CLIENT_SECRET);
-      formdata.set("grant_type", "authorization_code");
-      formdata.set("redirect_uri", window._env.REACT_APP_REDIRECT_URI);
-      t = code.split("#_")[0];
-      formdata.set("code", t);
+      if (process.env.NODE_ENV == "production") {
+        formdata.set("client_id", process.env.REACT_APP_IN_CLIENT_ID);
+        formdata.set("client_secret", process.env.REACT_APP_IN_CLIENT_SECRET);
+        formdata.set("grant_type", "authorization_code");
+        formdata.set("redirect_uri", process.env.REACT_APP_IN_REDIRECT_URI);
+        t = code.split("#_")[0];
+        formdata.set("code", t);
+      } else {
+        formdata.set("client_id", window._env.REACT_APP_IN_CLIENT_ID);
+        formdata.set("client_secret", window._env.REACT_APP_IN_CLIENT_SECRET);
+        formdata.set("grant_type", "authorization_code");
+        formdata.set("redirect_uri", window._env.REACT_APP_IN_REDIRECT_URI);
+        t = code.split("#_")[0];
+        formdata.set("code", t);
       }
 
       axios({
@@ -75,13 +74,13 @@ class Login extends Component {
   }
 
   clickInstagram = () => {
-    var clientid,redirect_uri;
-    if(process.env.NODE_ENV=='production'){
-      clientid=process.env.REACT_APP_CLIENT_ID;
-      redirect_uri=process.env.REACT_APP_REDIRECT_URI;
-    }else{
-      clientid=window._env.REACT_APP_CLIENT_ID;
-      redirect_uri=window._env.REACT_APP_REDIRECT_URI;
+    var clientid, redirect_uri;
+    if (process.env.NODE_ENV == "production") {
+      clientid = process.env.REACT_APP_IN_CLIENT_ID;
+      redirect_uri = process.env.REACT_APP_IN_REDIRECT_URI;
+    } else {
+      clientid = window._env.REACT_APP_IN_CLIENT_ID;
+      redirect_uri = window._env.REACT_APP_IN_REDIRECT_URI;
     }
     url =
       "https://api.instagram.com/oauth/authorize" +

@@ -6,8 +6,6 @@ import LoadingScreen from "./components/LoadingScreen";
 
 import Addlinkbutton from "./components/Addlinkbutton";
 
-console.log(process.env.REACT_APP_ATapikey);
-
 var Airtable = require("airtable");
 
 var base;
