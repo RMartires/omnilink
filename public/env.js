@@ -1,0 +1,1 @@
+window._env = {"NODE_ENV":"development","REACT_APP_ATapikey":"key6g32DRULc2ELR4","REACT_APP_ATbase":"app0XNGZWSAZxUY6M","REACT_APP_IN_AUTH_URL":"http://localhost:5000/auth/","REACT_APP_IN_CLIENT_ID":"640026383445330","REACT_APP_IN_CLIENT_SECRET":"3e17b845507a5eff7f2bc6d9c6cb1942","REACT_APP_IN_REDIRECT_URL":"https://localhost:3000/login"};

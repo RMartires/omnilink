@@ -9,9 +9,17 @@ import Addlinkbutton from "./components/Addlinkbutton";
 console.log(process.env.REACT_APP_ATapikey);
 
 var Airtable = require("airtable");
-var base = new Airtable({ apiKey: process.env.ATapikey }).base(
-  "app0XNGZWSAZxUY6M"
-);
+
+var base;
+if (process.env.NODE_ENV == "production") {
+  base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
+    process.env.REACT_APP_ATbase
+  );
+} else {
+  base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
+    window._env.REACT_APP_ATbase
+  );
+}
 
 var username;
 class Home extends Component {

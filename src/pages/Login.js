@@ -14,15 +14,26 @@ class Login extends Component {
   };
 
   componentDidMount() {
+    console.log(window._env);
     var code = window.location.href.split("code=")[1];
     if (code && !this.state.redirect) {
       var formdata = new FormData();
-      formdata.set("client_id", "640026383445330");
-      formdata.set("client_secret", "3e17b845507a5eff7f2bc6d9c6cb1942");
+      var t;
+      if(process.env.NODE_ENV=='production'){
+      formdata.set("client_id", process.env.REACT_APP_CLIENT_ID);
+      formdata.set("client_secret", process.env.REACT_APP_CLIENT_SECRET);
       formdata.set("grant_type", "authorization_code");
-      formdata.set("redirect_uri", "https://localhost:3000/login");
-      var t = code.split("#_")[0];
+      formdata.set("redirect_uri", process.env.REACT_APP_REDIRECT_URI);
+      t = code.split("#_")[0];
       formdata.set("code", t);
+      }else{
+      formdata.set("client_id", window._env.REACT_APP_CLIENT_ID);
+      formdata.set("client_secret", window._env.REACT_APP_CLIENT_SECRET);
+      formdata.set("grant_type", "authorization_code");
+      formdata.set("redirect_uri", window._env.REACT_APP_REDIRECT_URI);
+      t = code.split("#_")[0];
+      formdata.set("code", t);
+      }
 
       axios({
         url: "https://api.instagram.com/oauth/access_token",
@@ -64,10 +75,18 @@ class Login extends Component {
   }
 
   clickInstagram = () => {
+    var clientid,redirect_uri;
+    if(process.env.NODE_ENV=='production'){
+      clientid=process.env.REACT_APP_CLIENT_ID;
+      redirect_uri=process.env.REACT_APP_REDIRECT_URI;
+    }else{
+      clientid=window._env.REACT_APP_CLIENT_ID;
+      redirect_uri=window._env.REACT_APP_REDIRECT_URI;
+    }
     url =
       "https://api.instagram.com/oauth/authorize" +
-      "?client_id=640026383445330" +
-      "&redirect_uri=https://localhost:3000/login" +
+      `?client_id=${clientid}` +
+      `&redirect_uri=${redirect_uri}` +
       "&scope=user_profile,user_media" +
       "&response_type=code";
 
