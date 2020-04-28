@@ -11,9 +11,16 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 var Airtable = require("airtable");
-var base = new Airtable({ apiKey: "key6g32DRULc2ELR4" }).base(
-  "app0XNGZWSAZxUY6M"
-);
+var base;
+if(process.env.NODE_ENV=='production'){
+  base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
+    process.env.REACT_APP_ATbase
+  );
+}else{
+  base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
+    window._env.REACT_APP_ATbase
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {

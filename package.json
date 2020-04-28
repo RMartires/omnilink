@@ -23,6 +23,7 @@
     "typeface-roboto": "0.0.75"
   },
   "scripts": {
+    "prestart": "react-env",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -42,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@beam-australia/react-env": "^2.1.2"
   }
 }
