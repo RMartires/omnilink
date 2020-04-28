@@ -5,8 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import LoadingScreen from "./components/LoadingScreen";
 
 import Addlinkbutton from "./components/Addlinkbutton";
+
+console.log(process.env.REACT_APP_ATapikey);
+
 var Airtable = require("airtable");
-var base = new Airtable({ apiKey: "key6g32DRULc2ELR4" }).base(
+var base = new Airtable({ apiKey: process.env.ATapikey }).base(
   "app0XNGZWSAZxUY6M"
 );
 
@@ -23,7 +26,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    username = window.location.href.split("0/")[1];
+    username = window.location.href.split("//")[1].split("/")[1];
     console.log(username);
     this.refreshlinks();
   }

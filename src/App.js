@@ -6,6 +6,9 @@ import Main from "./pages/Main";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { Redirect } from "react-router-dom";
+// import  dotenv from 'dotenv';
+//sdotenv.config();
+require("dotenv").config();
 
 class App extends Component {
   constructor(props) {
