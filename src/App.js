@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import ToHome from "./pages/Home";
 import Main from "./pages/Main";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
@@ -52,11 +52,11 @@ class App extends Component {
   };
 
   render() {
-    const home = () => {
+    const tohome = () => {
       if (this.state.token) {
-        return <Home token={this.state.token} color={this.state.color} />;
+        return <ToHome token={this.state.token} color={this.state.color} />;
       } else {
-        return <Home color={this.state.color} />;
+        return <ToHome color={this.state.color} />;
       }
     };
 
@@ -68,7 +68,7 @@ class App extends Component {
       var path = window.location.href.split("/ho")[1];
       if (this.state.token && !(path == "me")) {
         console.log(this.state.token);
-        return <Redirect to={`/${this.state.token.username}`} />;
+        return <Redirect to={`/👉${this.state.token.username}`} />;
       }
     };
 
@@ -83,7 +83,7 @@ class App extends Component {
             }}
           />
           <Route path="/login" component={login} />
-          <Route path="/:username" component={home} />
+          <Route path="/:username" component={tohome} />
           <Route
             path=""
             component={() => {

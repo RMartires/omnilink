@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { useParams } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import Link from "./components/Links";
 import Grid from "@material-ui/core/Grid";
 import LoadingScreen from "./components/LoadingScreen";
-
+import Page404 from "./components/Page404";
 import Addlinkbutton from "./components/Addlinkbutton";
 
 var Airtable = require("airtable");
@@ -29,11 +30,11 @@ class Home extends Component {
     username: undefined,
     profile_picture: undefined,
     isloading: true,
+    notloading: false,
   };
 
   componentDidMount() {
-    username = window.location.href.split("//")[1].split("/")[1];
-    console.log(username);
+    username = this.props.username;
     this.refreshlinks();
   }
 
@@ -55,11 +56,14 @@ class Home extends Component {
               profile_picture = records[0].get("profile_picture");
               console.log(linkslu);
               fetchNextPage();
+            } else {
+              this.setState({ notloading: true, isloading: false });
             }
           },
           (err) => {
             if (err) {
-              console.error(err);
+              console.error("not found");
+              this.setState({ notloading: true, isloading: false });
               return;
             } else {
               this.setState({
@@ -120,6 +124,8 @@ class Home extends Component {
     const fullscreen = () => {
       if (this.state.isloading) {
         return <LoadingScreen />;
+      } else if (this.state.notloading) {
+        return <Page404 />;
       } else {
         return (
           <div>
@@ -143,4 +149,15 @@ class Home extends Component {
   }
 }
 
-export default Home;
+function ToHome(props) {
+  var { username } = useParams();
+  console.log(username);
+  username = username.split("👉")[1];
+  if (props.token) {
+    return <Home username={username} token={props.token} color={props.color} />;
+  } else {
+    return <Home username={username} color={props.color} />;
+  }
+}
+
+export default ToHome;
