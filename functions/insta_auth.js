@@ -1,20 +1,18 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const jwt = require("jsonwebtoken");
-
-if (process.env.NODE_ENV == "production") {
-  base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
-    process.env.REACT_APP_ATbase
-  );
-} else {
-  base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
-    window._env.REACT_APP_ATbase
-  );
-}
+const Airtable = require("airtable");
+var base;
 
 exports.handler = function (event, context, callback) {
-  var username = event.path.split("insta_auth/");
-  console.log(username);
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+  };
+  var username = event.path.split("insta_auth/")[1];
+  var api = event.queryStringParameters;
+  base = new Airtable({ apiKey: api.apikey }).base(api.apibase);
 
   base("users")
     .select({
@@ -36,8 +34,10 @@ exports.handler = function (event, context, callback) {
             "heyphil123"
           );
 
-          res.json({
-            token: token,
+          callback(null, {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify(token),
           });
         } else {
           axios({
@@ -74,8 +74,10 @@ exports.handler = function (event, context, callback) {
                       "heyphil123"
                     );
 
-                    res.json({
-                      token: token,
+                    callback(null, {
+                      statusCode: 200,
+                      headers,
+                      body: JSON.stringify(token),
                     });
                   }
                 }

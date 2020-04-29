@@ -61,11 +61,30 @@ class Login extends Component {
               return username;
             })
             .then((username) => {
-              fetch(
-                "https://hopeful-mclean-f06bf3.netlify.app/.netlify/functions/insta_auth/" +
-                  username
-              )
+              var api;
+              if (process.env.NODE_ENV == "production") {
+                // apikey.set("apikey", process.env.REACT_APP_ATapikey);
+                // apikey.set("apibase", process.env.REACT_APP_ATbase);
+                api = {
+                  apikey: process.env.REACT_APP_ATapikey,
+                  apibase: process.env.REACT_APP_ATbase,
+                };
+              } else {
+                // apikey.set("apikey", window._env.REACT_APP_ATapikey);
+                // apikey.set("apibase", window._env.REACT_APP_ATbase);
+                api = {
+                  apikey: window._env.REACT_APP_ATapikey,
+                  apibase: window._env.REACT_APP_ATbase,
+                };
+              }
+
+              axios({
+                url: "http://localhost:9000/insta_auth/" + username,
+                params: api,
+                mode: "cors",
+              })
                 .then((res) => {
+                  console.log(res);
                   return res.json();
                 })
                 .then((resdata) => {
