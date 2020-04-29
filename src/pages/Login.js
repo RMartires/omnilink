@@ -61,7 +61,10 @@ class Login extends Component {
               return username;
             })
             .then((username) => {
-              fetch("http://localhost:5000/auth/" + username)
+              fetch(
+                "https://hopeful-mclean-f06bf3.netlify.app/.netlify/functions/insta_auth/" +
+                  username
+              )
                 .then((res) => {
                   return res.json();
                 })
