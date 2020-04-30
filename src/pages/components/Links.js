@@ -94,7 +94,7 @@ const Link = (props) => {
         <Card
           style={{ backgroundColor: props.color.accent2 }}
           onClick={() => {
-            window.location.href = props.link;
+            window.location.assign(`http://${props.link}`);
           }}
         >
           <CardHeader

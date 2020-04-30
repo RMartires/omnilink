@@ -85,10 +85,10 @@ class Login extends Component {
               })
                 .then((res) => {
                   console.log(res);
-                  return res.json();
+                  return res.data;
                 })
                 .then((resdata) => {
-                  this.props.setToken(resdata.token);
+                  this.props.setToken(resdata);
                 });
             });
         });

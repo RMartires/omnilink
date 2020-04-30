@@ -2,6 +2,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const jwt = require("jsonwebtoken");
 const Airtable = require("airtable");
+require("dotenv").config();
 var base;
 
 exports.handler = function (event, context, callback) {
@@ -10,6 +11,7 @@ exports.handler = function (event, context, callback) {
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
   };
+
   var username = event.path.split("insta_auth/")[1];
   var api = event.queryStringParameters;
   base = new Airtable({ apiKey: api.apikey }).base(api.apibase);
