@@ -15,6 +15,7 @@ import {
 import productimage from "../assets/product.png";
 
 import Paper from "@material-ui/core/Paper";
+import ToolBar from "./components/ToolBar";
 
 import classes1 from "./Main.module.css";
 
@@ -23,13 +24,8 @@ theme = responsiveFontSizes(theme);
 
 class Main extends Component {
   state = {
-    loginpage: false,
-  };
-
-  renderlogin = () => {
-    if (this.state.loginpage) {
-      return <Redirect to="/login" />;
-    }
+    pageredirect: false,
+    page: undefined,
   };
 
   render() {
@@ -40,26 +36,7 @@ class Main extends Component {
         alignItems="center"
         className={classes1.mainbody}
       >
-        <Grid item style={{ width: "100%" }}>
-          <AppBar
-            position="static"
-            className={classes1.appbar}
-            style={{ backgroundColor: "black" }}
-          >
-            <Toolbar className={classes1.toolbar}>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  this.setState({ loginpage: true });
-                }}
-              >
-                login
-              </Button>
-              {this.renderlogin()}
-              <Button color="inherit">about</Button>
-            </Toolbar>
-          </AppBar>
-        </Grid>
+        <ToolBar buttons={["login", "about"]} />
         <Grid container item direction="row" style={{ height: "100vh" }}>
           {/* //1st row */}
           <Grid
@@ -208,13 +185,19 @@ class Main extends Component {
             style={{ marginTop: "30px", justifyContent: "space-evenly" }}
           >
             <Grid item>
-              <Link>Home</Link>
+              <Link to="/home" className={classes1.linkcol}>
+                Home
+              </Link>
             </Grid>
             <Grid item>
-              <Link>About</Link>
+              <Link to="/about" className={classes1.linkcol}>
+                About
+              </Link>
             </Grid>
             <Grid item>
-              <Link>Login</Link>
+              <Link to="/login" className={classes1.linkcol}>
+                Login
+              </Link>
             </Grid>
           </Grid>
         </Paper>

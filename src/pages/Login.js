@@ -1,21 +1,20 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import ToolBar from "./components/ToolBar";
 
 var url;
-class Login extends Component {
-  state = {
-    redirect: false,
-    token: undefined,
-  };
+function Login(props) {
+  const [redirect, setRedirect] = useState(false);
+  const [token, setToken] = useState(undefined);
 
-  componentDidMount() {
+  useEffect(() => {
     var code = window.location.href.split("code=")[1];
-    if (code && !this.state.redirect) {
+    if (code) {
       var formdata = new FormData();
       var t;
       if (process.env.NODE_ENV == "production") {
@@ -88,14 +87,14 @@ class Login extends Component {
                   return res.data;
                 })
                 .then((resdata) => {
-                  this.props.setToken(resdata);
+                  props.setToken(resdata);
                 });
             });
         });
     }
-  }
+  });
 
-  clickInstagram = () => {
+  const clickInstagram = () => {
     var clientid, redirect_uri;
     if (process.env.NODE_ENV == "production") {
       clientid = process.env.REACT_APP_IN_CLIENT_ID;
@@ -114,10 +113,12 @@ class Login extends Component {
     window.location.href = url;
   };
 
-  render() {
-    return (
+  return (
+    <Grid container direction="column">
+      <ToolBar buttons={["home", "about"]} />
       <Grid
         container
+        item
         direction="column"
         spacing="3"
         alignItems="center"
@@ -135,15 +136,17 @@ class Login extends Component {
           <Button
             variant="contained"
             color="primary"
-            onClick={this.clickInstagram.bind(this)}
+            onClick={() => {
+              clickInstagram();
+            }}
             style={{ width: "100%", height: "8vh", left: "5%" }}
           >
             instagram login
           </Button>
         </Grid>
       </Grid>
-    );
-  }
+    </Grid>
+  );
 }
 
 export default Login;
