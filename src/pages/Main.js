@@ -21,6 +21,14 @@ import classes1 from "./Main.module.css";
 var theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
+const styles = theme=>({
+  toprow: {
+    [theme.breakpoints.up('sm')]:{
+      height:'100vh'
+    }
+  }
+});
+
 class Main extends Component {
   state = {
     loginpage: false,
@@ -33,6 +41,7 @@ class Main extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Grid
         container
@@ -60,11 +69,11 @@ class Main extends Component {
             </Toolbar>
           </AppBar>
         </Grid>
-        <Grid container item direction="row" style={{ height: "100vh" }}>
+        <Grid container item direction="row" className={classes.toprow}>
           {/* //1st row */}
           <Grid
             item
-            style={{ width: "50%", textAlign: "center", paddingTop: "15%" }}
+            style={{  textAlign: "center", paddingTop: "15%" }}
             xs={12}
             sm={6}
             md={6}
@@ -89,7 +98,7 @@ class Main extends Component {
           </Grid>
           <Grid
             item
-            style={{ width: "50%", height: "100%" }}
+            style={{  height: "100%" }}
             xs={12}
             sm={6}
             md={6}
@@ -223,4 +232,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withStyles(styles)(Main) ;
