@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Login from "./pages/Login";
+import LoadingLogin from "./pages/components/LoadingLogin";
 import ToHome from "./pages/Home";
 import Main from "./pages/Main";
 import About from "./pages/About";
@@ -49,20 +49,30 @@ class App extends Component {
       this.setState({
         token: decodedtoken,
       });
+    } else {
+      this.setState({
+        token: undefined,
+      });
     }
   };
 
   render() {
     const tohome = () => {
       if (this.state.token) {
-        return <ToHome token={this.state.token} color={this.state.color} />;
+        return (
+          <ToHome
+            token={this.state.token}
+            color={this.state.color}
+            setToken={this.setToken}
+          />
+        );
       } else {
         return <ToHome color={this.state.color} />;
       }
     };
 
-    const login = () => {
-      return <Login setToken={this.setToken} color={this.state.color} />;
+    const loadinglogin = () => {
+      return <LoadingLogin setToken={this.setToken} color={this.state.color} />;
     };
 
     const redirecthome = () => {
@@ -89,7 +99,7 @@ class App extends Component {
               return <About />;
             }}
           />
-          <Route path="/login" component={login} />
+          <Route path="/login" component={loadinglogin} />
           <Route path="/:username" component={tohome} />
           <Route
             path=""

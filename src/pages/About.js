@@ -100,7 +100,7 @@ function About(props) {
             </Link>
           </Grid>
           <Grid item>
-            <Link to="/login" className={classes1.linkcol}>
+            <Link to="#" className={classes1.linkcol}>
               Login
             </Link>
           </Grid>

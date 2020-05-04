@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Link, Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
@@ -11,7 +8,7 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from "@material-ui/core/styles";
-
+import Login from "./Login";
 import productimage from "../assets/product.png";
 
 import Paper from "@material-ui/core/Paper";
@@ -61,16 +58,10 @@ class Main extends Component {
               <Typography gutterBottom variant="h1" theme={theme}>
                 Omnilink
               </Typography>
-              <Typography variant="h5">Link Different😜</Typography>
-              <Button
-                style={{ backgroundColor: "#00bb77", marginTop: "5%" }}
-                size="large"
-                onClick={() => {
-                  this.setState({ loginpage: true });
-                }}
-              >
-                Join for free
-              </Button>
+              <Typography variant="h5" style={{ marginBottom: "15px" }}>
+                Link Different😜
+              </Typography>
+              <Login text={"instagram login"} />
             </ThemeProvider>
           </Grid>
           <Grid
@@ -204,7 +195,7 @@ class Main extends Component {
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/login" className={classes1.linkcol}>
+              <Link to="#" className={classes1.linkcol}>
                 Login
               </Link>
             </Grid>

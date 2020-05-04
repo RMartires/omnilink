@@ -3,6 +3,12 @@ import { useParams } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import Link from "./components/Links";
 import Grid from "@material-ui/core/Grid";
+import {
+  createMuiTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import LoadingScreen from "./components/LoadingScreen";
 import Page404 from "./components/Page404";
 import Addlinkbutton from "./components/Addlinkbutton";
@@ -19,6 +25,9 @@ if (process.env.NODE_ENV == "production") {
     window._env.REACT_APP_ATbase
   );
 }
+
+var theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 
 var username;
 class Home extends Component {
@@ -89,6 +98,8 @@ class Home extends Component {
             user_name={this.state.username}
             profile_picture={this.state.profile_picture}
             color={this.props.color}
+            setToken={this.props.setToken}
+            token={this.props.token}
           />
         );
       }
@@ -121,6 +132,33 @@ class Home extends Component {
       }
     };
 
+    const footer = () => {
+      if (!this.props.token) {
+        return (
+          <Grid item style={{ padding: "0px", marginTop: "10px" }}>
+            <ThemeProvider theme={theme}>
+              <Typography
+                style={{
+                  width: "100vw",
+                  height: "5vh",
+                  backgroundColor: "black",
+                  color: "white",
+                  textAlign: "center",
+                  paddingTop: "10px",
+                }}
+                variant="body2"
+                theme={theme}
+              >
+                <a href="/" target="_blank" style={{ color: "white" }}>
+                  Creat your own Omnilink page
+                </a>
+              </Typography>
+            </ThemeProvider>
+          </Grid>
+        );
+      }
+    };
+
     const fullscreen = () => {
       if (this.state.isloading) {
         return <LoadingScreen />;
@@ -140,6 +178,7 @@ class Home extends Component {
               {alllink()}
               {addbutton()}
             </Grid>
+            {footer()}
           </div>
         );
       }
@@ -154,7 +193,14 @@ function ToHome(props) {
   console.log(username);
   username = username.split("👉")[1];
   if (props.token) {
-    return <Home username={username} token={props.token} color={props.color} />;
+    return (
+      <Home
+        username={username}
+        token={props.token}
+        color={props.color}
+        setToken={props.setToken}
+      />
+    );
   } else {
     return <Home username={username} color={props.color} />;
   }

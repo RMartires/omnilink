@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link, Redirect } from "react-router-dom";
+import Login from "../Login";
 import classes1 from "../Main.module.css";
 
 function ToolBar(props) {
@@ -17,17 +18,21 @@ function ToolBar(props) {
   };
 
   const buttons = props.buttons.map((but) => {
-    return (
-      <Button
-        color="inherit"
-        onClick={() => {
-          setPage(`/${but}`);
-          setPageredirect(true);
-        }}
-      >
-        {but}
-      </Button>
-    );
+    if (but == "login") {
+      return <Login text={"login"} color={"black"} />;
+    } else {
+      return (
+        <Button
+          color="inherit"
+          onClick={() => {
+            setPage(`/${but}`);
+            setPageredirect(true);
+          }}
+        >
+          {but}
+        </Button>
+      );
+    }
   });
 
   return (
