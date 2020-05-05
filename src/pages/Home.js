@@ -106,18 +106,20 @@ class Home extends Component {
     };
 
     const alllink = () => {
-      return this.state.links.map((linkid, index) => {
-        return (
-          <Link
-            color={this.props.color}
-            recordid={linkid}
-            title={this.state.titlelu[index]}
-            link={this.state.linkslu[index]}
-            token={this.props.token}
-            refreshlinks={this.refreshlinks.bind(this)}
-          />
-        );
-      });
+      if (this.state.links) {
+        return this.state.links.map((linkid, index) => {
+          return (
+            <Link
+              color={this.props.color}
+              recordid={linkid}
+              title={this.state.titlelu[index]}
+              link={this.state.linkslu[index]}
+              token={this.props.token}
+              refreshlinks={this.refreshlinks.bind(this)}
+            />
+          );
+        });
+      }
     };
 
     const addbutton = () => {
