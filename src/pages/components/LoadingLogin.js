@@ -64,8 +64,7 @@ function Login(props) {
                   apikey: process.env.REACT_APP_ATapikey,
                   apibase: process.env.REACT_APP_ATbase,
                 };
-                link =
-                  "https://hopeful-mclean-f06bf3.netlify.app/.netlify/functions/insta_auth/";
+                link = "https://omnilink.herokuapp.com/auth/";
               } else {
                 // apikey.set("apikey", window._env.REACT_APP_ATapikey);
                 // apikey.set("apibase", window._env.REACT_APP_ATbase);
@@ -78,7 +77,7 @@ function Login(props) {
 
               axios({
                 url: link + username,
-                params: api,
+                //params: api,
                 mode: "cors",
               })
                 .then((res) => {
@@ -86,7 +85,7 @@ function Login(props) {
                   return res.data;
                 })
                 .then((resdata) => {
-                  props.setToken(resdata);
+                  props.setToken(resdata.token);
                 });
             });
         });
