@@ -7,9 +7,16 @@ import About from "./pages/About";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { Redirect } from "react-router-dom";
+import { ThemeProvider } from "react-bootstrap";
 // import  dotenv from 'dotenv';
 //sdotenv.config();
 require("dotenv").config();
+
+var theme = {
+  RFS: {
+    fontSize: "calc(1em + 1vw)",
+  },
+};
 
 class App extends Component {
   constructor(props) {
@@ -85,29 +92,31 @@ class App extends Component {
 
     return (
       <div className="App">
-        {redirecthome()}
-        <Switch>
-          <Route
-            path="/home"
-            component={() => {
-              return <Main home={true} />;
-            }}
-          />
-          <Route
-            path="/About"
-            component={() => {
-              return <About />;
-            }}
-          />
-          <Route path="/login" component={loadinglogin} />
-          <Route path="/:username" component={tohome} />
-          <Route
-            path=""
-            component={() => {
-              return <Main />;
-            }}
-          />
-        </Switch>
+        <ThemeProvider theme={{ color: "mediumseagreen" }}>
+          {redirecthome()}
+          <Switch>
+            <Route
+              path="/home"
+              component={() => {
+                return <Main home={true} />;
+              }}
+            />
+            <Route
+              path="/About"
+              component={() => {
+                return <About />;
+              }}
+            />
+            <Route path="/login" component={loadinglogin} />
+            <Route path="/:username" component={tohome} />
+            <Route
+              path=""
+              component={() => {
+                return <Main />;
+              }}
+            />
+          </Switch>
+        </ThemeProvider>
       </div>
     );
   }

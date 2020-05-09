@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/Button";
 import Grid from "@material-ui/core/Grid";
 
 var url;
@@ -27,11 +27,10 @@ function Login(props) {
     if (props.color) {
       return (
         <Button
-          variant="contained"
+          variant="dark"
           onClick={() => {
             clickInstagram();
           }}
-          style={{ backgroundColor: "black", color: "white" }}
         >
           {props.text}
         </Button>
@@ -39,8 +38,8 @@ function Login(props) {
     } else {
       return (
         <Button
-          variant="contained"
-          color="primary"
+          size={props.size}
+          variant="success"
           onClick={() => {
             clickInstagram();
           }}

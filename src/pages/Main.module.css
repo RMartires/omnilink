@@ -17,3 +17,11 @@ body {
 .linkcol {
   color: white;
 }
+
+html {
+  font-size: 100%;
+}
+
+headings {
+  font-weight: bold;
+}

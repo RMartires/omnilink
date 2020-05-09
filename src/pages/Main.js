@@ -3,29 +3,32 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Link, Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import Login from "./Login";
 import productimage from "../assets/product.png";
 
 import Paper from "@material-ui/core/Paper";
 import ToolBar from "./components/ToolBar";
-
 import classes1 from "./Main.module.css";
 
-var theme = createMuiTheme();
-theme = responsiveFontSizes(theme);
+//bootstarp
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { ThemeProvider } from "react-bootstrap";
 
-const styles = (theme) => ({
-  toprow: {
-    [theme.breakpoints.up("sm")]: {
-      height: "100vh",
-    },
-  },
-});
+import Footer from "./components/Footer";
+
+// var theme = createMuiTheme();
+// theme = responsiveFontSizes(theme);
+
+// const styles = (theme) => ({
+//   toprow: {
+//     [theme.breakpoints.up("sm")]: {
+//       height: "100vh",
+//     },
+//   },
+// });
 
 class Main extends Component {
   state = {
@@ -33,177 +36,81 @@ class Main extends Component {
     page: undefined,
   };
 
+  componentDidMount() {
+    console.log(this.props.theme);
+  }
+
   render() {
     const { classes } = this.props;
     return (
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        className={classes1.mainbody}
-      >
+      <div>
         <ToolBar buttons={["login", "about"]} />
-        <Grid container item direction="row" className={classes.toprow}>
-          {/* //1st row */}
-          <Grid
-            item
-            style={{ textAlign: "center", paddingTop: "15%" }}
-            xs={12}
-            sm={6}
-            md={6}
-            lg={6}
-            xl={6}
+        <Container fluid>
+          <Row
+            // className={classes1.firstrow}
+            className="align-items-center"
+            style={{ marginTop: "40px" }}
           >
-            <ThemeProvider theme={theme}>
-              <Typography gutterBottom variant="h1" theme={theme}>
-                Omnilink
-              </Typography>
-              <Typography variant="h5" style={{ marginBottom: "15px" }}>
-                Link Different😜
-              </Typography>
-              <Login text={"instagram login"} />
-            </ThemeProvider>
-          </Grid>
-          <Grid
-            item
-            style={{ height: "100%" }}
-            xs={12}
-            sm={6}
-            md={6}
-            lg={6}
-            xl={6}
+            <Col className="align-self-center" xs={12} sm={6}>
+              <Row className="justify-content-center">
+                <Col xs="auto" style={{ textAlign: "center" }}>
+                  <div>
+                    <h1 style={{ fontSize: "3.2em" }}>Omnilink</h1>
+                    <h4>Link Different😜</h4>
+                    <Login size="md" text={"instagram login"} />
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={12} sm={6}>
+              <img
+                src={productimage}
+                alt="Omnilink"
+                style={{ width: "100%" }}
+              ></img>
+            </Col>
+          </Row>
+          <Row
+            className="justify-content-center"
+            style={{
+              height: "30vh",
+              backgroundColor: "white",
+              marginBottom: "20px",
+            }}
           >
-            <img
-              src={productimage}
-              alt="Omnilink"
-              style={{ width: "100%" }}
-            ></img>
-          </Grid>
-        </Grid>
-        {/* //2nd row */}
-        <Grid
-          item
-          style={{
-            width: "100%",
-            paddingTop: "10vh",
-            paddingBottom: "10vh",
-            backgroundColor: "white",
-          }}
-        >
-          <ThemeProvider theme={theme}>
-            <Typography
-              variant="h4"
-              theme={theme}
-              style={{ textAlign: "center" }}
-            >
-              Great Minds Link Alike.
-            </Typography>
-          </ThemeProvider>
-        </Grid>
-        <Grid
-          container
-          item
-          direction="row"
-          style={{
-            justifyContent: "space-around",
-          }}
-        >
-          <Grid
-            item
-            style={{ width: "30%", textAlign: "center", paddingTop: "5%" }}
-            xs={12}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
-          >
-            <ThemeProvider theme={theme}>
-              <Typography gutterBottom variant="h4" theme={theme}>
-                Easy setup
-              </Typography>
-              <Typography variant="body1">
+            <Col xs="auto" className="align-self-center">
+              <h1 style={{ fontSize: "2rem" }}>Great Minds Link Alike.</h1>
+            </Col>
+          </Row>
+          <Row style={{ textAlign: "center" }}>
+            <Col xs={12} sm={4}>
+              <h5 className={classes1.headings}>Easy setup</h5>
+              <p>
                 It takes like two clicks to create a link account. Just
                 authorize with your instagram account add the links and paste
                 the link in any of your profiles.
-              </Typography>
-            </ThemeProvider>
-          </Grid>
-          <Grid
-            item
-            style={{ width: "30%", textAlign: "center", paddingTop: "5%" }}
-            xs={10}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
-          >
-            <ThemeProvider theme={theme}>
-              <Typography gutterBottom variant="h4" theme={theme}>
-                Analytics
-              </Typography>
-              <Typography variant="body1">
+              </p>
+            </Col>
+            <Col xs={12} sm={4}>
+              <h5 className={classes1.headings}>Analytics</h5>
+              <p>
                 Use omnilink to measure your links activity and find out what
                 your more popular.
-              </Typography>
-            </ThemeProvider>
-          </Grid>
-          <Grid
-            item
-            style={{ width: "30%", textAlign: "center", paddingTop: "5%" }}
-            xs={12}
-            sm={4}
-            md={4}
-            lg={4}
-            xl={4}
-          >
-            <ThemeProvider theme={theme}>
-              <Typography gutterBottom variant="h4" theme={theme}>
-                20+ Themes
-              </Typography>
-              <Typography variant="body1">
+              </p>
+            </Col>
+            <Col xs={12} sm={4}>
+              <h5 className={classes1.headings}>20+ Themes</h5>
+              <p>
                 Make your link page stand out, Customize your page with a varity
                 of more than 20 themes
-              </Typography>
-            </ThemeProvider>
-          </Grid>
-        </Grid>
-        {/* //3rd */}
-        <Paper
-          elevation={0}
-          style={{
-            width: "100%",
-            height: "15vh",
-            backgroundColor: "black",
-            marginTop: "5%",
-          }}
-          square
-        >
-          <Grid
-            item
-            container
-            direction="row"
-            style={{ marginTop: "30px", justifyContent: "space-evenly" }}
-          >
-            <Grid item>
-              <Link to="/home" className={classes1.linkcol}>
-                Home
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to="/about" className={classes1.linkcol}>
-                About
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to="#" className={classes1.linkcol}>
-                Login
-              </Link>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid>
+              </p>
+            </Col>
+          </Row>
+          <Footer />
+        </Container>
+      </div>
     );
   }
 }
 
-export default withStyles(styles)(Main);
+export default Main;
