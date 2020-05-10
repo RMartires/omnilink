@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { Link, Redirect } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import Login from "./Login";
 import productimage from "../assets/product.png";
 
-import Paper from "@material-ui/core/Paper";
 import ToolBar from "./components/ToolBar";
 import classes1 from "./Main.module.css";
 
@@ -15,7 +10,6 @@ import classes1 from "./Main.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { ThemeProvider } from "react-bootstrap";
 
 import Footer from "./components/Footer";
 
@@ -79,7 +73,9 @@ class Main extends Component {
             }}
           >
             <Col xs="auto" className="align-self-center">
-              <h1 style={{ fontSize: "2rem" }}>Great Minds Link Alike.</h1>
+              <h1 style={{ fontSize: "2rem", marginBottom: "50px" }}>
+                Great Minds Link Alike.
+              </h1>
             </Col>
           </Row>
           <Row style={{ textAlign: "center" }}>

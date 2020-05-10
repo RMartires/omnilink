@@ -13,6 +13,9 @@ import LoadingScreen from "./components/LoadingScreen";
 import Page404 from "./components/Page404";
 import Addlinkbutton from "./components/Addlinkbutton";
 
+//
+import Container from "react-bootstrap/Container";
+
 var Airtable = require("airtable");
 
 var base;
@@ -170,16 +173,10 @@ class Home extends Component {
         return (
           <div>
             {userprofile()}
-            <Grid
-              container
-              direction="column"
-              justify="space-around"
-              spacing="3"
-              alignItems="center"
-            >
+            <Container fluid>
               {alllink()}
               {addbutton()}
-            </Grid>
+            </Container>
             {footer()}
           </div>
         );

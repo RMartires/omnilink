@@ -1,40 +1,35 @@
 import React, { useState } from "react";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import Modal from "@material-ui/core/Modal";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import IconButton from "@material-ui/core/IconButton";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+// import Card from "@material-ui/core/Card";
+// import CardHeader from "@material-ui/core/CardHeader";
+// import Modal from "@material-ui/core/Modal";
+// import Paper from "@material-ui/core/Paper";
+// import TextField from "@material-ui/core/TextField";
+// import Button from "@material-ui/core/Button";
+// import MoreVertIcon from "@material-ui/icons/MoreVert";
+// import IconButton from "@material-ui/core/IconButton";
+// import Grid from "@material-ui/core/Grid";
+// import { makeStyles } from "@material-ui/core/styles";
+
+//
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
 
 var Airtable = require("airtable");
 var base;
-if(process.env.NODE_ENV=='production'){
+if (process.env.NODE_ENV == "production") {
   base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
     process.env.REACT_APP_ATbase
   );
-}else{
+} else {
   base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
     window._env.REACT_APP_ATbase
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    textAlign: "center",
-    fontSize: "1.5rem",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: "-150px",
-    marginLeft: "-150px",
-    width: "300px",
-    height: "300px",
-  },
-}));
 
 function Addlinkbutton(props) {
   const [link, setLink] = useState(undefined);
@@ -72,77 +67,73 @@ function Addlinkbutton(props) {
     );
   };
 
-  const classes = useStyles();
-
   return (
-    <Grid item style={{ width: "90%" }}>
-      <Card
-        style={{ backgroundColor: "#F77737" }}
-        onClick={() => {
-          setAddmodal(true);
-        }}
-      >
-        <CardHeader
-          style={{ textAlign: "center", fontSize: "0.6rem" }}
-          action={
-            <div>
-              <IconButton
-                aria-controls={`simple-menu`}
-                aria-haspopup="true"
-                style={{ opacity: "0%" }}
-              >
-                <MoreVertIcon />
-              </IconButton>
-            </div>
-          }
-          title="Add link"
-        ></CardHeader>
-      </Card>
-      <Modal
-        open={addmodal}
-        onClose={() => {
-          setAddmodal(false);
-        }}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <Paper elevation={0} className={classes.paper}>
-          <div>
-            <p>Add link</p>
-            <TextField
-              id="outlined-basic"
-              label="Title"
-              variant="outlined"
-              onChange={(e) => {
-                handlechange(e);
+    <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
+      <Col>
+        <Card
+          style={{ backgroundColor: "#F77737" }}
+          onClick={() => {
+            setAddmodal(true);
+          }}
+        >
+          <Card.Body style={{ textAlign: "center", fontSize: "0.6rem" }}>
+            <Card.Title>Add link</Card.Title>
+          </Card.Body>
+        </Card>
+        <Modal
+          show={addmodal}
+          onHide={() => {
+            setAddmodal(false);
+          }}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Add link</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="titleEdit">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="title"
+                  placeholder="Enter title"
+                  onChange={handlechange}
+                />
+              </Form.Group>
+              <Form.Group controlId="linkEdit">
+                <Form.Label>Link</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="link"
+                  placeholder="Enter Link"
+                  onChange={handlechange}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setAddmodal(false);
               }}
-              name="title"
-            />
-            <TextField
-              id="outlined-basic"
-              label="link"
-              variant="outlined"
-              style={{ marginTop: "10px" }}
-              onChange={(e) => {
-                handlechange(e);
+            >
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              onClick={(e) => {
+                send(e);
               }}
-              name="link"
-            />
-            <div style={{ marginTop: "10px" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={(e) => {
-                  send(e);
-                }}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
-        </Paper>
-      </Modal>
-    </Grid>
+            >
+              Add
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Col>
+    </Row>
   );
 }
 

@@ -1,54 +1,27 @@
 import React, { useState } from "react";
-import Modal from "@material-ui/core/Modal";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
+//
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 var Airtable = require("airtable");
 var base;
-if(process.env.NODE_ENV=='production'){
+if (process.env.NODE_ENV == "production") {
   base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
     process.env.REACT_APP_ATbase
   );
-}else{
+} else {
   base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
     window._env.REACT_APP_ATbase
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    textAlign: "center",
-    fontSize: "1.5rem",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: "-150px",
-    marginLeft: "-150px",
-    width: "300px",
-    height: "300px",
-  },
-  delpaper: {
-    textAlign: "center",
-    fontSize: "1.5rem",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: "-100px",
-    marginLeft: "-150px",
-    width: "300px",
-    height: "200px",
-  }
-}));
-
 function CoustomModal(props) {
-  const classes = useStyles();
-
-  const [link, setLink] = useState(undefined);
-  const [title, setTitle] = useState(undefined);
+  const [link, setLink] = useState("undefined");
+  const [title, setTitle] = useState("undefined");
 
   const handlechange = (e) => {
     if (e.target.name == "title") {
@@ -56,6 +29,7 @@ function CoustomModal(props) {
     } else if (e.target.name == "link") {
       setLink(e.target.value);
     }
+    console.log(link + " " + title);
   };
 
   const send = (e) => {
@@ -98,85 +72,98 @@ function CoustomModal(props) {
   var del = props.del;
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="space-around"
-    >
-      <Grid item>
-        <Modal
-          open={edit}
-          onClose={() => {
-            props.setEdit(false);
-          }}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
-          <Paper elevation={0} className={classes.paper}>
-            <div>
-              <p>Edit</p>
-              <TextField
-                id="outlined-basic"
-                label="Title"
-                variant="outlined"
-                onChange={(e) => {
-                  handlechange(e);
-                }}
-                name="title"
-              />
-              <TextField
-                id="outlined-basic"
-                label="link"
-                variant="outlined"
-                style={{ marginTop: "10px" }}
-                onChange={(e) => {
-                  handlechange(e);
-                }}
-                name="link"
-              />
-              <div style={{ marginTop: "10px" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={(e) => {
-                    send(e);
-                  }}
-                >
-                  Save
-                </Button>
-              </div>
-            </div>
-          </Paper>
-        </Modal>
-      </Grid>
-      <Grid item>
-        <Modal
-          open={del}
-          onClose={() => {
-            props.setDel(false);
-          }}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
-          <Paper elevation={0} className={classes.delpaper}>
-            <div>
-              <p>Hey 🙌, sure u want to delete this link?</p>
+    <Container fluid>
+      <Row>
+        <Col>
+          <Modal
+            show={edit}
+            onHide={() => {
+              props.setEdit(false);
+            }}
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Edit</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group controlId="titleEdit">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="title"
+                    placeholder="Enter title"
+                    onChange={handlechange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="linkEdit">
+                  <Form.Label>Link</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="link"
+                    placeholder="Enter Link"
+                    onChange={handlechange}
+                  />
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
               <Button
-                variant="contained"
-                color="secondary"
-                startIcon={<DeleteIcon />}
+                variant="secondary"
+                onClick={() => {
+                  props.setEdit(false);
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                variant="primary"
+                onClick={(e) => {
+                  send(e);
+                }}
+              >
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          {/* del */}
+          <Modal
+            show={del}
+            onHide={() => {
+              props.setDel(false);
+            }}
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Delete</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Hey 🙌, sure u want to delete this link?</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  props.setDel(false);
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                variant="danger"
                 onClick={(e) => {
                   dele(e);
                 }}
               >
                 Delete
               </Button>
-            </div>
-          </Paper>
-        </Modal>
-      </Grid>
-    </Grid>
+            </Modal.Footer>
+          </Modal>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

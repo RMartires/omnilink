@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import Paper from "@material-ui/core/Paper";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import IconButton from "@material-ui/core/IconButton";
-import { Menu } from "@material-ui/core";
-import { MenuItem } from "@material-ui/core";
+//
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Button from "react-bootstrap/Button";
+import MoreVertIcon from "../../assets/more_vert.svg";
+import { more_vert } from "react-icons/md";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
+import FormControl from "react-bootstrap/FormControl";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    width: "100%",
-    height: "120%",
-    marginTop: "10%",
-  },
-  paper: {
-    width: "110%",
-    height: "120%",
-    textAlign: "center",
-    fontSize: "1.5rem",
-    paddingTop: "0px",
-  },
-}));
+const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+  <a
+    href=""
+    ref={ref}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {children}
+    {/* &#x25bc; */}
+  </a>
+));
 
 const UserProfile = (props) => {
-  const classes = useStyles();
+  //  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState();
 
   const handleclick = (e) => {
@@ -43,85 +44,38 @@ const UserProfile = (props) => {
   const logoutbutton = () => {
     if (props.token) {
       return (
-        <Grid
-          item
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            paddingBottom: "0px",
-            paddingRight: "0px",
-          }}
-        >
-          <IconButton
-            aria-controls={`simple-menu`}
-            aria-haspopup="true"
-            onClick={(e) => {
-              handleclick(e);
-            }}
-            style={{ alignSelf: "flex-end" }}
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id={`simple-menu`}
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={() => {
-              handleClose();
-            }}
-          >
-            <MenuItem
-              onClick={() => {
-                logout();
-              }}
-            >
-              Logout
-            </MenuItem>
-          </Menu>
-        </Grid>
+        <Dropdown>
+          <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+            <Image src={MoreVertIcon} rounded />
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item eventKey="1">Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       );
     }
   };
 
   return (
-    <div>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justify="space-around"
-        spacing="3"
-        style={{ marginBottom: "5%" }}
+    <Container fluid>
+      <Row className="justify-content-end">
+        <Col xs="auto">{logoutbutton()}</Col>
+      </Row>
+      <Row
+        className="justify-content-center"
+        style={{ marginTop: "20px", marginBottom: "20px" }}
       >
-        {logoutbutton()}
-        <Grid
-          item
-          xl={3}
-          lg={4}
-          md={4}
-          sm={5}
-          xs={8}
-          style={{ paddingTop: "0px" }}
-        >
-          <Avatar
-            alt="Profile_picture"
-            src={props.profile_picture}
-            className={classes.avatar}
-          />
-        </Grid>
-        <Grid item style={{ paddingTop: "0px" }}>
-          <p
-            style={{ backgroundColor: props.color.accent1 }}
-            className={classes.paper}
-          >
-            👉{props.user_name}
-          </p>
-        </Grid>
-      </Grid>
-    </div>
+        <Col xs={8} sm={7} md={5} lg={3}>
+          <Image src={props.profile_picture} roundedCircle fluid />
+        </Col>
+      </Row>
+      <Row>
+        <Col style={{ textAlign: "center" }}>
+          <h5>👉{props.user_name}</h5>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
