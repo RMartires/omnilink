@@ -23,13 +23,7 @@ function ToolBar(props) {
 
   const buttons = props.buttons.map((but) => {
     if (but == "login") {
-      return (
-        <Login
-          text={"login"}
-          color={"black"}
-          style={{ marginLeft: "5px", marginRight: "5px" }}
-        />
-      );
+      return <Login text={"login"} color={"black"} />;
     } else {
       return (
         <Button
@@ -53,7 +47,7 @@ function ToolBar(props) {
     <Row className="no-gutters">
       <Col>
         <Navbar
-          style={{ backgroundColor: "black" }}
+          style={{ backgroundColor: "black", paddingRight: "0px" }}
           className="justify-content-end"
         >
           {buttons}

@@ -68,13 +68,15 @@ class Main extends Component {
             className="justify-content-center"
             style={{
               height: "30vh",
-              backgroundColor: "white",
+              backgroundColor: "#648a20ad",
               marginBottom: "20px",
             }}
           >
             <Col xs="auto" className="align-self-center">
-              <h1 style={{ fontSize: "2rem", marginBottom: "50px" }}>
-                Great Minds Link Alike.
+              <h1
+                style={{ textDecorationLine: "underline", fontSize: "2.2rem" }}
+              >
+                Great Minds Link Alike
               </h1>
             </Col>
           </Row>
@@ -91,7 +93,7 @@ class Main extends Component {
               <h5 className={classes1.headings}>Analytics</h5>
               <p>
                 Use omnilink to measure your links activity and find out what
-                your more popular.
+                your audience really likes.
               </p>
             </Col>
             <Col xs={12} sm={4}>

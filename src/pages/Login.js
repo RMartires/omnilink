@@ -31,6 +31,7 @@ function Login(props) {
           onClick={() => {
             clickInstagram();
           }}
+          style={{ marginLeft: "5px", marginRight: "5px" }}
         >
           {props.text}
         </Button>
