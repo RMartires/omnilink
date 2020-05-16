@@ -20,6 +20,8 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import FormControl from "react-bootstrap/FormControl";
 
+import classes from "./Links.module.css";
+
 const Link = (props) => {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
@@ -45,15 +47,21 @@ const Link = (props) => {
   const card = () => {
     if (props.token) {
       return (
-        <Row style={{ marginTop: "10px", marginBottom: "10px", zIndex: "5" }}>
-          <Col>
+        <Row
+          style={{ marginTop: "10px", marginBottom: "10px", zIndex: "5" }}
+          class="sortable"
+        >
+          <Col className={classes.linkcol}>
             <Card
-              style={{ backgroundColor: props.color.accent2 }}
+              className={classes.link}
               onClick={() => {
                 /*window.location.href = 'http://www.google.com'*/
               }}
             >
-              <Card.Body style={{ fontSize: "0.6rem", padding: "1rem" }}>
+              <Card.Body
+                style={{ fontSize: "0.6rem", padding: "1rem" }}
+                className={classes.linkbody}
+              >
                 <div style={{ textAlign: "end" }} xs="auto">
                   <Dropdown>
                     <Dropdown.Toggle
@@ -85,7 +93,7 @@ const Link = (props) => {
                 </div>
                 <div style={{ textAlign: "center" }}>
                   <Card.Title>{props.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
+                  <Card.Subtitle className="mb-2 text">
                     {props.link}
                   </Card.Subtitle>
                 </div>
@@ -108,16 +116,19 @@ const Link = (props) => {
     } else {
       return (
         <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
-          <Col>
+          <Col className={classes.linkcol}>
             <Card
-              style={{ backgroundColor: props.color.accent2 }}
+              className={classes.link}
               onClick={() => {
                 window.location.assign(`http://${props.link}`);
               }}
             >
-              <Card.Body style={{ textAlign: "center", fontSize: "0.6rem" }}>
+              <Card.Body
+                style={{ textAlign: "center", fontSize: "0.6rem" }}
+                className={classes.linkbody}
+              >
                 <Card.Title>{props.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
+                <Card.Subtitle className="mb-2 text">
                   {props.link}
                 </Card.Subtitle>
               </Card.Body>

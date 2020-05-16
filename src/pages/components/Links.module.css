@@ -1,0 +1,17 @@
+.linkcol .link {
+  background-color: #3aa4b7a3;
+  color: black;
+}
+
+.linkcol .link:hover {
+  background-image: linear-gradient(#3aa4b7a3, #0f3a4580);
+  color: white;
+}
+
+.linkbody {
+  border-style: double;
+}
+.linkbody:hover {
+  border-style: double;
+  border-color: white;
+}

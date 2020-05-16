@@ -15,6 +15,7 @@ import Addlinkbutton from "./components/Addlinkbutton";
 
 //
 import Container from "react-bootstrap/Container";
+import RLDD from "react-list-drag-and-drop/lib/RLDD";
 
 var Airtable = require("airtable");
 
@@ -39,6 +40,7 @@ class Home extends Component {
     links: [],
     linkslu: [],
     titlelu: [],
+    movedlinks: undefined,
     username: undefined,
     profile_picture: undefined,
     isloading: true,
@@ -93,6 +95,10 @@ class Home extends Component {
     }
   }
 
+  handleRLDDChange(newItems) {
+    this.setState({ movedlinks: newItems });
+  }
+
   render() {
     const userprofile = () => {
       if (this.state.username) {
@@ -109,19 +115,56 @@ class Home extends Component {
     };
 
     const alllink = () => {
-      if (this.state.links) {
-        return this.state.links.map((linkid, index) => {
+      if (this.props.token) {
+        if (this.state.links) {
+          var templinks = this.state.links.map((linkid, index) => {
+            return {
+              id: index,
+              linkId: linkid,
+              title: this.state.titlelu[index],
+              link: this.state.linkslu[index],
+              token: this.props.token,
+              refreshlinks: this.refreshlinks.bind(this),
+            };
+          });
+
+          //console.log(templinks);
+
           return (
-            <Link
-              color={this.props.color}
-              recordid={linkid}
-              title={this.state.titlelu[index]}
-              link={this.state.linkslu[index]}
-              token={this.props.token}
-              refreshlinks={this.refreshlinks.bind(this)}
+            <RLDD
+              items={this.state.movedlinks || templinks}
+              itemRenderer={(link) => {
+                return (
+                  <Link
+                    recordid={link.linkId}
+                    title={link.title}
+                    link={link.link}
+                    token={link.token}
+                    refreshlinks={link.refreshlinks}
+                  />
+                );
+              }}
+              onChange={this.handleRLDDChange.bind(this)}
             />
           );
-        });
+        }
+      } else {
+        //notloggeding
+        if (this.state.links) {
+          return this.state.links.map((linkid, index) => {
+            return (
+              //
+              <Link
+                recordid={linkid}
+                title={this.state.titlelu[index]}
+                link={this.state.linkslu[index]}
+                token={this.props.token}
+                refreshlinks={this.refreshlinks.bind(this)}
+              />
+              //
+            );
+          });
+        }
       }
     };
 
