@@ -50,7 +50,7 @@ function CoustomModal(props) {
           return;
         } else {
           props.setEdit(false);
-          props.refreshlinks();
+          props.refreshlinks(true);
         }
       }
     );
@@ -64,7 +64,7 @@ function CoustomModal(props) {
       }
       console.log("Deleted", deletedRecords.length, "records");
       props.setDel(false);
-      props.refreshlinks();
+      props.refreshlinks(true);
     });
   };
 

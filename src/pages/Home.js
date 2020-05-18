@@ -11,11 +11,14 @@ import {
 import Typography from "@material-ui/core/Typography";
 import LoadingScreen from "./components/LoadingScreen";
 import Page404 from "./components/Page404";
-import Addlinkbutton from "./components/Addlinkbutton";
 
 //
 import Container from "react-bootstrap/Container";
-import RLDD from "react-list-drag-and-drop/lib/RLDD";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import FloatingButton from "./components/FloatingButton";
+import Toast from "react-bootstrap/Toast";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 var Airtable = require("airtable");
 
@@ -30,21 +33,17 @@ if (process.env.NODE_ENV == "production") {
   );
 }
 
-var theme = createMuiTheme();
-theme = responsiveFontSizes(theme);
-
 var username;
 class Home extends Component {
   state = {
     token: undefined,
-    links: [],
-    linkslu: [],
-    titlelu: [],
+    links: {},
     movedlinks: undefined,
     username: undefined,
     profile_picture: undefined,
     isloading: true,
     notloading: false,
+    showtoast: false,
   };
 
   componentDidMount() {
@@ -52,9 +51,9 @@ class Home extends Component {
     this.refreshlinks();
   }
 
-  refreshlinks() {
+  refreshlinks(changeMade) {
     if (username) {
-      var links, linkslu, titlelu, profile_picture;
+      var links, linkslu, titlelu, profile_picture, orderlu;
       base("users")
         .select({
           view: "Grid view",
@@ -67,8 +66,9 @@ class Home extends Component {
               links = records[0].get("links");
               linkslu = records[0].get("linkslu");
               titlelu = records[0].get("titlelu");
+              orderlu = records[0].get("orderlu");
               profile_picture = records[0].get("profile_picture");
-              console.log(linkslu);
+              //console.log(linkslu);
               fetchNextPage();
             } else {
               this.setState({ notloading: true, isloading: false });
@@ -80,14 +80,33 @@ class Home extends Component {
               this.setState({ notloading: true, isloading: false });
               return;
             } else {
-              this.setState({
-                links: links,
-                linkslu: linkslu,
-                titlelu: titlelu,
-                profile_picture: profile_picture,
-                username: username,
-                isloading: false,
-              });
+              var templinks = [];
+              var len = links.length;
+              for (var i = 0; i < len; i++) {
+                var x = {};
+                x.id = links[i];
+                x.title = titlelu[i];
+                x.link = linkslu[i];
+                x.order = orderlu[i];
+                templinks[x.order - 1] = x;
+              }
+              console.log(templinks);
+              if (changeMade) {
+                this.setState({
+                  links: templinks,
+                  profile_picture: profile_picture,
+                  username: username,
+                  isloading: false,
+                  showtoast: true,
+                });
+              } else {
+                this.setState({
+                  links: templinks,
+                  profile_picture: profile_picture,
+                  username: username,
+                  isloading: false,
+                });
+              }
             }
           }
         );
@@ -95,8 +114,54 @@ class Home extends Component {
     }
   }
 
-  handleRLDDChange(newItems) {
-    this.setState({ movedlinks: newItems });
+  reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  onDragEnd(result) {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    var items = this.reorder(
+      this.state.links,
+      result.source.index,
+      result.destination.index
+    );
+
+    items = items.map((item, index) => {
+      item.order = index + 1;
+      return item;
+    });
+
+    this.setState({
+      links: items,
+    });
+
+    //console.log(items);
+    //postitems
+    var itemsToUpdate = [];
+    items.forEach((item, index) => {
+      var tempitem = {};
+      tempitem.id = item.id;
+      tempitem.fields = { order: item.order };
+      itemsToUpdate.push(tempitem);
+    });
+
+    base("links").update(itemsToUpdate, (err, records) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      this.setState({ showtoast: true });
+    });
+    //console.log(itemsToUpdate);
+    //this.postReorder(items);
   }
 
   render() {
@@ -115,63 +180,34 @@ class Home extends Component {
     };
 
     const alllink = () => {
-      if (this.props.token) {
-        if (this.state.links) {
-          var templinks = this.state.links.map((linkid, index) => {
-            return {
-              id: index,
-              linkId: linkid,
-              title: this.state.titlelu[index],
-              link: this.state.linkslu[index],
-              token: this.props.token,
-              refreshlinks: this.refreshlinks.bind(this),
-            };
-          });
-
-          //console.log(templinks);
-
+      if (this.state.links) {
+        return this.state.links.map((link, index) => {
           return (
-            <RLDD
-              items={this.state.movedlinks || templinks}
-              itemRenderer={(link) => {
+            //
+            <Draggable key={link.id} draggableId={link.id} index={index}>
+              {(provided, snapshot) => {
                 return (
                   <Link
-                    recordid={link.linkId}
+                    provided={provided}
+                    recordid={link.id}
                     title={link.title}
                     link={link.link}
-                    token={link.token}
-                    refreshlinks={link.refreshlinks}
+                    token={this.props.token}
+                    refreshlinks={this.refreshlinks.bind(this)}
                   />
                 );
               }}
-              onChange={this.handleRLDDChange.bind(this)}
-            />
+            </Draggable>
+            //
           );
-        }
-      } else {
-        //notloggeding
-        if (this.state.links) {
-          return this.state.links.map((linkid, index) => {
-            return (
-              //
-              <Link
-                recordid={linkid}
-                title={this.state.titlelu[index]}
-                link={this.state.linkslu[index]}
-                token={this.props.token}
-                refreshlinks={this.refreshlinks.bind(this)}
-              />
-              //
-            );
-          });
-        }
+        });
       }
     };
 
-    const addbutton = () => {
+    const floatingbutton = () => {
       if (this.props.token) {
         return (
-          <Addlinkbutton
+          <FloatingButton
             color={this.props.color}
             token={this.props.token}
             refreshlinks={this.refreshlinks.bind(this)}
@@ -184,7 +220,7 @@ class Home extends Component {
       if (!this.props.token) {
         return (
           <Grid item style={{ padding: "0px", marginTop: "10px" }}>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider>
               <Typography
                 style={{
                   width: "100vw",
@@ -195,7 +231,6 @@ class Home extends Component {
                   paddingTop: "10px",
                 }}
                 variant="body2"
-                theme={theme}
               >
                 <a href="/" target="_blank" style={{ color: "white" }}>
                   Creat your own Omnilink page
@@ -217,8 +252,33 @@ class Home extends Component {
           <div>
             {userprofile()}
             <Container fluid>
-              {alllink()}
-              {addbutton()}
+              <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+                <Droppable droppableId="droppable">
+                  {(provided) => {
+                    return (
+                      <div {...provided.droppableProps} ref={provided.innerRef}>
+                        {alllink()}
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
+                </Droppable>
+              </DragDropContext>
+              {floatingbutton()}
+              <Row className="justify-content-center">
+                <Col style={{ position: "fixed", bottom: "2vh" }} xs="auto">
+                  <Toast
+                    onClose={() => {
+                      this.setState({ showtoast: false });
+                    }}
+                    show={this.state.showtoast}
+                    delay={3000}
+                    autohide
+                  >
+                    <Toast.Body>Changes Saved</Toast.Body>
+                  </Toast>
+                </Col>
+              </Row>
             </Container>
             {footer()}
           </div>

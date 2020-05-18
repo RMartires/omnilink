@@ -19,6 +19,7 @@ import MoreVertIcon from "../../assets/more_vert.svg";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import FormControl from "react-bootstrap/FormControl";
+import { FaEllipsisV } from "react-icons/fa";
 
 import classes from "./Links.module.css";
 
@@ -47,71 +48,81 @@ const Link = (props) => {
   const card = () => {
     if (props.token) {
       return (
-        <Row
-          style={{ marginTop: "10px", marginBottom: "10px", zIndex: "5" }}
-          class="sortable"
-        >
-          <Col className={classes.linkcol}>
-            <Card
-              className={classes.link}
-              onClick={() => {
-                /*window.location.href = 'http://www.google.com'*/
-              }}
-            >
-              <Card.Body
-                style={{ fontSize: "0.6rem", padding: "1rem" }}
-                className={classes.linkbody}
+        <div ref={props.provided.innerRef} {...props.provided.draggableProps}>
+          <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
+            <Col className={classes.linkcol}>
+              <Card
+                className={classes.link}
+                onClick={() => {
+                  /*window.location.href = 'http://www.google.com'*/
+                }}
               >
-                <div style={{ textAlign: "end" }} xs="auto">
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      as={CustomToggle}
-                      id="dropdown-custom-components"
+                <Row>
+                  <Col
+                    xs={1}
+                    className="align-self-center"
+                    {...props.provided.dragHandleProps}
+                  >
+                    <FaEllipsisV style={{ fontSize: "2em" }} />
+                  </Col>
+                  <Col>
+                    <Card.Body
+                      style={{ fontSize: "0.6rem", padding: "1rem" }}
+                      className={classes.linkbody}
                     >
-                      <Image src={MoreVertIcon} rounded />
-                    </Dropdown.Toggle>
+                      <div style={{ textAlign: "end" }} xs="auto">
+                        <Dropdown>
+                          <Dropdown.Toggle
+                            as={CustomToggle}
+                            id="dropdown-custom-components"
+                          >
+                            <Image src={MoreVertIcon} rounded />
+                          </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        eventKey="1"
-                        onClick={(e) => {
-                          setEdit(true);
-                        }}
-                      >
-                        Edit
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        eventKey="2"
-                        onClick={(e) => {
-                          setDel(true);
-                        }}
-                      >
-                        Delete
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-                <div style={{ textAlign: "center" }}>
-                  <Card.Title>{props.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text">
-                    {props.link}
-                  </Card.Subtitle>
-                </div>
-              </Card.Body>
-              <CoustomModal
-                edit={edit}
-                del={del}
-                setEdit={setEdit}
-                setDel={setDel}
-                recordid={props.recordid}
-                title={props.title}
-                link={props.link}
-                token={props.token}
-                refreshlinks={props.refreshlinks}
-              />
-            </Card>
-          </Col>
-        </Row>
+                          <Dropdown.Menu>
+                            <Dropdown.Item
+                              eventKey="1"
+                              onClick={(e) => {
+                                setEdit(true);
+                              }}
+                            >
+                              Edit
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              eventKey="2"
+                              onClick={(e) => {
+                                setDel(true);
+                              }}
+                            >
+                              Delete
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </div>
+                      <div style={{ textAlign: "center" }}>
+                        <Card.Title>{props.title}</Card.Title>
+                        <Card.Subtitle className="mb-2 text">
+                          {props.link}
+                        </Card.Subtitle>
+                      </div>
+                    </Card.Body>
+                  </Col>
+                </Row>
+                <CoustomModal
+                  edit={edit}
+                  del={del}
+                  setEdit={setEdit}
+                  setDel={setDel}
+                  recordid={props.recordid}
+                  title={props.title}
+                  link={props.link}
+                  token={props.token}
+                  refreshlinks={props.refreshlinks}
+                />
+              </Card>
+            </Col>
+          </Row>
+        </div>
       );
     } else {
       return (
