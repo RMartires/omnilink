@@ -40,7 +40,6 @@
   "scripts": {
     "prestart": "react-env",
     "start": "react-scripts start",
-    "postinstall": "netlify-lambda install",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
