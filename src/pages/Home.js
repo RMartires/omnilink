@@ -53,7 +53,8 @@ class Home extends Component {
 
   refreshlinks(changeMade) {
     if (username) {
-      var links, linkslu, titlelu, profile_picture, orderlu;
+      var links = [],
+        profile_picture;
       base("users")
         .select({
           view: "Grid view",
@@ -63,10 +64,6 @@ class Home extends Component {
           (records, fetchNextPage) => {
             console.log(records);
             if (records[0]) {
-              links = records[0].get("links");
-              linkslu = records[0].get("linkslu");
-              titlelu = records[0].get("titlelu");
-              orderlu = records[0].get("orderlu");
               profile_picture = records[0].get("profile_picture");
               //console.log(linkslu);
               fetchNextPage();
@@ -80,33 +77,52 @@ class Home extends Component {
               this.setState({ notloading: true, isloading: false });
               return;
             } else {
-              var templinks = [];
-              var len = links.length;
-              for (var i = 0; i < len; i++) {
-                var x = {};
-                x.id = links[i];
-                x.title = titlelu[i];
-                x.link = linkslu[i];
-                x.order = orderlu[i];
-                templinks[x.order - 1] = x;
-              }
-              console.log(templinks);
-              if (changeMade) {
-                this.setState({
-                  links: templinks,
-                  profile_picture: profile_picture,
-                  username: username,
-                  isloading: false,
-                  showtoast: true,
-                });
-              } else {
-                this.setState({
-                  links: templinks,
-                  profile_picture: profile_picture,
-                  username: username,
-                  isloading: false,
-                });
-              }
+              //get  links
+              base("links")
+                .select({
+                  view: "Grid view",
+                  filterByFormula: `{users} = '${username}'`,
+                  sort: [{ field: "order" }],
+                })
+                .eachPage(
+                  (records, fetchNextPage) => {
+                    records.forEach(function (record) {
+                      var temprecord = {};
+                      temprecord = record.fields;
+                      temprecord.id = record.id;
+                      temprecord.link = record.fields.links;
+                      links.push(temprecord);
+                    });
+
+                    fetchNextPage();
+                  },
+                  (err) => {
+                    if (err) {
+                      console.error(err);
+                      return;
+                    }
+                    console.log(links);
+                    //start sestate
+                    if (changeMade) {
+                      this.setState({
+                        links: links,
+                        profile_picture: profile_picture,
+                        username: username,
+                        isloading: false,
+                        showtoast: true,
+                      });
+                    } else {
+                      this.setState({
+                        links: links,
+                        profile_picture: profile_picture,
+                        username: username,
+                        isloading: false,
+                      });
+                    }
+                    //end setstate
+                  }
+                );
+              //end of get links
             }
           }
         );
@@ -143,7 +159,7 @@ class Home extends Component {
       links: items,
     });
 
-    //console.log(items);
+    console.log(items);
     //postitems
     var itemsToUpdate = [];
     items.forEach((item, index) => {
