@@ -10,6 +10,10 @@ import { more_vert } from "react-icons/md";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import FormControl from "react-bootstrap/FormControl";
+import { AiFillCopy } from "react-icons/ai";
+import { FaEllipsisV } from "react-icons/fa";
+import clipboard from "../../assets/clipboard.svg";
+import classes from "./ThemeSelector2.module.css";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -44,12 +48,21 @@ const UserProfile = (props) => {
   const logoutbutton = () => {
     if (props.token) {
       return (
-        <Dropdown>
+        <Dropdown style={{ paddingTop: "1em" }}>
           <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-            <Image src={MoreVertIcon} rounded />
+            <FaEllipsisV style={{ color: "black", fontSize: "1.1em" }} />
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu style={{ padding: "1em", lineHeight: "2em" }}>
+            <Dropdown.Item
+              eventKey="1"
+              onClick={() => {
+                props.setShowTheme(true);
+              }}
+            >
+              Themes
+            </Dropdown.Item>
+            <hr style={{ margin: "0px" }} />
             <Dropdown.Item eventKey="1">Logout</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -72,8 +85,33 @@ const UserProfile = (props) => {
       </Row>
       <Row>
         <Col style={{ textAlign: "center" }}>
-          <h5>👉{props.user_name}</h5>
+          <h5 className={classes["font" + props.theme]}>
+            {/* 👉{props.user_name + "  "} */}
+            {props.token ? (
+              <div>
+                <input
+                  id="link"
+                  value={
+                    window.location.href.split("%")[0] + "👉" + props.user_name
+                  }
+                />
+                <AiFillCopy
+                  style={{ height: "25px", width: "25px", marginLeft: "10px" }}
+                  onClick={() => {
+                    var copyText = document.getElementById("link");
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+                    document.execCommand("copy");
+                  }}
+                />
+              </div>
+            ) : (
+              <div>👉{props.user_name + "  "}</div>
+            )}
+          </h5>
         </Col>
+        {/* <Col xs="auto">{copybut()}</Col> */}
       </Row>
     </Container>
   );

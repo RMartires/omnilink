@@ -23,6 +23,7 @@ export default function FloatingButton(props) {
   const [link, setLink] = useState(undefined);
   const [title, setTitle] = useState(undefined);
   const [addmodal, setAddmodal] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const handlechange = (e) => {
     if (e.target.name == "title") {
@@ -32,38 +33,44 @@ export default function FloatingButton(props) {
     }
   };
 
-  const send = (e) => {
-    base("users").find(props.token.recordid, function (err, record) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      var maxorder = record.get("maxorder");
-      //got maxorder now create new record yo!
-      base("links").create(
-        [
-          {
-            fields: {
-              links: link,
-              users: [props.token.recordid],
-              title: title,
-              order: maxorder + 1,
-            },
-          },
-        ],
-        function (err, records) {
-          if (err) {
-            console.error(err);
-            return;
-          } else {
-            setAddmodal(false);
-            props.refreshlinks(true);
-          }
+  const handleSubmit = (event) => {
+    if (title == undefined || link == undefined) {
+      console.log(title + "" + link);
+    } else {
+      console.log(title + "" + link);
+      base("users").find(props.token.recordid, function (err, record) {
+        if (err) {
+          console.error(err);
+          return;
         }
-      );
+        var maxorder = record.get("maxorder");
+        //got maxorder now create new record yo!
+        console.log("f");
+        base("links").create(
+          [
+            {
+              fields: {
+                links: link,
+                users: [props.token.recordid],
+                title: title,
+                order: maxorder + 1,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error(err);
+              return;
+            } else {
+              setAddmodal(false);
+              props.refreshlinks(true);
+            }
+          }
+        );
 
-      //end of record creation
-    });
+        //end of record creation
+      });
+    }
   };
 
   return (
@@ -97,6 +104,9 @@ export default function FloatingButton(props) {
                 name="title"
                 placeholder="Enter title"
                 onChange={handlechange}
+                required
+                isInvalid={title ? false : true}
+                isValid={title ? true : false}
               />
             </Form.Group>
             <Form.Group controlId="linkEdit">
@@ -106,6 +116,9 @@ export default function FloatingButton(props) {
                 name="link"
                 placeholder="Enter Link"
                 onChange={handlechange}
+                required
+                isInvalid={link ? false : true}
+                isValid={link ? true : false}
               />
             </Form.Group>
           </Form>
@@ -121,8 +134,8 @@ export default function FloatingButton(props) {
           </BsButton>
           <BsButton
             variant="primary"
-            onClick={(e) => {
-              send(e);
+            onClick={() => {
+              handleSubmit();
             }}
           >
             Add

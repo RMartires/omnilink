@@ -21,7 +21,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import FormControl from "react-bootstrap/FormControl";
 import { FaEllipsisV } from "react-icons/fa";
 
-import classes from "./Links.module.css";
+import cardclasses from "./ThemeSelector2.module.css";
 
 const Link = (props) => {
   const [edit, setEdit] = useState(false);
@@ -46,13 +46,14 @@ const Link = (props) => {
   ));
 
   const card = () => {
+    // if(props.theme==3||4||6||7||15)
     if (props.token) {
       return (
         <div ref={props.provided.innerRef} {...props.provided.draggableProps}>
           <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
-            <Col className={classes.linkcol}>
+            <Col className={cardclasses.link}>
               <Card
-                className={classes.link}
+                className={cardclasses["card" + props.theme]}
                 onClick={() => {
                   /*window.location.href = 'http://www.google.com'*/
                 }}
@@ -66,10 +67,7 @@ const Link = (props) => {
                     <FaEllipsisV style={{ fontSize: "2em" }} />
                   </Col>
                   <Col>
-                    <Card.Body
-                      style={{ fontSize: "0.6rem", padding: "1rem" }}
-                      className={classes.linkbody}
-                    >
+                    <Card.Body style={{ fontSize: "0.6rem", padding: "1rem" }}>
                       <div style={{ textAlign: "end" }} xs="auto">
                         <Dropdown>
                           <Dropdown.Toggle
@@ -127,17 +125,14 @@ const Link = (props) => {
     } else {
       return (
         <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
-          <Col className={classes.linkcol}>
+          <Col className={cardclasses.link}>
             <Card
-              className={classes.link}
+              className={cardclasses["card" + props.theme]}
               onClick={() => {
                 window.location.assign(`http://${props.link}`);
               }}
             >
-              <Card.Body
-                style={{ textAlign: "center", fontSize: "0.6rem" }}
-                className={classes.linkbody}
-              >
+              <Card.Body style={{ textAlign: "center", fontSize: "0.6rem" }}>
                 <Card.Title>{props.title}</Card.Title>
                 <Card.Subtitle className="mb-2 text">
                   {props.link}

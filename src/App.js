@@ -91,7 +91,7 @@ class App extends Component {
     };
 
     return (
-      <div className="App">
+      <div className="App" id="app">
         <ThemeProvider theme={{ color: "mediumseagreen" }}>
           {redirecthome()}
           <Switch>

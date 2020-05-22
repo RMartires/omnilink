@@ -19,6 +19,7 @@ import FloatingButton from "./components/FloatingButton";
 import Toast from "react-bootstrap/Toast";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import ThemeSelector from "./components/ThemeSelector";
 
 var Airtable = require("airtable");
 
@@ -44,6 +45,7 @@ class Home extends Component {
     isloading: true,
     notloading: false,
     showtoast: false,
+    showselecttheme: false,
   };
 
   componentDidMount() {
@@ -54,7 +56,9 @@ class Home extends Component {
   refreshlinks(changeMade) {
     if (username) {
       var links = [],
-        profile_picture;
+        profile_picture,
+        userid,
+        usertheme;
       base("users")
         .select({
           view: "Grid view",
@@ -65,6 +69,8 @@ class Home extends Component {
             console.log(records);
             if (records[0]) {
               profile_picture = records[0].get("profile_picture");
+              usertheme = records[0].get("theme");
+              userid = records[0].id;
               //console.log(linkslu);
               fetchNextPage();
             } else {
@@ -117,6 +123,8 @@ class Home extends Component {
                         profile_picture: profile_picture,
                         username: username,
                         isloading: false,
+                        userid: userid,
+                        usertheme: usertheme,
                       });
                     }
                     //end setstate
@@ -180,6 +188,11 @@ class Home extends Component {
     //this.postReorder(items);
   }
 
+  setShowSelectTheme(x) {
+    //console.log(x + "sss");
+    this.setState({ showselecttheme: x });
+  }
+
   render() {
     const userprofile = () => {
       if (this.state.username) {
@@ -190,6 +203,8 @@ class Home extends Component {
             color={this.props.color}
             setToken={this.props.setToken}
             token={this.props.token}
+            setShowTheme={this.setShowSelectTheme.bind(this)}
+            theme={this.state.usertheme}
           />
         );
       }
@@ -210,6 +225,7 @@ class Home extends Component {
                     link={link.link}
                     token={this.props.token}
                     refreshlinks={this.refreshlinks.bind(this)}
+                    theme={this.state.usertheme}
                   />
                 );
               }}
@@ -258,6 +274,20 @@ class Home extends Component {
       }
     };
 
+    const themeselector = () => {
+      return (
+        <ThemeSelector
+          ShowSelectTheme={this.state.showselecttheme}
+          setShowTheme={this.setShowSelectTheme.bind(this)}
+          setToast={(x) => {
+            this.setState({ showtoast: true, usertheme: x });
+          }}
+          userid={this.state.userid}
+          theme={this.state.usertheme}
+        />
+      );
+    };
+
     const fullscreen = () => {
       if (this.state.isloading) {
         return <LoadingScreen />;
@@ -281,6 +311,7 @@ class Home extends Component {
                 </Droppable>
               </DragDropContext>
               {floatingbutton()}
+              {themeselector()}
               <Row className="justify-content-center">
                 <Col style={{ position: "fixed", bottom: "2vh" }} xs="auto">
                   <Toast

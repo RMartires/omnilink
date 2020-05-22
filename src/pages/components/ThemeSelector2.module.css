@@ -1,0 +1,98 @@
+.font4,
+.font6,
+.font7,
+.font15 {
+  color: black;
+}
+
+.font1,
+.font2,
+.font3,
+.font5,
+.font7,
+.font8,
+.font9,
+.font10,
+.font11,
+.font12,
+.font13,
+.font14 {
+  color: white;
+}
+
+/* card */
+
+.link .card1 {
+  background-color: #88aa33d6;
+  color: white;
+}
+
+.link .card2 {
+  background-color: #636363;
+  color: white;
+}
+
+.link .card3 {
+  background-color: #7497dc;
+  color: white;
+}
+
+.link .card4 {
+  background-color: #9fc2af;
+  color: black;
+}
+
+.link .card5 {
+  background-color: #ec173aeb;
+  color: white;
+}
+
+.link .card6 {
+  background-color: #8d9eafed;
+  color: black;
+}
+
+.link .card7 {
+  background-color: #8d0000ad;
+  color: black;
+}
+
+.link .card8 {
+  background-color: #303030;
+  color: white;
+}
+
+.link .card9 {
+  background-color: #6767cdf0;
+  color: white;
+}
+
+.link .card10 {
+  background-color: #19191b8a;
+  color: white;
+}
+
+.link .card11 {
+  background-color: #dd3355;
+  color: white;
+}
+
+.link .card12 {
+  background-color: #d61e4b;
+  color: white;
+}
+
+.link .card13 {
+  background-color: #77973c;
+  color: white;
+}
+
+.link .card14 {
+  background-color: #555566;
+  color: white;
+}
+
+.link .card15 {
+  background-color: #2c818a;
+  color: black;
+}
