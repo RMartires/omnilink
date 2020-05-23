@@ -97,10 +97,10 @@ class Main extends Component {
               </p>
             </Col>
             <Col xs={12} sm={4}>
-              <h5 className={classes1.headings}>20+ Themes</h5>
+              <h5 className={classes1.headings}>10+ Themes</h5>
               <p>
                 Make your link page stand out, Customize your page with a varity
-                of more than 20 themes
+                of more than 10 themes
               </p>
             </Col>
           </Row>

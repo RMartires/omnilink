@@ -251,25 +251,23 @@ class Home extends Component {
     const footer = () => {
       if (!this.props.token) {
         return (
-          <Grid item style={{ padding: "0px", marginTop: "10px" }}>
-            <ThemeProvider>
-              <Typography
+          <Row>
+            <Col xs={12} style={{ padding: "0px" }}>
+              <p
                 style={{
-                  width: "100vw",
                   height: "5vh",
                   backgroundColor: "black",
                   color: "white",
                   textAlign: "center",
-                  paddingTop: "10px",
+                  margin: "0px",
                 }}
-                variant="body2"
               >
                 <a href="/" target="_blank" style={{ color: "white" }}>
                   Creat your own Omnilink page
                 </a>
-              </Typography>
-            </ThemeProvider>
-          </Grid>
+              </p>
+            </Col>
+          </Row>
         );
       }
     };
@@ -326,8 +324,8 @@ class Home extends Component {
                   </Toast>
                 </Col>
               </Row>
+              {footer()}
             </Container>
-            {footer()}
           </div>
         );
       }

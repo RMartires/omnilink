@@ -13,6 +13,9 @@ import FormControl from "react-bootstrap/FormControl";
 import { AiFillCopy } from "react-icons/ai";
 import { FaEllipsisV } from "react-icons/fa";
 import clipboard from "../../assets/clipboard.svg";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
 import classes from "./ThemeSelector2.module.css";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -32,6 +35,8 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 const UserProfile = (props) => {
   //  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState();
+  const [copystatus, setCopystatus] = useState("copy");
+  const [target, setTarget] = useState(null);
 
   const handleclick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -43,6 +48,14 @@ const UserProfile = (props) => {
 
   const logout = () => {
     props.setToken(undefined);
+  };
+
+  const renderTooltip = (props) => {
+    return (
+      <Tooltip id="button-tooltip" {...props}>
+        {copystatus}
+      </Tooltip>
+    );
   };
 
   const logoutbutton = () => {
@@ -95,16 +108,31 @@ const UserProfile = (props) => {
                     window.location.href.split("%")[0] + "👉" + props.user_name
                   }
                 />
-                <AiFillCopy
-                  style={{ height: "25px", width: "25px", marginLeft: "10px" }}
-                  onClick={() => {
-                    var copyText = document.getElementById("link");
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 200 }}
+                  overlay={renderTooltip}
+                >
+                  <AiFillCopy
+                    style={{
+                      height: "25px",
+                      width: "25px",
+                      marginLeft: "10px",
+                    }}
+                    onClick={() => {
+                      var copyText = document.getElementById("link");
+                      copyText.select();
+                      copyText.setSelectionRange(
+                        0,
+                        99999
+                      ); /*For mobile devices*/
 
-                    document.execCommand("copy");
-                  }}
-                />
+                      document.execCommand("copy");
+
+                      setCopystatus("Copied");
+                    }}
+                  />
+                </OverlayTrigger>
               </div>
             ) : (
               <div>👉{props.user_name + "  "}</div>
