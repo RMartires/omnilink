@@ -68,10 +68,10 @@ class Home extends Component {
           (records, fetchNextPage) => {
             console.log(records);
             if (records[0]) {
-              profile_picture = records[0].get("profile_picture");
+              profile_picture = records[0].get("profile_picture")[0].url;
               usertheme = records[0].get("theme");
               userid = records[0].id;
-              //console.log(linkslu);
+              //console.log(profile_picture);
               fetchNextPage();
             } else {
               this.setState({ notloading: true, isloading: false });
@@ -293,40 +293,38 @@ class Home extends Component {
         return <Page404 />;
       } else {
         return (
-          <div>
+          <Container>
             {userprofile()}
-            <Container fluid>
-              <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-                <Droppable droppableId="droppable">
-                  {(provided) => {
-                    return (
-                      <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {alllink()}
-                        {provided.placeholder}
-                      </div>
-                    );
+            <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+              <Droppable droppableId="droppable">
+                {(provided) => {
+                  return (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                      {alllink()}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
+            </DragDropContext>
+            {floatingbutton()}
+            {themeselector()}
+            <Row className="justify-content-center">
+              <Col style={{ position: "fixed", bottom: "2vh" }} xs="auto">
+                <Toast
+                  onClose={() => {
+                    this.setState({ showtoast: false });
                   }}
-                </Droppable>
-              </DragDropContext>
-              {floatingbutton()}
-              {themeselector()}
-              <Row className="justify-content-center">
-                <Col style={{ position: "fixed", bottom: "2vh" }} xs="auto">
-                  <Toast
-                    onClose={() => {
-                      this.setState({ showtoast: false });
-                    }}
-                    show={this.state.showtoast}
-                    delay={3000}
-                    autohide
-                  >
-                    <Toast.Body>Changes Saved</Toast.Body>
-                  </Toast>
-                </Col>
-              </Row>
-              {footer()}
-            </Container>
-          </div>
+                  show={this.state.showtoast}
+                  delay={3000}
+                  autohide
+                >
+                  <Toast.Body>Changes Saved</Toast.Body>
+                </Toast>
+              </Col>
+            </Row>
+            {footer()}
+          </Container>
         );
       }
     };

@@ -10,13 +10,13 @@ export default function Footer(props) {
       className="align-items-center"
     >
       <Col>
-        <Link to="/home">Home</Link>
+        <a href="/home/#intro">Home</a>
       </Col>
       <Col>
-        <Link to="/login">Login</Link>
+        <a href="/home/#features">Features</a>
       </Col>
       <Col>
-        <Link to="/about">About</Link>
+        <a href="/home/#about">About</a>
       </Col>
     </Row>
   );

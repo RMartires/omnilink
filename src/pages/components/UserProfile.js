@@ -84,7 +84,7 @@ const UserProfile = (props) => {
   };
 
   return (
-    <Container fluid>
+    <div>
       <Row className="justify-content-end">
         <Col xs="auto">{logoutbutton()}</Col>
       </Row>
@@ -141,7 +141,7 @@ const UserProfile = (props) => {
         </Col>
         {/* <Col xs="auto">{copybut()}</Col> */}
       </Row>
-    </Container>
+    </div>
   );
 };
 
