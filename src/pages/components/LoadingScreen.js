@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   spinnerbox: {
-    width: "100vw",
-    height: "100vh",
+    width: "100%",
+    height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -100,7 +100,7 @@ function LoadingScreen() {
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container fluid>
       <Row style={{ height: "95vh" }}>
         <Col>
           <div className={classes.spinnerbox}>
