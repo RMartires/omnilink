@@ -15,7 +15,7 @@
     "bootstrap": "^4.4.1",
     "bufferutil": "^4.0.1",
     "cheerio": "^1.0.0-rc.3",
-    "chrome-aws-lambda": "^2.1.1",
+    "chrome-aws-lambda": "^3.1.1",
     "clipboard": "^2.0.6",
     "dotenv": "^8.2.0",
     "jquery": "^3.5.1",
@@ -24,8 +24,7 @@
     "netlify-lambda": "^1.6.3",
     "node-sass": "^4.14.1",
     "pattern.css": "^1.0.0",
-    "puppeteer": "^3.0.2",
-    "puppeteer-core": "^3.0.2",
+    "puppeteer-core": "^3.1.0",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-bootstrap": "^1.0.1",
@@ -67,6 +66,7 @@
     ]
   },
   "devDependencies": {
-    "@beam-australia/react-env": "^2.1.2"
+    "@beam-australia/react-env": "^2.1.2",
+    "puppeteer": "^3.1.0"
   }
 }
