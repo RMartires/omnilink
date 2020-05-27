@@ -11,14 +11,19 @@ export default function Manythemes() {
 
     var i = 0;
     var t1 = document.getElementById("t1");
-    setInterval(() => {
+    var timer = setInterval(() => {
       i++;
       if (i > 14) {
         i = 0;
       }
       t1.className = themeclasses[themes[i]] + " " + classes.rotateCenter;
     }, 1200);
+    //
+
+    return () => {
+      clearInterval(timer);
+    };
   });
 
-  return <div id="t1">2</div>;
+  return <div id="t1"></div>;
 }

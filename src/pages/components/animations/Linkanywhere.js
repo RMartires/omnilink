@@ -32,13 +32,18 @@ export default function Linkanywhere() {
     var logo = document.getElementById("logo");
     logo.src = Alinks[0];
 
-    setInterval(() => {
+    var timer = setInterval(() => {
       i++;
       if (i == 6) {
         i = 0;
       }
       logo.src = Alinks[i];
     }, 1000);
+
+    //
+    return () => {
+      clearInterval(timer);
+    };
   });
 
   return <img className={classes.rotateScaleUp} id="logo"></img>;

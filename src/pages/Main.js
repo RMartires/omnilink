@@ -43,12 +43,11 @@ class Main extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <ToolBar buttons={["login", "about"]} />
         <Container fluid>
-          <section id="intro">
+          <section id="intro" className={classes1.content}>
             <Row
               // className={classes1.firstrow}
               className={classes1.mainpart}
@@ -93,55 +92,57 @@ class Main extends Component {
                 </h1>
               </Col>
             </Row>
-            <Row style={{ textAlign: "center" }} className={classes1.therow}>
-              <Col xs={12} sm={6}>
-                <Linkanywhere />
-              </Col>
-              <Col xs={12} sm={6}>
-                <h4 className={classes1.headings}>Share it anywhere</h4>
-                <p className={classes1.features}>
-                  Take your Omnilink to your audience on every platfrom, help
-                  them to connect to you anywhere.
-                </p>
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "center" }} className={classes1.therow}>
-              <Col xs={12} sm={6}>
-                <Easysetup />
-              </Col>
-              <Col xs={12} sm={6}>
-                <h5 className={classes1.headings}>Easy setup</h5>
-                <p className={classes1.features}>
-                  It takes like two clicks to create a link account. Just
-                  authorize with your instagram account add the links and paste
-                  the link in any of your profiles.
-                </p>
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "center" }} className={classes1.therow}>
-              <Col xs={12} sm={6}>
-                <Manythemes />
-              </Col>
-              <Col xs={12} sm={6}>
-                <h5 className={classes1.headings}>Pre-Designed Themes</h5>
-                <p className={classes1.features}>
-                  Make your link page stand out, Customize your page with a
-                  varity of more than 10 themes
-                </p>
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "center" }} className={classes1.therow}>
-              <Col xs={12} sm={6}>
-                <Analytics />
-              </Col>
-              <Col xs={12} sm={6}>
-                <h5 className={classes1.headings}>Analytics</h5>
-                <p className={classes1.features}>
-                  Use omnilink to measure your links activity and find out what
-                  your audience really likes.
-                </p>
-              </Col>
-            </Row>
+            <div className={classes1.content}>
+              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+                <Col xs={12} sm={6}>
+                  <Linkanywhere />
+                </Col>
+                <Col xs={12} sm={6}>
+                  <h4 className={classes1.headings}>Share it anywhere</h4>
+                  <p className={classes1.features}>
+                    Take your Omnilink to your audience on every platfrom, help
+                    them to connect to you anywhere.
+                  </p>
+                </Col>
+              </Row>
+              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+                <Col xs={12} sm={6}>
+                  <Easysetup />
+                </Col>
+                <Col xs={12} sm={6}>
+                  <h4 className={classes1.headings}>Easy setup</h4>
+                  <p className={classes1.features}>
+                    It takes like two clicks to create a link account. Just
+                    authorize with your instagram account add the links and
+                    paste the link in any of your profiles.
+                  </p>
+                </Col>
+              </Row>
+              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+                <Col xs={12} sm={6}>
+                  <Manythemes />
+                </Col>
+                <Col xs={12} sm={6}>
+                  <h4 className={classes1.headings}>Pre-Designed Themes</h4>
+                  <p className={classes1.features}>
+                    Make your link page stand out, Customize your page with a
+                    varity of more than 10 themes
+                  </p>
+                </Col>
+              </Row>
+              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+                <Col xs={12} sm={6}>
+                  <Analytics />
+                </Col>
+                <Col xs={12} sm={6}>
+                  <h4 className={classes1.headings}>Analytics</h4>
+                  <p className={classes1.features}>
+                    Use omnilink to measure your links activity and find out
+                    what your audience really likes.
+                  </p>
+                </Col>
+              </Row>
+            </div>
           </section>
           <section id="about">
             <Row
@@ -163,7 +164,9 @@ class Main extends Component {
                 </h1>
               </Col>
             </Row>
-            <About />
+            <div className={classes1.content}>
+              <About />
+            </div>
           </section>
           <Footer />
         </Container>

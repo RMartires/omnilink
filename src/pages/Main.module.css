@@ -37,17 +37,17 @@ body {
 }
 
 .therow {
+  margin-top: 20px;
   align-items: center;
   justify-content: center;
 }
 
-@media (min-width: 570px) {
-  .therow {
-    height: 55vh;
-    align-items: center;
-    justify-content: center;
-  }
+.content {
+  max-width: 1200px;
+  margin: auto;
+}
 
+@media (min-width: 570px) {
   .mainpart {
     height: 100vh;
     align-items: center;
@@ -58,9 +58,15 @@ body {
   }
 }
 
-@media (min-height: 600px) {
+@media (min-height: 570px) {
   .mainpart {
     height: 100vh;
     align-items: center;
+  }
+
+  .therow {
+    height: 55vh;
+    align-items: center;
+    justify-content: center;
   }
 }

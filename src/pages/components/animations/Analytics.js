@@ -159,13 +159,17 @@ export default function Analytics() {
     draw();
     animate();
 
-    setInterval(() => {
+    var timer = setInterval(() => {
       $("#svg").empty();
       draw();
       animate();
     }, 2000);
 
     //
+
+    return () => {
+      clearInterval(timer);
+    };
   });
 
   return (
