@@ -14,6 +14,12 @@ import Col from "react-bootstrap/Col";
 import Footer from "./components/Footer";
 import About from "./About";
 
+//import animations
+import Linkanywhere from "./components/animations/Linkanywhere";
+import Manythemes from "./components/animations/Manythemes";
+import Analytics from "./components/animations/Analytics";
+import Easysetup from "./components/animations/Easysetup";
+
 // var theme = createMuiTheme();
 // theme = responsiveFontSizes(theme);
 
@@ -33,6 +39,7 @@ class Main extends Component {
 
   componentDidMount() {
     console.log(this.props.theme);
+    // console.log(classes1);
   }
 
   render() {
@@ -44,10 +51,9 @@ class Main extends Component {
           <section id="intro">
             <Row
               // className={classes1.firstrow}
-              className="align-items-center"
-              style={{ marginTop: "40px" }}
+              className={classes1.mainpart}
             >
-              <Col className="align-self-center" xs={12} sm={6}>
+              <Col className={classes1.omnilink} xs={12} sm={6}>
                 <Row className="justify-content-center">
                   <Col xs="auto" style={{ textAlign: "center" }}>
                     <div>
@@ -87,8 +93,23 @@ class Main extends Component {
                 </h1>
               </Col>
             </Row>
-            <Row style={{ textAlign: "center" }}>
-              <Col xs={12} sm={4}>
+            <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Col xs={12} sm={6}>
+                <Linkanywhere />
+              </Col>
+              <Col xs={12} sm={6}>
+                <h4 className={classes1.headings}>Share it anywhere</h4>
+                <p className={classes1.features}>
+                  Take your Omnilink to your audience on every platfrom, help
+                  them to connect to you anywhere.
+                </p>
+              </Col>
+            </Row>
+            <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Col xs={12} sm={6}>
+                <Easysetup />
+              </Col>
+              <Col xs={12} sm={6}>
                 <h5 className={classes1.headings}>Easy setup</h5>
                 <p className={classes1.features}>
                   It takes like two clicks to create a link account. Just
@@ -96,35 +117,24 @@ class Main extends Component {
                   the link in any of your profiles.
                 </p>
               </Col>
-              <Col xs={12} sm={4}>
-                <h5 className={classes1.headings}>Share it anywhere</h5>
-                <p className={classes1.features}>
-                  Take your Omnilink to your audience on every platfrom, help
-                  them to connect to you anywhere.
-                </p>
+            </Row>
+            <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Col xs={12} sm={6}>
+                <Manythemes />
               </Col>
-              <Col xs={12} sm={4}>
+              <Col xs={12} sm={6}>
                 <h5 className={classes1.headings}>Pre-Designed Themes</h5>
                 <p className={classes1.features}>
                   Make your link page stand out, Customize your page with a
                   varity of more than 10 themes
                 </p>
               </Col>
-              <Col xs={12} sm={4}>
-                <h5 className={classes1.headings}>A hub for all your work</h5>
-                <p className={classes1.features}>
-                  Keep all your links in a central hub, to help your audience
-                  find your work with ease.
-                </p>
+            </Row>
+            <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Col xs={12} sm={6}>
+                <Analytics />
               </Col>
-              <Col xs={12} sm={4}>
-                <h5 className={classes1.headings}>Manage links with ease</h5>
-                <p className={classes1.features}>
-                  Effortlessly create an Omnilink account and manage all your
-                  links with a simple user interface.
-                </p>
-              </Col>
-              <Col xs={12} sm={4}>
+              <Col xs={12} sm={6}>
                 <h5 className={classes1.headings}>Analytics</h5>
                 <p className={classes1.features}>
                   Use omnilink to measure your links activity and find out what

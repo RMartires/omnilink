@@ -1,0 +1,41 @@
+.ana {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+#draw {
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  top: 0%;
+  width: 10%;
+  padding: 15px 10px;
+  border-radius: 20px;
+  margin: 20px;
+  background: #f79a7a;
+  border: 4px solid white;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: white;
+}
+#draw:focus {
+  outline: none;
+}
+#svg {
+  top: 2%;
+  width: 250px;
+  height: 250px;
+  position: relative;
+}
+.line {
+  stroke-dashoffset: 0;
+  box-shadow: 10px 10px 1px black;
+}
+.breakpoint {
+  transform: scale(0);
+  position: absolute;
+  -webkit-transform-origin: 50% 50%;
+}
+.active {
+  transform: scale(1);
+}

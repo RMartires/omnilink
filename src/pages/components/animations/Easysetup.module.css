@@ -1,0 +1,37 @@
+.easy {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.button {
+  background-image: url("../../../assets/Instagram_login.png");
+  position: absolute;
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+}
+
+.cursor {
+  position: absolute;
+  background-image: url("../../../assets/cursor.png");
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+  top: 200px;
+  left: 250px;
+  animation: movecursor 1.5s infinite both;
+}
+
+@keyframes movecursor {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  80% {
+    transform: translateX(-100px) translateY(-120px);
+  }
+  100% {
+    transform: translateX(-100px) translateY(-120px);
+  }
+}
