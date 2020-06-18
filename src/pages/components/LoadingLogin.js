@@ -38,9 +38,13 @@ function Login(props) {
         data: formdata,
       })
         .then((res) => {
+          console.log(res);
           if (res.status == "200") {
             return res.data;
           }
+        })
+        .catch((err) => {
+          console.log(err);
         })
         .then((data) => {
           var access_token = data.access_token;
@@ -72,7 +76,7 @@ function Login(props) {
                   apikey: window._env.REACT_APP_ATapikey,
                   apibase: window._env.REACT_APP_ATbase,
                 };
-                link = "http://localhost:9000/insta_auth/";
+                link = "http://localhost:5000/auth/";
               }
 
               axios({
@@ -88,6 +92,9 @@ function Login(props) {
                   props.setToken(resdata.token);
                 });
             });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   });

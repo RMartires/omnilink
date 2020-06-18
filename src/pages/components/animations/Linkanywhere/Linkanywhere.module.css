@@ -1,0 +1,88 @@
+.main {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: auto;
+}
+.one {
+  background-image: url("./insta.png");
+  transform: rotate3d(0, 1, 0, 50deg);
+  animation: x 2s linear infinite;
+}
+
+.two {
+  background-image: url("./twitter.png");
+  transform: rotate3d(0, 1, 0, 50deg);
+  animation: x 2s linear infinite;
+  animation-delay: 0.5s;
+}
+
+.three {
+  background-image: url("./youtube.png");
+  transform: rotate3d(0, 1, 0, 50deg);
+  animation: x 2s linear infinite;
+  animation-delay: 1s;
+}
+
+.four {
+  background-image: url("./snapchat.png");
+  transform: rotate3d(0, 1, 0, 50deg);
+  animation: x 2s linear infinite;
+  animation-delay: 1.5s;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+}
+
+@keyframes x {
+  0% {
+    transform: rotate3d(0, 1, 0, 50deg);
+    z-index: 0;
+    opacity: 30%;
+    scale: 1.05;
+  }
+  25% {
+    scale: 1;
+    opacity: 100%;
+    z-index: 0;
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(0.25 * 40px, 0.25 * 40px, 0px);
+  }
+  26% {
+    z-index: 1;
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(0.26 * 40px, 0.26 * 40px, 0px);
+  }
+  50% {
+    z-index: 1;
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(0.5 * 40px, 0.5 * 40px, 0px);
+  }
+  51% {
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(0.51 * 40px, 0.51 * 40px, 0px);
+    z-index: 2;
+  }
+  75% {
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(0.75 * 40px, 0.75 * 40px, 0px);
+    z-index: 2;
+  }
+  76% {
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(0.76 * 40px, 0.76 * 40px, 0px);
+    z-index: 3;
+  }
+  99% {
+    transform: rotate3d(0, 1, 0, 50deg) translateX(40px)
+      translate3d(40px, 40px, 0px);
+    z-index: 3;
+  }
+  100% {
+    z-index: 0;
+    scale: 1.05;
+  }
+}

@@ -3,6 +3,11 @@ import { useParams } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import Link from "./components/Links";
 import Grid from "@material-ui/core/Grid";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
+
 import {
   createMuiTheme,
   responsiveFontSizes,
@@ -19,8 +24,11 @@ import FloatingButton from "./components/FloatingButton";
 import Toast from "react-bootstrap/Toast";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Tooltip from "react-bootstrap/Tooltip";
+import Overlay from "react-bootstrap/Overlay";
 import ThemeSelector from "./components/ThemeSelector";
 
+import Validate from "react-validate-form";
 var Airtable = require("airtable");
 
 var base;
@@ -46,6 +54,7 @@ class Home extends Component {
     notloading: false,
     showtoast: false,
     showselecttheme: false,
+    showcongrats: false,
   };
 
   componentDidMount() {
@@ -58,7 +67,8 @@ class Home extends Component {
       var links = [],
         profile_picture,
         userid,
-        usertheme;
+        usertheme,
+        firsttime;
       base("users")
         .select({
           view: "Grid view",
@@ -71,6 +81,7 @@ class Home extends Component {
               profile_picture = records[0].get("profile_picture")[0].url;
               usertheme = records[0].get("theme");
               userid = records[0].id;
+              firsttime = records[0].get("firsttime");
               //console.log(profile_picture);
               fetchNextPage();
             } else {
@@ -125,6 +136,7 @@ class Home extends Component {
                         isloading: false,
                         userid: userid,
                         usertheme: usertheme,
+                        firsttime: firsttime,
                       });
                     }
                     //end setstate
@@ -272,6 +284,28 @@ class Home extends Component {
       }
     };
 
+    const congratsmodel = () => {
+      if (this.state.firsttime === 1) {
+        this.setState({ showcongrats: true, firsttime: 0 });
+        base("users").update(
+          [
+            {
+              id: this.state.userid,
+              fields: {
+                firsttime: 0,
+              },
+            },
+          ],
+          function (err, records) {
+            if (err) {
+              console.error(err);
+              return;
+            }
+          }
+        );
+      }
+    };
+
     const themeselector = () => {
       return (
         <ThemeSelector
@@ -294,6 +328,83 @@ class Home extends Component {
       } else {
         return (
           <Container>
+            {congratsmodel()}
+            <Modal
+              show={this.state.showcongrats}
+              onHide={() => {
+                this.setState({ showcongrats: false, showaddlink: true });
+              }}
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Congrats🎉🎊 on joining Omnilink</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>
+                  Wanna up your social media game, we got you covered subscribe
+                  ✔ to our monthly newsletter🤗
+                  <Validate validations={{ email: ["email"] }}>
+                    {({ validate, errorMessages, allValid }) => (
+                      <div>
+                        <InputGroup
+                          className="mb-3"
+                          style={{ marginTop: "20px" }}
+                        >
+                          <FormControl
+                            placeholder="Email"
+                            aria-label="Email"
+                            aria-describedby="basic-addon2"
+                            onChange={(e) => {
+                              // console.log(errorMessages);
+                              this.setState({ email: e.target.value });
+                              validate(e);
+                            }}
+                            // onChange={validate}
+                            type="email"
+                            name="email"
+                          />
+                          <InputGroup.Append>
+                            <Button
+                              variant="primary"
+                              onClick={(e) => {
+                                if (allValid) {
+                                  // console.log(allValid);
+                                  base("users").update(
+                                    [
+                                      {
+                                        id: this.state.userid,
+                                        fields: {
+                                          Email: this.state.email,
+                                        },
+                                      },
+                                    ],
+                                    (err, records) => {
+                                      if (err) {
+                                        console.error(err);
+                                        return;
+                                      }
+                                      this.setState({
+                                        showcongrats: false,
+                                        showaddlink: true,
+                                      });
+                                    }
+                                  );
+                                }
+                              }}
+                            >
+                              Submit
+                            </Button>
+                          </InputGroup.Append>
+                        </InputGroup>
+                        <p style={{ color: "red", textAlign: "center" }}>
+                          {errorMessages.email ? errorMessages.email[0] : ""}
+                        </p>
+                      </div>
+                    )}
+                  </Validate>
+                </p>
+              </Modal.Body>
+            </Modal>
             {userprofile()}
             <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
               <Droppable droppableId="droppable">

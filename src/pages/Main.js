@@ -15,7 +15,7 @@ import Footer from "./components/Footer";
 import About from "./About";
 
 //import animations
-import Linkanywhere from "./components/animations/Linkanywhere";
+import Linkanywhere from "./components/animations/Linkanywhere/Linkanywhere";
 import Manythemes from "./components/animations/Manythemes";
 import Analytics from "./components/animations/Analytics";
 import Easysetup from "./components/animations/Easysetup";
@@ -53,15 +53,9 @@ class Main extends Component {
               className={classes1.mainpart}
             >
               <Col className={classes1.omnilink} xs={12} sm={6}>
-                <Row className="justify-content-center">
-                  <Col xs="auto" style={{ textAlign: "center" }}>
-                    <div>
-                      <h1 style={{ fontSize: "3.2em" }}>Omnilink</h1>
-                      <h4>Link Different😜</h4>
-                      <Login size="md" text={"instagram login"} />
-                    </div>
-                  </Col>
-                </Row>
+                <h1 style={{ fontSize: "3.2em" }}>Omnilink</h1>
+                <h4>Link Different😜</h4>
+                <Login size="md" text={"instagram login"} />
               </Col>
               <Col xs={12} sm={6}>
                 <img
