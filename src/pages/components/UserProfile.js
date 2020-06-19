@@ -63,7 +63,10 @@ const UserProfile = (props) => {
       return (
         <Dropdown style={{ paddingTop: "1em" }}>
           <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-            <FaEllipsisV style={{ color: "black", fontSize: "1.1em" }} />
+            <FaEllipsisV
+              style={{ fontSize: "1.1em" }}
+              className={classes["font" + props.theme]}
+            />
           </Dropdown.Toggle>
 
           <Dropdown.Menu style={{ padding: "1em", lineHeight: "2em" }}>

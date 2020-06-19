@@ -74,7 +74,10 @@ const Link = (props) => {
                             as={CustomToggle}
                             id="dropdown-custom-components"
                           >
-                            <Image src={MoreVertIcon} rounded />
+                            <FaEllipsisV
+                              className={cardclasses["font" + props.theme]}
+                              style={{ fontSize: "1.4em" }}
+                            />
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu>
