@@ -15,6 +15,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import clipboard from "../../assets/clipboard.svg";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Cookies from "js-cookie";
 
 import classes from "./ThemeSelector2.module.css";
 
@@ -47,6 +48,7 @@ const UserProfile = (props) => {
   };
 
   const logout = () => {
+    Cookies.remove("jwttoken");
     props.setToken(undefined);
   };
 
@@ -79,7 +81,14 @@ const UserProfile = (props) => {
               Themes
             </Dropdown.Item>
             <hr style={{ margin: "0px" }} />
-            <Dropdown.Item eventKey="1">Logout</Dropdown.Item>
+            <Dropdown.Item
+              eventKey="1"
+              onClick={() => {
+                logout();
+              }}
+            >
+              Logout
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       );
