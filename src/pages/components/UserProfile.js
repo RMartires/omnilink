@@ -48,8 +48,16 @@ const UserProfile = (props) => {
   };
 
   const logout = () => {
-    Cookies.remove("jwttoken");
-    props.setToken(undefined);
+    window.FB.getLoginStatus(function (response) {
+      //statusChangeCallback(response);
+      console.log(response);
+      window.FB.logout(function (response) {
+        // Person is now logged out
+        console.log(response);
+        Cookies.remove("jwttoken");
+        props.setToken(undefined);
+      });
+    });
   };
 
   const renderTooltip = (props) => {

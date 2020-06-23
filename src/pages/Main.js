@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
 import Login from "./Login";
 import productimage from "../assets/product.png";
 
@@ -10,6 +12,7 @@ import classes1 from "./Main.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 import Footer from "./components/Footer";
 import About from "./About";
@@ -20,21 +23,44 @@ import Manythemes from "./components/animations/Manythemes";
 import Analytics from "./components/animations/Analytics";
 import Easysetup from "./components/animations/Easysetup";
 
-// var theme = createMuiTheme();
-// theme = responsiveFontSizes(theme);
+var Airtable = require("airtable");
 
-// const styles = (theme) => ({
-//   toprow: {
-//     [theme.breakpoints.up("sm")]: {
-//       height: "100vh",
-//     },
-//   },
-// });
+var base;
+if (process.env.NODE_ENV == "production") {
+  base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
+    process.env.REACT_APP_ATbase
+  );
+} else {
+  base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
+    window._env.REACT_APP_ATbase
+  );
+}
+
+var api;
+var link;
+if (process.env.NODE_ENV == "production") {
+  // apikey.set("apikey", process.env.REACT_APP_ATapikey);
+  // apikey.set("apibase", process.env.REACT_APP_ATbase);
+  api = {
+    apikey: process.env.REACT_APP_ATapikey,
+    apibase: process.env.REACT_APP_ATbase,
+  };
+  link = "https://omnilink.herokuapp.com/auth/";
+} else {
+  // apikey.set("apikey", window._env.REACT_APP_ATapikey);
+  // apikey.set("apibase", window._env.REACT_APP_ATbase);
+  api = {
+    apikey: window._env.REACT_APP_ATapikey,
+    apibase: window._env.REACT_APP_ATbase,
+  };
+  link = "http://localhost:5000/auth/";
+}
 
 class Main extends Component {
   state = {
     pageredirect: false,
     page: undefined,
+    setupredirect: false,
   };
 
   componentDidMount() {
@@ -43,8 +69,15 @@ class Main extends Component {
   }
 
   render() {
+    const setupredirect = () => {
+      if (this.state.setupredirect) {
+        return <Redirect to="/setup" />;
+      }
+    };
+
     return (
       <div>
+        {setupredirect()}
         <ToolBar buttons={["login", "about"]} />
         <Container fluid>
           <section id="intro" className={classes1.content}>
@@ -55,7 +88,69 @@ class Main extends Component {
               <Col className={classes1.omnilink} xs={12} sm={6}>
                 <h1 style={{ fontSize: "3.2em" }}>Omnilink</h1>
                 <h4>Link Different😜</h4>
-                <Login size="md" text={"instagram login"} />
+                {/* <Login size="md" text={"instagram login"} /> */}
+                <Button
+                  onClick={() => {
+                    window.FB.login(
+                      (response) => {
+                        //console.log(response);
+                        if (response.status === "connected") {
+                          window.FB.api(
+                            "/me/",
+                            { fields: "name, email" },
+                            (response) => {
+                              console.log(response);
+                              var tempdata =
+                                response.email + "II" + response.id;
+                              //check if UID exists
+                              base("users")
+                                .select({
+                                  view: "Grid view",
+                                  filterByFormula: `({userID} = ${response.id})`,
+                                })
+                                .eachPage(
+                                  (records, fetchNextPage) => {
+                                    if (records.length === 1) {
+                                      //user exists
+                                      var username = records[0].get("username");
+                                      axios({
+                                        url: link + username,
+                                        method: "GET",
+                                        mode: "cors",
+                                      })
+                                        .then((res) => {
+                                          console.log(res);
+                                          return res.data;
+                                        })
+                                        .then((resdata) => {
+                                          this.props.setToken(resdata.token);
+                                        });
+                                    } else {
+                                      //user does not exist
+                                      Cookies.set("tempdata", tempdata);
+                                      this.setState({ setupredirect: true });
+                                    }
+
+                                    fetchNextPage();
+                                  },
+                                  (err) => {
+                                    if (err) {
+                                      console.error(err);
+                                      return;
+                                    }
+                                  }
+                                );
+                              //end airtable
+                            }
+                          );
+                        }
+                      },
+                      { scope: "email" }
+                    );
+                  }}
+                >
+                  Continue with FB
+                </Button>
               </Col>
               <Col xs={12} sm={6}>
                 <img

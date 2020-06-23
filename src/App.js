@@ -4,6 +4,7 @@ import LoadingLogin from "./pages/components/LoadingLogin";
 import ToHome from "./pages/Home";
 import Main from "./pages/Main";
 import About from "./pages/About";
+import Setup from "./pages/Setup";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { Redirect } from "react-router-dom";
@@ -41,6 +42,32 @@ class App extends Component {
         this.setToken(token);
       }
     }
+    //FB SDK
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        appId: process.env.REACT_APP_FBid,
+        cookie: true, // enable cookies to allow the server to access
+        // the session
+        xfbml: true, // parse social plugins on this page
+        version: process.env.REACT_APP_FBver, // use version 2.1
+      });
+
+      // window.FB.getLoginStatus(function (response) {
+      //   console.log(response);
+      // });
+    };
+
+    console.log("Loading fb api");
+    // Load the SDK asynchronously
+    (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
   }
 
   setToken = (token) => {
@@ -98,7 +125,13 @@ class App extends Component {
             <Route
               path="/home"
               component={() => {
-                return <Main home={true} />;
+                return <Main home={true} setToken={this.setToken} />;
+              }}
+            />
+            <Route
+              path="/setup"
+              component={() => {
+                return <Setup />;
               }}
             />
             <Route
@@ -112,7 +145,7 @@ class App extends Component {
             <Route
               path=""
               component={() => {
-                return <Main />;
+                return <Main setToken={this.setToken} />;
               }}
             />
           </Switch>

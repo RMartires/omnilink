@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import LoadingScreen from "./LoadingScreen";
 
 var url;
+
 function Login(props) {
   const [redirect, setRedirect] = useState(false);
   const [token, setToken] = useState(undefined);
 
   useEffect(() => {
+    //
+    //
     var code = window.location.href.split("code=")[1];
     if (code) {
       var formdata = new FormData();
@@ -27,6 +31,12 @@ function Login(props) {
         t = code.split("#_")[0];
         formdata.set("code", t);
       }
+
+      var tempdata = Cookies.get("tempdata");
+      var email = tempdata.split("II")[0];
+      var userID = tempdata.split("II")[1];
+      console.log(email + " " + userID);
+      Cookies.remove("tempdata");
 
       axios({
         url: "https://api.instagram.com/oauth/access_token",
@@ -59,6 +69,7 @@ function Login(props) {
               return username;
             })
             .then((username) => {
+              console.log(username + " " + email + " " + userID);
               var api;
               var link;
               if (process.env.NODE_ENV == "production") {
@@ -81,8 +92,15 @@ function Login(props) {
 
               axios({
                 url: link + username,
-                //params: api,
+                method: "POST",
                 mode: "cors",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                data: {
+                  email: email,
+                  userID: userID,
+                },
               })
                 .then((res) => {
                   console.log(res);
@@ -96,6 +114,7 @@ function Login(props) {
         .catch((err) => {
           console.log(err);
         });
+      //end normal insta code
     }
   });
 
