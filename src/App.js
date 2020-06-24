@@ -110,8 +110,12 @@ class App extends Component {
     };
 
     const redirecthome = () => {
-      var path = window.location.href.split("/ho")[1];
-      if (this.state.token && !(path == "me")) {
+      var path = window.location.href.split("/")[3];
+      var codepath = window.location.href.split("code=")[1];
+      if (
+        (this.state.token && path == "") ||
+        (this.state.token && !(codepath == undefined))
+      ) {
         console.log(this.state.token);
         return <Redirect to={`/👉${this.state.token.username}`} />;
       }

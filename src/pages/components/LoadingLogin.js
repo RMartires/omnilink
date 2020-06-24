@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import LoadingScreen from "./LoadingScreen";
@@ -33,8 +34,10 @@ function Login(props) {
       }
 
       var tempdata = Cookies.get("tempdata");
-      var email = tempdata.split("II")[0];
-      var userID = tempdata.split("II")[1];
+      if (tempdata) {
+        var email = tempdata.split("II")[0];
+        var userID = tempdata.split("II")[1];
+      }
       console.log(email + " " + userID);
       Cookies.remove("tempdata");
 
@@ -109,7 +112,7 @@ function Login(props) {
                 .then((resdata) => {
                   props.setToken(resdata.token);
                 });
-            });
+            }, []);
         })
         .catch((err) => {
           console.log(err);
@@ -118,7 +121,11 @@ function Login(props) {
     }
   });
 
-  return <LoadingScreen />;
+  return (
+    <div>
+      <LoadingScreen />
+    </div>
+  );
 }
 
 export default Login;

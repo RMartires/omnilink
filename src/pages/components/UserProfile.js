@@ -70,36 +70,38 @@ const UserProfile = (props) => {
 
   const logoutbutton = () => {
     if (props.token) {
-      return (
-        <Dropdown style={{ paddingTop: "1em" }}>
-          <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-            <FaEllipsisV
-              style={{ fontSize: "1.1em" }}
-              className={classes["font" + props.theme]}
-            />
-          </Dropdown.Toggle>
+      if (props.token.username === props.username) {
+        return (
+          <Dropdown style={{ paddingTop: "1em" }}>
+            <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+              <FaEllipsisV
+                style={{ fontSize: "1.1em" }}
+                className={classes["font" + props.theme]}
+              />
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu style={{ padding: "1em", lineHeight: "2em" }}>
-            <Dropdown.Item
-              eventKey="1"
-              onClick={() => {
-                props.setShowTheme(true);
-              }}
-            >
-              Themes
-            </Dropdown.Item>
-            <hr style={{ margin: "0px" }} />
-            <Dropdown.Item
-              eventKey="1"
-              onClick={() => {
-                logout();
-              }}
-            >
-              Logout
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      );
+            <Dropdown.Menu style={{ padding: "1em", lineHeight: "2em" }}>
+              <Dropdown.Item
+                eventKey="1"
+                onClick={() => {
+                  props.setShowTheme(true);
+                }}
+              >
+                Themes
+              </Dropdown.Item>
+              <hr style={{ margin: "0px" }} />
+              <Dropdown.Item
+                eventKey="1"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Logout
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        );
+      }
     }
   };
 
@@ -121,41 +123,45 @@ const UserProfile = (props) => {
           <h5 className={classes["font" + props.theme]}>
             {/* 👉{props.user_name + "  "} */}
             {props.token ? (
-              <div>
-                <input
-                  id="link"
-                  value={
-                    window.location.href.split("%")[0] + "👉" + props.user_name
-                  }
-                />
-                <OverlayTrigger
-                  placement="top"
-                  delay={{ show: 250, hide: 200 }}
-                  overlay={renderTooltip}
-                >
-                  <AiFillCopy
-                    style={{
-                      height: "25px",
-                      width: "25px",
-                      marginLeft: "10px",
-                    }}
-                    onClick={() => {
-                      var copyText = document.getElementById("link");
-                      copyText.select();
-                      copyText.setSelectionRange(
-                        0,
-                        99999
-                      ); /*For mobile devices*/
-
-                      document.execCommand("copy");
-
-                      setCopystatus("Copied");
-                    }}
+              props.token.username === props.username ? (
+                <div>
+                  <input
+                    id="link"
+                    value={
+                      window.location.href.split("%")[0] + "👉" + props.username
+                    }
                   />
-                </OverlayTrigger>
-              </div>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 200 }}
+                    overlay={renderTooltip}
+                  >
+                    <AiFillCopy
+                      style={{
+                        height: "25px",
+                        width: "25px",
+                        marginLeft: "10px",
+                      }}
+                      onClick={() => {
+                        var copyText = document.getElementById("link");
+                        copyText.select();
+                        copyText.setSelectionRange(
+                          0,
+                          99999
+                        ); /*For mobile devices*/
+
+                        document.execCommand("copy");
+
+                        setCopystatus("Copied");
+                      }}
+                    />
+                  </OverlayTrigger>
+                </div>
+              ) : (
+                <div>👉{props.username + "  "}</div>
+              )
             ) : (
-              <div>👉{props.user_name + "  "}</div>
+              <div>👉{props.username + "  "}</div>
             )}
           </h5>
         </Col>

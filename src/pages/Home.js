@@ -68,7 +68,8 @@ class Home extends Component {
         profile_picture,
         userid,
         usertheme,
-        firsttime;
+        firsttime,
+        useremail;
       base("users")
         .select({
           view: "Grid view",
@@ -82,6 +83,7 @@ class Home extends Component {
               usertheme = records[0].get("theme");
               userid = records[0].id;
               firsttime = records[0].get("firsttime");
+              useremail = records[0].get("Email");
               //console.log(profile_picture);
               fetchNextPage();
             } else {
@@ -137,6 +139,7 @@ class Home extends Component {
                         userid: userid,
                         usertheme: usertheme,
                         firsttime: firsttime,
+                        email: useremail,
                       });
                     }
                     //end setstate
@@ -210,7 +213,7 @@ class Home extends Component {
       if (this.state.username) {
         return (
           <UserProfile
-            user_name={this.state.username}
+            username={this.state.username}
             profile_picture={this.state.profile_picture}
             color={this.props.color}
             setToken={this.props.setToken}
@@ -238,6 +241,7 @@ class Home extends Component {
                     token={this.props.token}
                     refreshlinks={this.refreshlinks.bind(this)}
                     theme={this.state.usertheme}
+                    username={this.state.username}
                   />
                 );
               }}
@@ -249,7 +253,10 @@ class Home extends Component {
     };
 
     const floatingbutton = () => {
-      if (this.props.token) {
+      if (!this.props.token) {
+        return;
+      }
+      if (this.props.token.username === this.state.username) {
         return (
           <FloatingButton
             color={this.props.color}
@@ -261,27 +268,25 @@ class Home extends Component {
     };
 
     const footer = () => {
-      if (!this.props.token) {
-        return (
-          <Row>
-            <Col xs={12} style={{ padding: "0px" }}>
-              <p
-                style={{
-                  height: "5vh",
-                  backgroundColor: "black",
-                  color: "white",
-                  textAlign: "center",
-                  margin: "0px",
-                }}
-              >
-                <a href="/" target="_blank" style={{ color: "white" }}>
-                  Creat your own Omnilink page
-                </a>
-              </p>
-            </Col>
-          </Row>
-        );
-      }
+      return (
+        <Row>
+          <Col xs={12} style={{ padding: "0px" }}>
+            <p
+              style={{
+                height: "5vh",
+                backgroundColor: "black",
+                color: "white",
+                textAlign: "center",
+                margin: "0px",
+              }}
+            >
+              <a href="/" target="_blank" style={{ color: "white" }}>
+                Creat your own Omnilink page
+              </a>
+            </p>
+          </Col>
+        </Row>
+      );
     };
 
     const congratsmodel = () => {
@@ -335,12 +340,15 @@ class Home extends Component {
                 this.setState({ showcongrats: false, showaddlink: true });
               }}
               centered
+              style={{ padding: "0" }}
             >
               <Modal.Header closeButton>
-                <Modal.Title>Congrats🎉🎊 on joining Omnilink</Modal.Title>
+                <Modal.Title style={{ textAlign: "center" }}>
+                  Congrats🎉🎊 on joining Omnilink
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <p>
+                <p style={{ textAlign: "center" }}>
                   Wanna up your social media game, we got you covered subscribe
                   ✔ to our monthly newsletter🤗
                   <Validate validations={{ email: ["email"] }}>
@@ -362,9 +370,11 @@ class Home extends Component {
                             // onChange={validate}
                             type="email"
                             name="email"
+                            value={this.state.email}
                           />
                           <InputGroup.Append>
                             <Button
+                              style={{ backgroundColor: "#FF6719" }}
                               variant="primary"
                               onClick={(e) => {
                                 if (allValid) {
@@ -375,6 +385,7 @@ class Home extends Component {
                                         id: this.state.userid,
                                         fields: {
                                           Email: this.state.email,
+                                          subscribed: "yes",
                                         },
                                       },
                                     ],
@@ -392,7 +403,7 @@ class Home extends Component {
                                 }
                               }}
                             >
-                              Submit
+                              Subscribe
                             </Button>
                           </InputGroup.Append>
                         </InputGroup>
@@ -406,18 +417,20 @@ class Home extends Component {
               </Modal.Body>
             </Modal>
             {userprofile()}
-            <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-              <Droppable droppableId="droppable">
-                {(provided) => {
-                  return (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
-                      {alllink()}
-                      {provided.placeholder}
-                    </div>
-                  );
-                }}
-              </Droppable>
-            </DragDropContext>
+            <div style={{ minHeight: "70vh" }}>
+              <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+                <Droppable droppableId="droppable">
+                  {(provided) => {
+                    return (
+                      <div {...provided.droppableProps} ref={provided.innerRef}>
+                        {alllink()}
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
+                </Droppable>
+              </DragDropContext>
+            </div>
             {floatingbutton()}
             {themeselector()}
             <Row className="justify-content-center">
