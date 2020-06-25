@@ -20,7 +20,7 @@ function About(props) {
         className="align-items-center"
       >
         <Col xs={12} sm={6}>
-          <h2 style={{ fontSize: "3em" }}>Omnilink🚀</h2>
+          <h2 style={{ fontSize: "3em" }}>Octolink🚀</h2>
           <h3>Made by me</h3>
           <Row className="justify-content-center">
             <Col xs={8} sm={6}>

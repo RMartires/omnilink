@@ -87,7 +87,7 @@ class Main extends Component {
               className={classes1.mainpart}
             >
               <Col className={classes1.omnilink} xs={12} sm={6}>
-                <h1 style={{ fontSize: "3.2em" }}>Omnilink</h1>
+                <h1 style={{ fontSize: "3.2em" }}>Octolink</h1>
                 <h4>Link Different😜</h4>
                 {/* <Login size="md" text={"instagram login"} /> */}
                 <Button
@@ -156,7 +156,7 @@ class Main extends Component {
               <Col xs={12} sm={6}>
                 <img
                   src={productimage}
-                  alt="Omnilink"
+                  alt="Octolink"
                   style={{ width: "100%" }}
                 ></img>
               </Col>
@@ -190,7 +190,7 @@ class Main extends Component {
                 <Col xs={12} sm={6}>
                   <h4 className={classes1.headings}>Share it anywhere</h4>
                   <p className={classes1.features}>
-                    Take your Omnilink to your audience on every platfrom, help
+                    Take your Octolink to your audience on every platfrom, help
                     them to connect to you anywhere.
                   </p>
                 </Col>
@@ -227,7 +227,7 @@ class Main extends Component {
                 <Col xs={12} sm={6}>
                   <h4 className={classes1.headings}>Analytics</h4>
                   <p className={classes1.features}>
-                    Use omnilink to measure your links activity and find out
+                    Use Octolink to measure your links activity and find out
                     what your audience really likes.
                   </p>
                 </Col>

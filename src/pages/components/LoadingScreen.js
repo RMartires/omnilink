@@ -91,7 +91,7 @@ const footer = () => {
           }}
         >
           <a href="/" target="_blank" style={{ color: "white" }}>
-            Creat your own Omnilink page
+            Creat your own Octolink page
           </a>
         </div>
       </Col>

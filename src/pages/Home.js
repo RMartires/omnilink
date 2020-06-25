@@ -289,7 +289,7 @@ class Home extends Component {
                 target="_blank"
                 style={{ color: "white", height: "fitContent" }}
               >
-                Creat your own Omnilink page
+                Creat your own Octolink page
               </a>
             </div>
           </Col>
@@ -352,7 +352,7 @@ class Home extends Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title style={{ textAlign: "center" }}>
-                  Congrats🎉🎊 on joining Omnilink
+                  Congrats🎉🎊 on joining Octolink
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>

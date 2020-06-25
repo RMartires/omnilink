@@ -30,7 +30,7 @@ export default function Setup() {
       <Row style={{ height: "100%" }}>
         <Col style={{ textAlign: "center" }} className="align-self-center">
           <p>
-            Omnilink will link to instagram to get your unique username and
+            Octolink will link to instagram to get your unique username and
             profile picture
           </p>
           <Button onClick={clickInstagram}>link to Instagram</Button>
