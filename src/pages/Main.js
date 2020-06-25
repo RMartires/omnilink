@@ -53,7 +53,8 @@ if (process.env.NODE_ENV == "production") {
     apikey: window._env.REACT_APP_ATapikey,
     apibase: window._env.REACT_APP_ATbase,
   };
-  link = "http://localhost:5000/auth/";
+  link = "https://omnilink.herokuapp.com/auth/";
+  //link = "http://localhost:5000/auth/";
 }
 
 class Main extends Component {
@@ -116,7 +117,7 @@ class Main extends Component {
                                       axios({
                                         url: link + username,
                                         method: "GET",
-                                        mode: "cors",
+                                        mode: "no-cors",
                                       })
                                         .then((res) => {
                                           console.log(res);

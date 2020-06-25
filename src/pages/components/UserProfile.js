@@ -51,12 +51,13 @@ const UserProfile = (props) => {
     window.FB.getLoginStatus(function (response) {
       //statusChangeCallback(response);
       console.log(response);
-      window.FB.logout(function (response) {
-        // Person is now logged out
-        console.log(response);
-        Cookies.remove("jwttoken");
-        props.setToken(undefined);
-      });
+      if (window.FB.getAccessToken() != null) {
+        window.FB.logout(function (response) {
+          // user is now logged out from facebook do your post request or just redirect
+        });
+      }
+      Cookies.remove("jwttoken");
+      props.setToken(undefined);
     });
   };
 

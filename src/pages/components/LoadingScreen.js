@@ -78,19 +78,22 @@ const footer = () => {
   return (
     <Row>
       <Col xs={12} style={{ padding: "0px" }}>
-        <p
+        <div
           style={{
-            height: "5vh",
+            height: "fitContent",
             backgroundColor: "black",
             color: "white",
             textAlign: "center",
             margin: "0px",
+            display: "flex",
+            justifyContent: "center",
+            padding: "1vh",
           }}
         >
           <a href="/" target="_blank" style={{ color: "white" }}>
             Creat your own Omnilink page
           </a>
-        </p>
+        </div>
       </Col>
     </Row>
   );

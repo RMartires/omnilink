@@ -43,6 +43,7 @@ if (process.env.NODE_ENV == "production") {
 }
 
 var username;
+var emailchanged = false;
 class Home extends Component {
   state = {
     token: undefined,
@@ -271,19 +272,26 @@ class Home extends Component {
       return (
         <Row>
           <Col xs={12} style={{ padding: "0px" }}>
-            <p
+            <div
               style={{
-                height: "5vh",
+                height: "fitContent",
                 backgroundColor: "black",
                 color: "white",
                 textAlign: "center",
                 margin: "0px",
+                display: "flex",
+                justifyContent: "center",
+                padding: "1vh",
               }}
             >
-              <a href="/" target="_blank" style={{ color: "white" }}>
+              <a
+                href="/"
+                target="_blank"
+                style={{ color: "white", height: "fitContent" }}
+              >
                 Creat your own Omnilink page
               </a>
-            </p>
+            </div>
           </Col>
         </Row>
       );
@@ -364,6 +372,7 @@ class Home extends Component {
                             aria-describedby="basic-addon2"
                             onChange={(e) => {
                               // console.log(errorMessages);
+                              emailchanged = true;
                               this.setState({ email: e.target.value });
                               validate(e);
                             }}
@@ -377,7 +386,7 @@ class Home extends Component {
                               style={{ backgroundColor: "#FF6719" }}
                               variant="primary"
                               onClick={(e) => {
-                                if (allValid) {
+                                if (allValid || !emailchanged) {
                                   // console.log(allValid);
                                   base("users").update(
                                     [
@@ -394,12 +403,13 @@ class Home extends Component {
                                         console.error(err);
                                         return;
                                       }
-                                      this.setState({
-                                        showcongrats: false,
-                                        showaddlink: true,
-                                      });
                                     }
-                                  );
+                                  ); //updated DB
+
+                                  this.setState({
+                                    showcongrats: false,
+                                    showaddlink: true,
+                                  }); //change state
                                 }
                               }}
                             >
