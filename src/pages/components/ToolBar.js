@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link, Redirect } from "react-router-dom";
-import Login from "../Login";
+import FbLogin from "../components/FbLogin";
 import classes1 from "../Main.module.css";
 
 import Navbar from "react-bootstrap/Navbar";
@@ -23,7 +23,14 @@ function ToolBar(props) {
 
   const buttons = props.buttons.map((but) => {
     if (but == "login") {
-      return <Login text={"login"} color={"black"} />;
+      return (
+        <FbLogin
+          text={"login"}
+          color={"black"}
+          setToken={props.setToken}
+          token={props.token}
+        />
+      );
     } else {
       return (
         <Button

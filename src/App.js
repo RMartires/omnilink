@@ -39,7 +39,7 @@ class App extends Component {
       var decodedtoken;
       var token = Cookies.get("jwttoken");
       if (token) {
-        this.setToken(token);
+        this.setToken(token, true);
       }
     }
     //FB SDK
@@ -70,7 +70,7 @@ class App extends Component {
     })(document, "script", "facebook-jssdk");
   }
 
-  setToken = (token) => {
+  setToken = (token, fromcookie) => {
     var decodedtoken;
     Cookies.set("jwttoken", token);
     try {
@@ -80,12 +80,20 @@ class App extends Component {
     }
     if (decodedtoken) {
       console.log(decodedtoken);
-      this.setState({
-        token: decodedtoken,
-      });
+      if (fromcookie) {
+        this.setState({
+          token: decodedtoken,
+        });
+      } else {
+        this.setState({
+          token: decodedtoken,
+          redirect: true,
+        });
+      }
     } else {
       this.setState({
         token: undefined,
+        redirect: false,
       });
     }
   };
@@ -109,14 +117,8 @@ class App extends Component {
       return <LoadingLogin setToken={this.setToken} color={this.state.color} />;
     };
 
-    const redirecthome = () => {
-      var path = window.location.href.split("/")[3];
-      var codepath = window.location.href.split("code=")[1];
-      if (
-        (this.state.token && path == "") ||
-        (this.state.token && !(codepath == undefined))
-      ) {
-        console.log(this.state.token);
+    const redirect = () => {
+      if (this.state.redirect) {
         return <Redirect to={`/👉${this.state.token.username}`} />;
       }
     };
@@ -124,7 +126,7 @@ class App extends Component {
     return (
       <div className="App" id="app">
         <ThemeProvider theme={{ color: "mediumseagreen" }}>
-          {redirecthome()}
+          {redirect()}
           <Switch>
             <Route
               path="/home"
@@ -149,7 +151,9 @@ class App extends Component {
             <Route
               path=""
               component={() => {
-                return <Main setToken={this.setToken} />;
+                return (
+                  <Main setToken={this.setToken} token={this.state.token} />
+                );
               }}
             />
           </Switch>
