@@ -19,7 +19,7 @@ import Footer from "./components/Footer";
 import About from "./About";
 import FbLogin from "./components/FbLogin";
 
-//import animations
+//import animations//
 import Linkanywhere from "./components/animations/Linkanywhere/Linkanywhere";
 import Manythemes from "./components/animations/Manythemes";
 import Analytics from "./components/animations/Analytics";
