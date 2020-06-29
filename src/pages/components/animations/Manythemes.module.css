@@ -42,7 +42,7 @@
   }
   8% {
     transform: scale(0.4);
-    opacity: 0%;
+    opacity: 0;
     /*  */
     background: radial-gradient(
           circle at 0% 50%,
@@ -62,7 +62,7 @@
     background-attachment: fixed;
   }
   16% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -84,7 +84,7 @@
     background-attachment: fixed;
   }
   20% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -125,7 +125,7 @@
   }
   28% {
     transform: scale(0.4);
-    opacity: 0%;
+    opacity: 0;
     /*  */
     background: #36c;
     background: linear-gradient(
@@ -142,7 +142,7 @@
     background-attachment: fixed;
   }
   36% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -161,7 +161,7 @@
     background-attachment: fixed;
   }
   40% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -193,7 +193,7 @@
   }
   48% {
     transform: scale(0.4);
-    opacity: 0%;
+    opacity: 0;
     /*  */
     background: linear-gradient(135deg, #eceddc 25%, transparent 25%) -50px 0,
       linear-gradient(225deg, #eceddc 25%, transparent 25%) -50px 0,
@@ -204,7 +204,7 @@
     background-attachment: fixed;
   }
   56% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -217,7 +217,7 @@
     background-attachment: fixed;
   }
   60% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -252,7 +252,7 @@
   }
   68% {
     transform: scale(0.4);
-    opacity: 0%;
+    opacity: 0;
     /*  */
     background-color: black;
     background-image: radial-gradient(
@@ -272,7 +272,7 @@
     background-attachment: fixed;
   }
   76% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -294,7 +294,7 @@
     background-attachment: fixed;
   }
   80% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -337,7 +337,7 @@
   }
   88% {
     transform: scale(0.4);
-    opacity: 0%;
+    opacity: 0;
     /*  */
     background-color: white;
     background-image: radial-gradient(midnightblue 9px, transparent 10px),
@@ -356,7 +356,7 @@
     background-attachment: fixed;
   }
   96% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */
@@ -377,7 +377,7 @@
     background-attachment: fixed;
   }
   100% {
-    opacity: 100%;
+    opacity: 1;
     /* transform: translateX(0px); */
     transform: scale(1);
     /*  */

@@ -60,7 +60,7 @@ class Main extends Component {
                 ></img>
               </Col>
               <Col className={classes1.omnilink} xs={12} sm={6}>
-                <h1 style={{ fontSize: "5.5em", fontFamily: "Risque" }}>
+                <h1 style={{ fontSize: "5em", fontFamily: "Risque" }}>
                   Octolink
                 </h1>
                 <h4>Link Different😜</h4>
