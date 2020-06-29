@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { FaInstagram } from "react-icons/fa";
 
 import classes from "./Main.module.css";
 
@@ -28,17 +29,32 @@ function clickInstagram() {
 
 export default function Setup() {
   return (
-    <Container style={{ height: "100vh" }}>
-      <Row style={{ height: "100%", fontSize: "1.5em" }}>
-        <Col style={{ textAlign: "center" }} className="align-self-center">
+    <Container style={{ height: "100vh", maxWidth: "1200px" }} fluid>
+      <Row style={{ height: "100%" }} className="justify-content-center">
+        <Col
+          style={{ textAlign: "center" }}
+          className="align-self-center"
+          xs={12}
+          sm={5}
+        >
           <h1 className={classes.sectionname}>Setup</h1>
           <p>
             Octolink will link to instagram to get your unique username and
             profile picture
           </p>
-          <Button onClick={clickInstagram} style={{ fontSize: "1.1em" }}>
-            link to Instagram
-          </Button>
+          {/*  */}
+          <a
+            class="btn btn-block btn-social btn-instagram"
+            onClick={clickInstagram}
+            style={{
+              fontSize: "1.1em",
+              width: "fit-content",
+              margin: "auto",
+              color: "white",
+            }}
+          >
+            <FaInstagram style={{ margin: "auto" }} /> link with instagram
+          </a>
         </Col>
       </Row>
     </Container>

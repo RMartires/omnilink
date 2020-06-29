@@ -129,12 +129,6 @@ class App extends Component {
           {redirect()}
           <Switch>
             <Route
-              path="/home"
-              component={() => {
-                return <Main home={true} setToken={this.setToken} />;
-              }}
-            />
-            <Route
               path="/setup"
               component={() => {
                 return <Setup />;

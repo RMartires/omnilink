@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import { FaFacebook } from "react-icons/fa";
 var Airtable = require("airtable");
 
 //
@@ -42,7 +43,7 @@ if (process.env.NODE_ENV == "production") {
 export default function (props) {
   var [redirect, setRedirect] = useState(false);
   var [Dredirect, setDredirect] = useState(false);
-  var [buttontext, setButtontext] = useState("Login with FB");
+  var [buttontext, setButtontext] = useState("login with Facebook");
   var buttonstyle;
 
   const setupredirect = () => {
@@ -62,17 +63,31 @@ export default function (props) {
   return (
     <div>
       {setupredirect()}
-      <Button
+      <a
+        class="btn btn-block btn-social btn-facebook"
         variant={props.text ? "dark" : "primary"}
         style={
           props.text
-            ? { fontSize: "1em" }
+            ? {
+                fontSize: "1em",
+                width: "fit-content",
+                margin: "auto",
+                color: "white",
+              }
             : props.token
-            ? { fontSize: "1.3em" }
+            ? {
+                fontSize: "1.3em",
+                width: "fit-content",
+                margin: "auto",
+                color: "white",
+                fontFamily: "serif",
+              }
             : {
                 fontSize: "1.3em",
-                paddingLeft: "30px",
-                paddingRight: "30px",
+                fontFamily: "serif",
+                width: "fit-content",
+                margin: "auto",
+                color: "white",
               }
         }
         onClick={
@@ -139,8 +154,9 @@ export default function (props) {
           } //end onClick
         }
       >
+        <FaFacebook style={{ margin: "auto" }} />
         {props.text ? props.text : buttontext}
-      </Button>
+      </a>
     </div>
   );
 }

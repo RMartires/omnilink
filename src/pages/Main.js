@@ -73,7 +73,12 @@ class Main extends Component {
             </Row>
           </section>
           <section id="features">
-            <h1 className={classes1.sectionname}>what we do</h1>
+            <h1
+              style={{ marginBottom: "100px" }}
+              className={classes1.sectionname}
+            >
+              what we do
+            </h1>
             <div className={classes1.content}>
               <Row style={{ textAlign: "center" }} className={classes1.therow}>
                 <Col xs={12} sm={6}>

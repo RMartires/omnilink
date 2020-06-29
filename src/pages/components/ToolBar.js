@@ -38,7 +38,7 @@ function ToolBar(props) {
           onClick={() => {
             // setPage(`/home/#${but}`);
             // setPageredirect(true);
-            window.location.href = `/home/#${but}`;
+            window.location.href = `/#${but}`;
           }}
           style={{
             marginLeft: "5px",
