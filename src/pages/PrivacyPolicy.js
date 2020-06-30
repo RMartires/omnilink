@@ -21,7 +21,7 @@ export default function (props) {
                 as a personal project it's services are provided for free
               </p>
               <p>
-                note: from here on i will be refering to the linnkninja webapp
+                note: from here on I will be referring to the linnkninja webapp
                 as its/it or our/ours
               </p>
               <p>
@@ -77,15 +77,15 @@ export default function (props) {
 
               <h2>Information You Provide</h2>
               <p>
-                you provide ur email and userID via the facebook login we use
-                this to identify u as a user since they are unique to only you
-                alos while setting up the linnkninja account you provide us with
-                ur instagram username and profilepicture we use this as the
+                you provide your email and userID via the facebook login we use
+                this to identify you as a user since they are unique to only you
+                also while setting up the linnkninja account you provide us with
+                your instagram username and profilepicture we use this as the
                 header of the linnkninja account. None of this data is shared
                 with anyone is complety safe with us.
               </p>
               <p>
-                You also provide us with ur links to be placed in your
+                You also provide us with your links to be placed in your
                 linnkninja page, these link are publicly displayed on your
                 linnkninja page as design/utility of the app
               </p>
@@ -94,7 +94,7 @@ export default function (props) {
               <p>
                 linnkninja does use cookies to store login information, other
                 3rd party services also use cookies for certain functionality
-                you may opt-out of using cookies but that will affcect certain
+                you may opt-out of using cookies but that will affect certain
                 sections of the service
               </p>
 
