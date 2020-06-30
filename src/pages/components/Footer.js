@@ -18,6 +18,9 @@ export default function Footer(props) {
       <Col>
         <a href="/#about">About</a>
       </Col>
+      <Col>
+        <a href="/privacy">Privacy</a>
+      </Col>
     </Row>
   );
 }

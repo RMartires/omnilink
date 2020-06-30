@@ -5,6 +5,7 @@ import ToHome from "./pages/Home";
 import Main from "./pages/Main";
 import About from "./pages/About";
 import Setup from "./pages/Setup";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { Redirect } from "react-router-dom";
@@ -128,6 +129,12 @@ class App extends Component {
         <ThemeProvider theme={{ color: "mediumseagreen" }}>
           {redirect()}
           <Switch>
+            <Route
+              path="/privacy"
+              component={() => {
+                return <PrivacyPolicy />;
+              }}
+            />
             <Route
               path="/setup"
               component={() => {
