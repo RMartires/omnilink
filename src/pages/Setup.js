@@ -39,7 +39,7 @@ export default function Setup() {
         >
           <h1 className={classes.sectionname}>Setup</h1>
           <p>
-            Octolink will link to instagram to get your unique username and
+            linnkninja will link to instagram to get your unique username and
             profile picture
           </p>
           {/*  */}

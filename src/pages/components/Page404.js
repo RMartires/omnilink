@@ -17,7 +17,7 @@ const footer = () => {
           }}
         >
           <a href="/" target="_blank" style={{ color: "white" }}>
-            Creat your own Octolink page
+            Creat your own linnkninja page
           </a>
         </p>
       </Col>

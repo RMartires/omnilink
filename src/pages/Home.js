@@ -289,7 +289,7 @@ class Home extends Component {
                 target="_blank"
                 style={{ color: "white", height: "fitContent" }}
               >
-                Creat your own Octolink page
+                Creat your own linnkninja page
               </a>
             </div>
           </Col>
@@ -352,7 +352,7 @@ class Home extends Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title style={{ textAlign: "center" }}>
-                  Congrats🎉🎊 on joining Octolink
+                  Congrats🎉🎊 on joining linnkninja
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>

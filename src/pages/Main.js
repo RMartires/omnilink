@@ -55,13 +55,13 @@ class Main extends Component {
               <Col xs={12} sm={6} className={classes1.imagecol}>
                 <img
                   src={productimage}
-                  alt="Octolink"
+                  alt="linnkninja"
                   className={classes1.mainpartimage}
                 ></img>
               </Col>
               <Col className={classes1.omnilink} xs={12} sm={6}>
                 <h1 style={{ fontSize: "5em", fontFamily: "Risque" }}>
-                  Octolink
+                  linnkninja
                 </h1>
                 <h4>Link Different😜</h4>
                 {/* <Login size="md" text={"instagram login"} /> */}
@@ -87,8 +87,8 @@ class Main extends Component {
                 <Col xs={12} sm={6}>
                   <h4 className={classes1.headings}>Share it anywhere</h4>
                   <p className={classes1.features}>
-                    Take your Octolink to your audience on every platfrom, help
-                    them to connect to you anywhere.
+                    Take your linnkninja to your audience on every platfrom,
+                    help them to connect to you anywhere.
                   </p>
                 </Col>
               </Row>
@@ -124,7 +124,7 @@ class Main extends Component {
                 <Col xs={12} sm={6}>
                   <h4 className={classes1.headings}>Analytics</h4>
                   <p className={classes1.features}>
-                    Use Octolink to measure your links activity and find out
+                    Use linnkninja to measure your links activity and find out
                     what your audience really likes.
                   </p>
                 </Col>

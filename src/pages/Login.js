@@ -17,7 +17,7 @@ function Login(props) {
       "https://api.instagram.com/oauth/authorize" +
       `?client_id=${clientid}` +
       `&redirect_uri=${redirect_uri}` +
-      "&scope=user_profile,user_media" +
+      "&scope=user_profile" +
       "&response_type=code";
 
     window.location.href = url;
