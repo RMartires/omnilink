@@ -1,60 +1,149 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { FaInstagram } from "react-icons/fa";
+import Image from "react-bootstrap/Image";
+import add_profile from "../assets/add_profile.png";
+import FormControl from "react-bootstrap/FormControl";
+import { FilePicker } from "react-file-picker";
 
 import classes from "./Main.module.css";
 
-function clickInstagram() {
-  var clientid, redirect_uri;
-  if (process.env.NODE_ENV == "production") {
-    clientid = process.env.REACT_APP_IN_CLIENT_ID;
-    redirect_uri = process.env.REACT_APP_IN_REDIRECT_URI;
-  } else {
-    clientid = window._env.REACT_APP_IN_CLIENT_ID;
-    redirect_uri = window._env.REACT_APP_IN_REDIRECT_URI;
-  }
-  var url =
-    "https://api.instagram.com/oauth/authorize" +
-    `?client_id=${clientid}` +
-    `&redirect_uri=${redirect_uri}` +
-    "&scope=user_profile,user_media" +
-    "&response_type=code";
+var Airtable = require("airtable");
 
-  window.location.href = url;
+var api;
+var link;
+var base;
+if (process.env.NODE_ENV == "production") {
+  base = new Airtable({ apiKey: process.env.REACT_APP_ATapikey }).base(
+    process.env.REACT_APP_ATbase
+  );
+  api = {
+    apikey: process.env.REACT_APP_ATapikey,
+    apibase: process.env.REACT_APP_ATbase,
+  };
+  link = "https://omnilink.herokuapp.com/auth/";
+} else {
+  base = new Airtable({ apiKey: window._env.REACT_APP_ATapikey }).base(
+    window._env.REACT_APP_ATbase
+  );
+  api = {
+    apikey: window._env.REACT_APP_ATapikey,
+    apibase: window._env.REACT_APP_ATbase,
+  };
+  link = "http://localhost:5000/auth/";
 }
 
-export default function Setup() {
+export default function Setup(props) {
+  const [username, setUsername] = useState("");
+  const [create, setCreate] = useState(undefined);
+  const [users, setUsers] = useState([]);
+  var allusers = [];
+
+  useEffect(() => {
+    base("users")
+      .select({
+        maxRecords: 3,
+        view: "Grid view",
+      })
+      .eachPage(
+        function page(records, fetchNextPage) {
+          records.forEach(function (record) {
+            allusers.push(record.get("username"));
+          });
+
+          fetchNextPage();
+        },
+        function done(err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          setUsers(allusers);
+        }
+      );
+    //
+    //other vars
+    //
+  }, []);
+
   return (
     <Container style={{ height: "100vh", maxWidth: "1200px" }} fluid>
       <Row style={{ height: "100%" }} className="justify-content-center">
         <Col
           style={{ textAlign: "center" }}
           className="align-self-center"
-          xs={12}
-          sm={5}
+          xs={8}
+          sm={7}
+          md={5}
+          lg={3}
         >
           <h1 className={classes.sectionname}>Setup</h1>
-          <p>
-            linnkninja will link to instagram to get your unique username and
-            profile picture
-          </p>
-          {/*  */}
-          <a
-            class="btn btn-block btn-social btn-instagram"
-            onClick={clickInstagram}
-            style={{
-              fontSize: "1.1em",
-              width: "fit-content",
-              margin: "auto",
-              color: "white",
+          <FilePicker
+            extensions={["md"]}
+            onChange={(FileObject) => {
+              /* do something with File object */
+            }}
+            onError={(errMsg) => {
+              /* do something with err msg string */
             }}
           >
-            <FaInstagram style={{ margin: "auto" }} /> link with instagram
-          </a>
+            <Image src={add_profile} roundedCircle fluid />
+          </FilePicker>
+          <FormControl
+            style={{ marginTop: "50px" }}
+            placeholder="username"
+            aria-label="username"
+            aria-describedby="basic-addon2"
+            onChange={(e) => {
+              // console.log(errorMessages);
+              if (users.includes(e.target.value)) {
+                setCreate("disabled");
+              } else {
+                setCreate(undefined);
+              }
+              setUsername(e.target.value);
+            }}
+            // onChange={validate}
+            type="text"
+            name="username"
+            value={username}
+          />
+          <p style={{ color: "red" }}>
+            {create ? "Error: username already exists" : ""}
+          </p>
+          <Button
+            style={{ marginTop: "20px" }}
+            variant="success"
+            className={create}
+            onClick={() => {
+              if (create === undefined && username !== "") {
+                axios({
+                  url: link + username,
+                  method: "POST",
+                  mode: "cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  data: {
+                    email: props.email,
+                    userID: props.userID,
+                  },
+                })
+                  .then((res) => {
+                    console.log(res);
+                    return res.data;
+                  })
+                  .then((resdata) => {
+                    props.setToken(resdata.token);
+                  });
+              }
+            }}
+          >
+            Create
+          </Button>
         </Col>
       </Row>
     </Container>
