@@ -44,12 +44,11 @@ export default function (props) {
   var [redirect, setRedirect] = useState(false);
   var [Dredirect, setDredirect] = useState(false);
   var [buttontext, setButtontext] = useState("login with Facebook");
-  var email, userid;
   var buttonstyle;
 
   const setupredirect = () => {
     if (redirect) {
-      return <Redirect to="/setup" email={email} userID={userid} />;
+      return <Redirect to="/setup" />;
     } else if (Dredirect) {
       return <Redirect to={`/👉${props.token.username}`} />;
     }
@@ -105,8 +104,7 @@ export default function (props) {
                       { fields: "name, email" },
                       (response) => {
                         console.log(response);
-                        email = response.email;
-                        userid = response.id;
+                        var tempdata = response.email + "II" + response.id;
                         //check if UID exists
                         base("users")
                           .select({
@@ -132,6 +130,7 @@ export default function (props) {
                                   });
                               } else {
                                 //user does not exist
+                                Cookies.set("tempdata", tempdata);
                                 setRedirect(true);
                               }
 

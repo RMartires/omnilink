@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-import cheerio from "cheerio";
 import LoadingScreen from "./LoadingScreen";
 
 var url;
@@ -95,39 +94,24 @@ function Login(props) {
               }
 
               axios({
-                url: `https://www.instadp.com/fullsize/${username}`,
-                method: "GET",
+                url: link + username,
+                method: "POST",
                 mode: "cors",
                 headers: {
-                  "access-control-allow-origin": "*",
+                  "Content-Type": "application/json",
                 },
-              }).then((html) => {
-                var $ = cheerio.load(html.data);
-                var data = $(".picture").attr();
-                console.log(data);
-
-                var img;
-                axios({
-                  url: link + username,
-                  method: "POST",
-                  mode: "cors",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  data: {
-                    email: email,
-                    userID: userID,
-                    img: img,
-                  },
+                data: {
+                  email: email,
+                  userID: userID,
+                },
+              })
+                .then((res) => {
+                  console.log(res);
+                  return res.data;
                 })
-                  .then((res) => {
-                    console.log(res);
-                    return res.data;
-                  })
-                  .then((resdata) => {
-                    props.setToken(resdata.token);
-                  });
-              }); ///end the pic part
+                .then((resdata) => {
+                  props.setToken(resdata.token);
+                });
             }, []);
         })
         .catch((err) => {
