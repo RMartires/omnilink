@@ -3,16 +3,25 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import LoadingScreen from "./LoadingScreen";
+import SetupScreen2 from "./SetupScreen2";
 
 var url;
 
 function Login(props) {
-  const [redirect, setRedirect] = useState(false);
-  const [token, setToken] = useState(undefined);
+  const [noprofilepics, setNoprofilepics] = useState([]);
+  const [USERNAME, setUSERNAME] = useState();
+  var profilepics = [];
+  var totnumber,
+    numberofres = 0;
+
+  //
+
+  //
 
   useEffect(() => {
     //
     //
+
     var code = window.location.href.split("code=")[1];
     if (code) {
       var formdata = new FormData();
@@ -33,14 +42,6 @@ function Login(props) {
         formdata.set("code", t);
       }
 
-      var tempdata = Cookies.get("tempdata");
-      if (tempdata) {
-        var email = tempdata.split("II")[0];
-        var userID = tempdata.split("II")[1];
-      }
-      console.log(email + " " + userID);
-      Cookies.remove("tempdata");
-
       axios({
         url: "https://api.instagram.com/oauth/access_token",
         method: "POST",
@@ -51,7 +52,7 @@ function Login(props) {
         data: formdata,
       })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           if (res.status == "200") {
             return res.data;
           }
@@ -62,6 +63,38 @@ function Login(props) {
         .then((data) => {
           var access_token = data.access_token;
           var user_id = data.user_id;
+          //getimages
+          axios({
+            url: `https://graph.instagram.com/me/media?access_token=${access_token}`,
+            method: "GET",
+            mode: "cors",
+          })
+            .then((res) => {
+              var data = res.data.data;
+              //console.log(data);
+              totnumber = data.length;
+              data.map((media) => {
+                axios({
+                  url: `https://graph.instagram.com/${media.id}?fields=id,media_type,media_url&access_token=${access_token}`,
+                  method: "GET",
+                  mode: "cors",
+                }).then((res) => {
+                  numberofres = numberofres + 1;
+                  if (res.data.media_type == "IMAGE") {
+                    profilepics.push(res.data.media_url);
+                  }
+                  if (numberofres === totnumber) {
+                    setNoprofilepics(profilepics);
+                    console.log(numberofres);
+                  }
+                });
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          //get username
           axios({
             url: `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`,
             method: "GET",
@@ -69,61 +102,30 @@ function Login(props) {
           })
             .then((res) => {
               var username = res.data.username;
-              return username;
+              setUSERNAME(username);
             })
-            .then((username) => {
-              console.log(username + " " + email + " " + userID);
-              var api;
-              var link;
-              if (process.env.NODE_ENV == "production") {
-                // apikey.set("apikey", process.env.REACT_APP_ATapikey);
-                // apikey.set("apibase", process.env.REACT_APP_ATbase);
-                api = {
-                  apikey: process.env.REACT_APP_ATapikey,
-                  apibase: process.env.REACT_APP_ATbase,
-                };
-                link = "https://omnilink.herokuapp.com/auth/";
-              } else {
-                // apikey.set("apikey", window._env.REACT_APP_ATapikey);
-                // apikey.set("apibase", window._env.REACT_APP_ATbase);
-                api = {
-                  apikey: window._env.REACT_APP_ATapikey,
-                  apibase: window._env.REACT_APP_ATbase,
-                };
-                link = "http://localhost:5000/auth/";
-              }
-
-              axios({
-                url: link + username,
-                method: "POST",
-                mode: "cors",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                data: {
-                  email: email,
-                  userID: userID,
-                },
-              })
-                .then((res) => {
-                  console.log(res);
-                  return res.data;
-                })
-                .then((resdata) => {
-                  props.setToken(resdata.token);
-                });
-            }, []);
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
         });
       //end normal insta code
     }
-  });
+  }, []);
 
   return (
     <div>
-      <LoadingScreen />
+      {noprofilepics.length > 0 ? (
+        <SetupScreen2
+          images={noprofilepics}
+          username={USERNAME}
+          setToken={props.setToken}
+        />
+      ) : (
+        <LoadingScreen />
+      )}
     </div>
   );
 }
