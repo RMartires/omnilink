@@ -28,7 +28,7 @@ export default function SetupScreen2(props) {
         apikey: process.env.REACT_APP_ATapikey,
         apibase: process.env.REACT_APP_ATbase,
       };
-      link = "https://linnk.ninja/.netlify/functions/get/";
+      link = "https://linnk.ninja/.netlify/functions/post/";
     } else {
       // apikey.set("apikey", window._env.REACT_APP_ATapikey);
       // apikey.set("apibase", window._env.REACT_APP_ATbase);
