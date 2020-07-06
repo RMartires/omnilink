@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import LoadingScreen from "./LoadingScreen";
+import Page404 from "./Page404";
 import SetupScreen2 from "./SetupScreen2";
 
 var url;
@@ -10,6 +11,7 @@ var url;
 function Login(props) {
   const [noprofilepics, setNoprofilepics] = useState([]);
   const [USERNAME, setUSERNAME] = useState();
+  const [pageerr, setPageerr] = useState(false);
   var profilepics = [];
   var totnumber,
     numberofres = 0;
@@ -59,6 +61,7 @@ function Login(props) {
         })
         .catch((err) => {
           console.log(err);
+          setPageerr(true);
         })
         .then((data) => {
           var access_token = data.access_token;
@@ -123,6 +126,8 @@ function Login(props) {
           username={USERNAME}
           setToken={props.setToken}
         />
+      ) : pageerr ? (
+        <Page404 />
       ) : (
         <LoadingScreen />
       )}
