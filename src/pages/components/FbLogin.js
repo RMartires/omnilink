@@ -28,7 +28,7 @@ if (process.env.NODE_ENV == "production") {
     apikey: process.env.REACT_APP_ATapikey,
     apibase: process.env.REACT_APP_ATbase,
   };
-  link = "https://omnilink.herokuapp.com/auth/";
+  link = "https://linnk.ninja/.netlify/functions/get/";
 } else {
   // apikey.set("apikey", window._env.REACT_APP_ATapikey);
   // apikey.set("apibase", window._env.REACT_APP_ATbase);
@@ -36,8 +36,8 @@ if (process.env.NODE_ENV == "production") {
     apikey: window._env.REACT_APP_ATapikey,
     apibase: window._env.REACT_APP_ATbase,
   };
-  link = "https://omnilink.herokuapp.com/auth/";
-  //link = "http://localhost:5000/auth/";
+  //link = "https://omnilink.herokuapp.com/auth/";
+  link = "http://localhost:9000/get/";
 }
 
 export default function (props) {
@@ -56,7 +56,7 @@ export default function (props) {
 
   useEffect(() => {
     if (props.token) {
-      setButtontext("Continue as " + props.token.username);
+      setButtontext(props.token.username);
     }
   });
 
@@ -117,9 +117,12 @@ export default function (props) {
                                 //user exists
                                 var username = records[0].get("username");
                                 axios({
-                                  url: link + username,
+                                  url:
+                                    link +
+                                    `?username=${username}&key=${api.apikey}&base=${api.apibase}`,
                                   method: "GET",
                                   mode: "no-cors",
+                                  //
                                 })
                                   .then((res) => {
                                     console.log(res);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,6 +9,7 @@ import ImagePicker from "react-image-picker";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "react-image-picker/dist/index.css";
+var email, userid;
 
 export default function SetupScreen2(props) {
   const [finish, setFinish] = useState("disabled");
@@ -27,7 +28,7 @@ export default function SetupScreen2(props) {
         apikey: process.env.REACT_APP_ATapikey,
         apibase: process.env.REACT_APP_ATbase,
       };
-      link = "https://omnilink.herokuapp.com/auth/";
+      link = "https://linnk.ninja/.netlify/functions/get/";
     } else {
       // apikey.set("apikey", window._env.REACT_APP_ATapikey);
       // apikey.set("apibase", window._env.REACT_APP_ATbase);
@@ -35,20 +36,19 @@ export default function SetupScreen2(props) {
         apikey: window._env.REACT_APP_ATapikey,
         apibase: window._env.REACT_APP_ATbase,
       };
-      link = "http://localhost:5000/auth/";
+      link = "http://localhost:9000/post/";
     }
 
+    var tempimg = img.split("&").join("**");
+
     axios({
-      url: link + username,
-      method: "POST",
+      url:
+        link +
+        `?username=${username}&email=${email}&userID=${userID}&key=${api.apikey}&base=${api.apibase}&img=${tempimg}`,
+      method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-      },
-      data: {
-        email: email,
-        userID: userID,
-        img: img,
       },
     })
       .then((res) => {
@@ -59,6 +59,17 @@ export default function SetupScreen2(props) {
         props.setToken(resdata.token);
       });
   }
+
+  useEffect(() => {
+    var tempdata = Cookies.get("tempdata");
+    if (tempdata) {
+      //console.log(tempdata);
+      email = tempdata.split("II")[0];
+      userid = tempdata.split("II")[1];
+    }
+    //console.log(email + " " + userid);
+    Cookies.remove("tempdata");
+  }, []);
   //
   return (
     <div style={{ height: "100vh" }}>
@@ -102,14 +113,6 @@ export default function SetupScreen2(props) {
             className={finish}
             onClick={() => {
               if (img) {
-                var tempdata = Cookies.get("tempdata");
-                if (tempdata) {
-                  console.log(tempdata);
-                  var email = tempdata.split("II")[0];
-                  var userid = tempdata.split("II")[1];
-                }
-                console.log(email + " " + userid);
-                Cookies.remove("tempdata");
                 senddata(props.username, email, userid, img);
               } else {
                 setErrmsg("select a profile picture");
