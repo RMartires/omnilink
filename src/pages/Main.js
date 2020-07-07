@@ -54,8 +54,8 @@ class Main extends Component {
           token={this.props.token}
         />
         <div className={classes1.box}></div>
-        <Container fluid>
-          {loadingsc()}
+        {loadingsc()}
+        <Container fluid style={this.state.loading ? { display: "none" } : {}}>
           <section id="intro" className={classes1.content}>
             <Row
               // className={classes1.firstrow}
