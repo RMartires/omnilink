@@ -56,6 +56,7 @@ class Home extends Component {
     showtoast: false,
     showselecttheme: false,
     showcongrats: false,
+    floatingbuttonref: true,
   };
 
   componentDidMount() {
@@ -130,6 +131,7 @@ class Home extends Component {
                         username: username,
                         isloading: false,
                         showtoast: true,
+                        floatingbuttonref: !this.state.floatingbuttonref,
                       });
                     } else {
                       this.setState({
@@ -263,6 +265,7 @@ class Home extends Component {
             color={this.props.color}
             token={this.props.token}
             refreshlinks={this.refreshlinks.bind(this)}
+            refresh={this.state.floatingbuttonref}
           />
         );
       }

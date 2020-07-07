@@ -63,6 +63,8 @@ export default function FloatingButton(props) {
               return;
             } else {
               setAddmodal(false);
+              setTitle(undefined);
+              setLink(undefined);
               props.refreshlinks(true);
             }
           }
@@ -125,6 +127,7 @@ export default function FloatingButton(props) {
                           : true
                         : false
                     }
+                    value={title}
                   />
                 </Form.Group>
                 <Form.Group controlId="linkEdit">
@@ -153,6 +156,7 @@ export default function FloatingButton(props) {
                           : true
                         : false
                     }
+                    value={link}
                   />
                 </Form.Group>
               </Form>
