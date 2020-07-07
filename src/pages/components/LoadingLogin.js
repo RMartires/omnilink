@@ -23,7 +23,7 @@ function Login(props) {
   useEffect(() => {
     //
     //
-
+    console.log("loadinglogin once");
     var code = window.location.href.split("code=")[1];
     if (code) {
       var formdata = new FormData();
@@ -92,20 +92,22 @@ function Login(props) {
                   }
                 });
               });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
 
-          //get username
-          axios({
-            url: `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`,
-            method: "GET",
-            mode: "cors",
-          })
-            .then((res) => {
-              var username = res.data.username;
-              setUSERNAME(username);
+              //
+              //get username
+              axios({
+                url: `https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`,
+                method: "GET",
+                mode: "cors",
+              })
+                .then((res) => {
+                  var username = res.data.username;
+                  setUSERNAME(username);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+              //
             })
             .catch((err) => {
               console.log(err);

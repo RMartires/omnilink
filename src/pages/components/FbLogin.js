@@ -97,6 +97,7 @@ export default function (props) {
             } else {
               window.FB.login(
                 (response) => {
+                  props.setLoading();
                   //console.log(response);
                   if (response.status === "connected") {
                     window.FB.api(

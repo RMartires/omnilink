@@ -74,37 +74,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const footer = () => {
-  return (
-    <Row>
-      <Col xs={12} style={{ padding: "0px" }}>
-        <div
-          style={{
-            height: "fitContent",
-            backgroundColor: "black",
-            color: "white",
-            textAlign: "center",
-            margin: "0px",
-            display: "flex",
-            justifyContent: "center",
-            padding: "1vh",
-          }}
-        >
-          <a href="/" target="_blank" style={{ color: "white" }}>
-            Creat your own linnkninja page
-          </a>
-        </div>
-      </Col>
-    </Row>
-  );
+const footer = (onlyspinner) => {
+  if (!onlyspinner) {
+    return (
+      <Row>
+        <Col xs={12} style={{ padding: "0px" }}>
+          <div
+            style={{
+              height: "fitContent",
+              backgroundColor: "black",
+              color: "white",
+              textAlign: "center",
+              margin: "0px",
+              display: "flex",
+              justifyContent: "center",
+              padding: "1vh",
+            }}
+          >
+            <a href="/" target="_blank" style={{ color: "white" }}>
+              Creat your own linnkninja page
+            </a>
+          </div>
+        </Col>
+      </Row>
+    );
+  }
 };
 
-function LoadingScreen() {
+function LoadingScreen(props) {
   const classes = useStyles();
 
   return (
     <Container fluid>
-      <Row style={{ height: "95vh" }}>
+      <Row style={props.onlyspinner ? { height: "100vh" } : { height: "95vh" }}>
         <Col>
           <div className={classes.spinnerbox}>
             <div className={classes.leoborder1}>
@@ -117,7 +119,7 @@ function LoadingScreen() {
           </div>
         </Col>
       </Row>
-      {footer()}
+      {footer(props.onlyspinner)}
     </Container>
   );
 }

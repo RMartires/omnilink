@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import ImagePicker from "react-image-picker";
 import axios from "axios";
 import Cookies from "js-cookie";
+import LoadingScreen from "./LoadingScreen";
 import "react-image-picker/dist/index.css";
 var email, userid;
 
@@ -15,6 +16,7 @@ export default function SetupScreen2(props) {
   const [finish, setFinish] = useState("disabled");
   const [img, setImg] = useState(undefined);
   const [errmsg, setErrmsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //
   function senddata(username, email, userID, img) {
@@ -71,58 +73,69 @@ export default function SetupScreen2(props) {
     Cookies.remove("tempdata");
   }, []);
   //
+
   return (
     <div style={{ height: "100vh" }}>
-      <Row
-        className="justify-content-center"
-        style={{
-          marginTop: "20px",
-          marginBottom: "20px",
-          padding: "20px",
-          paddingBottom: "0",
-        }}
-      >
-        <h4 style={{ fontFamily: "Risque,cursive" }}>
-          Select linnkninja profile picture
-        </h4>
-        <div
-          style={{
-            height: "75vh",
-            overflow: "auto",
-            backgroundColor: "#f1da96",
-          }}
-        >
-          <ImagePicker
-            images={props.images.map((image, i) => ({ src: image, value: i }))}
-            onPick={(sel) => {
-              setFinish("");
-              setImg(sel.src);
-              setErrmsg("");
-            }}
-          />
-        </div>
-      </Row>
-      <Row>
-        <Col style={{ textAlign: "center", fontFamily: "Roboto" }}>
-          <h4>
-            <div>{props.username + "  "}</div>
-          </h4>
-          <h6 style={{ color: "red" }}>{errmsg}</h6>
-          <Button
-            variant="success"
-            className={finish}
-            onClick={() => {
-              if (img) {
-                senddata(props.username, email, userid, img);
-              } else {
-                setErrmsg("select a profile picture");
-              }
+      {loading ? (
+        <LoadingScreen onlyspinner={true} />
+      ) : (
+        <div>
+          <Row
+            className="justify-content-center"
+            style={{
+              marginTop: "20px",
+              marginBottom: "20px",
+              padding: "20px",
+              paddingBottom: "0",
             }}
           >
-            Finish setup
-          </Button>
-        </Col>
-      </Row>
+            <h4 style={{ fontFamily: "Risque,cursive" }}>
+              Select linnkninja profile picture
+            </h4>
+            <div
+              style={{
+                height: "75vh",
+                overflow: "auto",
+                backgroundColor: "#f1da96",
+              }}
+            >
+              <ImagePicker
+                images={props.images.map((image, i) => ({
+                  src: image,
+                  value: i,
+                }))}
+                onPick={(sel) => {
+                  setFinish("");
+                  setImg(sel.src);
+                  setErrmsg("");
+                }}
+              />
+            </div>
+          </Row>
+          <Row>
+            <Col style={{ textAlign: "center", fontFamily: "Roboto" }}>
+              <h4>
+                <div>{props.username + "  "}</div>
+              </h4>
+              <h6 style={{ color: "red" }}>{errmsg}</h6>
+              <Button
+                variant="success"
+                className={finish}
+                onClick={() => {
+                  if (img) {
+                    setLoading(true);
+                    senddata(props.username, email, userid, img);
+                  } else {
+                    setErrmsg("select a profile picture");
+                  }
+                }}
+              >
+                Finish setup
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      )}
     </div>
   );
 }

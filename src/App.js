@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { Redirect } from "react-router-dom";
 import { ThemeProvider } from "react-bootstrap";
+import LoadingScreen from "./pages/components/LoadingScreen";
 // import  dotenv from 'dotenv';
 //sdotenv.config();
 require("dotenv").config();
@@ -33,6 +34,7 @@ class App extends Component {
       accent1: "#FFDC80", //#FCAF45
       accent2: "#FCAF45", //#F77737
     },
+    FBloaded: false,
   };
 
   componentDidMount() {
@@ -44,7 +46,7 @@ class App extends Component {
       }
     }
     //FB SDK
-    window.fbAsyncInit = function () {
+    window.fbAsyncInit = () => {
       window.FB.init({
         appId: process.env.REACT_APP_FBid,
         cookie: true, // enable cookies to allow the server to access
@@ -56,6 +58,7 @@ class App extends Component {
       // window.FB.getLoginStatus(function (response) {
       //   console.log(response);
       // });
+      this.setState({ FBloaded: true });
     };
 
     console.log("Loading fb api");
@@ -126,39 +129,43 @@ class App extends Component {
 
     return (
       <div className="App" id="app">
-        <ThemeProvider theme={{ color: "mediumseagreen" }}>
-          {redirect()}
-          <Switch>
-            <Route
-              path="/privacy"
-              component={() => {
-                return <PrivacyPolicy />;
-              }}
-            />
-            <Route
-              path="/setup"
-              component={() => {
-                return <Setup />;
-              }}
-            />
-            <Route
-              path="/About"
-              component={() => {
-                return <About />;
-              }}
-            />
-            <Route path="/login" component={loadinglogin} />
-            <Route path="/:username" component={tohome} />
-            <Route
-              path=""
-              component={() => {
-                return (
-                  <Main setToken={this.setToken} token={this.state.token} />
-                );
-              }}
-            />
-          </Switch>
-        </ThemeProvider>
+        {this.state.FBloaded ? (
+          <ThemeProvider theme={{ color: "mediumseagreen" }}>
+            {redirect()}
+            <Switch>
+              <Route
+                path="/privacy"
+                component={() => {
+                  return <PrivacyPolicy />;
+                }}
+              />
+              <Route
+                path="/setup"
+                component={() => {
+                  return <Setup />;
+                }}
+              />
+              <Route
+                path="/About"
+                component={() => {
+                  return <About />;
+                }}
+              />
+              <Route path="/login" component={loadinglogin} />
+              <Route path="/:username" component={tohome} />
+              <Route
+                path=""
+                component={() => {
+                  return (
+                    <Main setToken={this.setToken} token={this.state.token} />
+                  );
+                }}
+              />
+            </Switch>
+          </ThemeProvider>
+        ) : (
+          <LoadingScreen onlyspinner={true} />
+        )}
       </div>
     );
   }

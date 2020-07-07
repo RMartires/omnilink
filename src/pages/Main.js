@@ -18,6 +18,7 @@ import Button from "react-bootstrap/Button";
 import Footer from "./components/Footer";
 import About from "./About";
 import FbLogin from "./components/FbLogin";
+import LoadingScreen from "./components/LoadingScreen";
 
 //import animations//
 import Linkanywhere from "./components/animations/Linkanywhere/Linkanywhere";
@@ -30,6 +31,7 @@ class Main extends Component {
     pageredirect: false,
     page: undefined,
     setupredirect: false,
+    loading: false,
   };
 
   componentDidMount() {
@@ -38,6 +40,12 @@ class Main extends Component {
   }
 
   render() {
+    const loadingsc = () => {
+      if (this.state.loading) {
+        return <LoadingScreen onlyspinner={true} />;
+      }
+    };
+
     return (
       <div>
         <ToolBar
@@ -47,6 +55,7 @@ class Main extends Component {
         />
         <div className={classes1.box}></div>
         <Container fluid>
+          {loadingsc()}
           <section id="intro" className={classes1.content}>
             <Row
               // className={classes1.firstrow}
@@ -68,6 +77,9 @@ class Main extends Component {
                 <FbLogin
                   setToken={this.props.setToken}
                   token={this.props.token}
+                  setLoading={() => {
+                    this.setState({ loading: true });
+                  }}
                 />
               </Col>
             </Row>
