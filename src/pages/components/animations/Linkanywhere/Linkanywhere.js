@@ -10,6 +10,7 @@ export default function Linkanywhere() {
 
       <div className={classes.three + " " + classes.card}></div>
       <div className={classes.four + " " + classes.card}></div>
+      <div className={classes.nametag}>linnk.ninja/name</div>
     </div>
   );
 }

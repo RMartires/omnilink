@@ -4,28 +4,40 @@
   height: 250px;
   margin: auto;
 }
+
+.nametag {
+  position: absolute;
+  height: 25px;
+  width: 130px;
+  background-color: white;
+  border-radius: 20px;
+  z-index: 3;
+  top: 150px;
+  left: 40px;
+}
+
 .one {
-  background-image: url("./insta.png");
+  background-image: url("./insta.svg");
   transform: rotate3d(0, 1, 0, 40deg);
   animation: x 2s linear infinite;
 }
 
 .two {
-  background-image: url("./twitter.png");
+  background-image: url("./twitter.svg");
   transform: rotate3d(0, 1, 0, 40deg);
   animation: x 2s linear infinite;
   animation-delay: 0.5s;
 }
 
 .three {
-  background-image: url("./youtube.png");
+  background-image: url("./youtube.svg");
   transform: rotate3d(0, 1, 0, 40deg);
   animation: x 2s linear infinite;
   animation-delay: 1s;
 }
 
 .four {
-  background-image: url("./snapchat.png");
+  background-image: url("./snap.svg");
   transform: rotate3d(0, 1, 0, 40deg);
   animation: x 2s linear infinite;
   animation-delay: 1.5s;

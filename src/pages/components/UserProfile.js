@@ -127,6 +127,9 @@ const UserProfile = (props) => {
               props.token.username === props.username ? (
                 <div>
                   <input
+                    style={{
+                      borderRadius: "20px",
+                    }}
                     id="link"
                     value={
                       window.location.href.split("%")[0] + "👉" + props.username
