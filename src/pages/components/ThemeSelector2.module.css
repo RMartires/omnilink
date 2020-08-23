@@ -1,11 +1,11 @@
-.font4,
+.font1,
 .font6,
 .font7,
 .font15 {
   color: black;
 }
 
-.font1,
+.font4,
 .font2,
 .font3,
 .font5,
@@ -23,76 +23,112 @@
 /* card */
 
 .link .card1 {
-  background-color: #88aa33d6;
-  color: white;
-}
-
-.link .card2 {
-  background-color: #636363;
-  color: white;
-}
-
-.link .card3 {
-  background-color: #7497dc;
-  color: white;
-}
-
-.link .card4 {
-  background-color: #9fc2af;
+  background-color: #04aa8e8a;
   color: black;
 }
 
-.link .card5 {
-  background-color: #ec173aeb;
+.link .card2 {
+  background-color: #023040a3;
   color: white;
+}
+.link .card2 h6 {
+  color: #909090;
+}
+
+.link .card3 {
+  background-color: #111626b0;
+  color: white;
+}
+.link .card3 h6 {
+  color: #909090;
+}
+
+.link .card4 {
+  background-color: #011a24e6;
+  color: white;
+}
+.link .card4 h6 {
+  color: #909090;
+}
+
+.link .card5 {
+  background-color: #530a1ecf;
+  color: white;
+}
+.link .card5 h6 {
+  color: #909090;
 }
 
 .link .card6 {
-  background-color: #8d9eafed;
+  background-color: #dfa52fa1;
   color: black;
 }
 
 .link .card7 {
-  background-color: #8d0000ad;
-  color: black;
+  background-color: #c84b4b6b;
+  color: white;
+}
+.link .card7 h6 {
+  color: #909090;
 }
 
 .link .card8 {
-  background-color: #303030;
+  background-color: #3030305c;
   color: white;
+}
+.link .card8 h6 {
+  color: #909090;
 }
 
 .link .card9 {
-  background-color: #6767cdf0;
+  background-color: #dd335594;
   color: white;
+}
+.link .card9 h6 {
+  color: #909090;
 }
 
 .link .card10 {
   background-color: #19191b8a;
   color: white;
 }
+.link .card10 h6 {
+  color: #909090;
+}
 
 .link .card11 {
-  background-color: #dd3355;
+  background-color: #d22651cf;
   color: white;
+}
+.link .card11 h6 {
+  color: #909090;
 }
 
 .link .card12 {
-  background-color: #d61e4b;
+  background-color: #005536ab;
   color: white;
+}
+.link .card12 h6 {
+  color: #909090;
 }
 
 .link .card13 {
-  background-color: #77973c;
+  background-color: #3f5b0ac7;
   color: white;
+}
+.link .card13 h6 {
+  color: #909090;
 }
 
 .link .card14 {
-  background-color: #555566;
+  background-color: #43435bbf;
   color: white;
+}
+.link .card14 h6 {
+  color: #909090;
 }
 
 .link .card15 {
-  background-color: #2c818a;
+  background-color: #105a625e;
   color: black;
 }

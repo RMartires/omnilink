@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "work_sanslight";
+  src: url("../assets/fonts/worksans-light-webfont.woff2") format("woff2"),
+    url("../assets/fonts/worksans-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media (min-width: 570px) {
+  .phone {
+    width: 400px !important;
+    font-weight: 100 !important;
+  }
+}
+
+.sublink {
+  font-family: "work_sanslight" !important;
+}

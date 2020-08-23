@@ -1,5 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Risque&family=Roboto&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+/* fonts */
+
+@font-face {
+  font-family: "work_sans_italic";
+  src: url("../assets/fonts/worksans-italic-variablefont_wght-webfont.woff2")
+      format("woff2"),
+    url("../assets/fonts/worksans-italic-variablefont_wght-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "work_sans_regular";
+  src: url("../assets/fonts/worksans-variablefont_wght-webfont.woff2")
+      format("woff2"),
+    url("../assets/fonts/worksans-variablefont_wght-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 .toolbar {
   align-self: flex-end;
@@ -12,6 +31,9 @@
 
 body {
   background-image: linear-gradient(#fcaf45, #f7d15c);
+  font-family: "work_sans_regular" !important;
+  font-weight: normal !important;
+  font-style: normal !important;
 }
 
 .linkcol {
@@ -22,12 +44,10 @@ body {
   text-decoration-line: underline;
   font-weight: bold;
   font-size: "1.5rem";
-  font-family: "Risque", cursive;
 }
 
 .features {
   line-height: 2em;
-  font-family: "Roboto";
 }
 
 .mainpart {
@@ -82,7 +102,6 @@ body {
 
 /* section features */
 .sectionname {
-  font-family: "Risque", cursive;
   font-size: 4.5em;
   color: #00000085;
   filter: blur(1px);
@@ -91,9 +110,6 @@ body {
 }
 
 /* about */
-.about {
-  font-family: "Righteous", cursive;
-}
 
 @media (min-width: 570px) {
   .mainpart {
@@ -103,7 +119,6 @@ body {
 
   .omnilink {
     text-align: center;
-    font-family: Righteous;
     align-self: center;
   }
 

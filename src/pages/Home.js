@@ -2,18 +2,11 @@ import React, { Component } from "react";
 import { useParams } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import Link from "./components/Links";
-import Grid from "@material-ui/core/Grid";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 
-import {
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import LoadingScreen from "./components/LoadingScreen";
 import Page404 from "./components/Page404";
 
@@ -27,6 +20,8 @@ import Row from "react-bootstrap/Row";
 import Tooltip from "react-bootstrap/Tooltip";
 import Overlay from "react-bootstrap/Overlay";
 import ThemeSelector from "./components/ThemeSelector";
+
+import classes from "./Home.module.css";
 
 import Validate from "react-validate-form";
 var Airtable = require("airtable");
@@ -343,7 +338,7 @@ class Home extends Component {
         return <Page404 />;
       } else {
         return (
-          <Container>
+          <Container className={classes.phone}>
             {congratsmodel()}
             <Modal
               show={this.state.showcongrats}

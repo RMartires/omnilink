@@ -1,27 +1,15 @@
 import React, { useState } from "react";
-// import Card from "@material-ui/core/Card";
-// import CardHeader from "@material-ui/core/CardHeader";
-import Grid from "@material-ui/core/Grid";
-//import MoreVertIcon from "@material-ui/icons/MoreVert";
-import IconButton from "@material-ui/core/IconButton";
-
-import { Menu } from "@material-ui/core";
-import { MenuItem } from "@material-ui/core";
 
 import CoustomModal from "./CoustomModal";
 //
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Image from "react-bootstrap/Image";
-import Button from "react-bootstrap/Button";
-import MoreVertIcon from "../../assets/more_vert.svg";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import FormControl from "react-bootstrap/FormControl";
-import { FaEllipsisV } from "react-icons/fa";
+import { FaEllipsisV, FaChevronDown, FaBars } from "react-icons/fa";
 
 import cardclasses from "./ThemeSelector2.module.css";
+import classes from "../Home.module.css";
 
 const Link = (props) => {
   const [edit, setEdit] = useState(false);
@@ -65,21 +53,25 @@ const Link = (props) => {
                       className="align-self-center"
                       {...props.provided.dragHandleProps}
                     >
-                      <FaEllipsisV style={{ fontSize: "2em" }} />
+                      <FaBars
+                        style={{ fontSize: "1.5em", marginLeft: "5px" }}
+                      />
                     </Col>
                     <Col>
-                      <Card.Body
-                        style={{ fontSize: "0.6rem", padding: "1rem" }}
-                      >
+                      <Card.Body style={{ fontSize: "0.6rem", padding: "0" }}>
                         <div style={{ textAlign: "end" }} xs="auto">
                           <Dropdown>
                             <Dropdown.Toggle
                               as={CustomToggle}
                               id="dropdown-custom-components"
                             >
-                              <FaEllipsisV
+                              <FaChevronDown
                                 className={cardclasses["font" + props.theme]}
-                                style={{ fontSize: "1.4em" }}
+                                style={{
+                                  fontSize: "1.4em",
+                                  marginTop: "5px",
+                                  marginRight: "5px",
+                                }}
                               />
                             </Dropdown.Toggle>
 
@@ -104,9 +96,22 @@ const Link = (props) => {
                           </Dropdown>
                         </div>
                         <div style={{ textAlign: "center" }}>
-                          <Card.Title>{props.title}</Card.Title>
-                          <Card.Subtitle className="mb-2 text">
-                            {props.link}
+                          <Card.Title
+                            style={{
+                              fontSize: "1.5rem",
+                            }}
+                          >
+                            {props.title}
+                          </Card.Title>
+                          <Card.Subtitle
+                            className={classes.sublink}
+                            style={{
+                              fontSize: "0.9rem",
+                            }}
+                          >
+                            {props.link.length > 35
+                              ? props.link.slice(0, 32) + "..."
+                              : props.link}
                           </Card.Subtitle>
                         </div>
                       </Card.Body>
@@ -138,9 +143,26 @@ const Link = (props) => {
                   window.location.assign(`http://${props.link}`);
                 }}
               >
-                <Card.Body style={{ textAlign: "center", fontSize: "0.6rem" }}>
-                  <Card.Title>{props.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text">
+                <Card.Body
+                  style={{
+                    textAlign: "center",
+                    fontSize: "0.6rem",
+                    padding: "0",
+                  }}
+                >
+                  <Card.Title
+                    style={{
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    {props.title}
+                  </Card.Title>
+                  <Card.Subtitle
+                    className={classes.sublink}
+                    style={{
+                      fontSize: "0.9rem",
+                    }}
+                  >
                     {props.link}
                   </Card.Subtitle>
                 </Card.Body>
@@ -159,9 +181,26 @@ const Link = (props) => {
                 window.location.assign(`http://${props.link}`);
               }}
             >
-              <Card.Body style={{ textAlign: "center", fontSize: "0.6rem" }}>
-                <Card.Title>{props.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text">
+              <Card.Body
+                style={{
+                  textAlign: "center",
+                  fontSize: "0.6rem",
+                  padding: "0",
+                }}
+              >
+                <Card.Title
+                  style={{
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  {props.title}
+                </Card.Title>
+                <Card.Subtitle
+                  className={classes.sublink}
+                  style={{
+                    fontSize: "0.9rem",
+                  }}
+                >
                   {props.link}
                 </Card.Subtitle>
               </Card.Body>
