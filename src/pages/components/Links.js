@@ -107,6 +107,7 @@ const Link = (props) => {
                             className={classes.sublink}
                             style={{
                               fontSize: "0.9rem",
+                              paddingBottom: "5px",
                             }}
                           >
                             {props.link.length > 35
@@ -161,6 +162,7 @@ const Link = (props) => {
                     className={classes.sublink}
                     style={{
                       fontSize: "0.9rem",
+                      paddingBottom: "5px",
                     }}
                   >
                     {props.link}
@@ -199,6 +201,7 @@ const Link = (props) => {
                   className={classes.sublink}
                   style={{
                     fontSize: "0.9rem",
+                    paddingBottom: "5px",
                   }}
                 >
                   {props.link}

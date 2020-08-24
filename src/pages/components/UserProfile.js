@@ -115,7 +115,7 @@ const UserProfile = (props) => {
         className="justify-content-center"
         style={{ marginTop: "20px", marginBottom: "20px" }}
       >
-        <Col xs={8} sm={7} md={5} lg={3}>
+        <Col xs={8} sm={7}>
           <Image src={props.profile_picture} roundedCircle fluid />
         </Col>
       </Row>
@@ -128,7 +128,7 @@ const UserProfile = (props) => {
                 <div>
                   <input
                     style={{
-                      borderRadius: "20px",
+                      borderRadius: "5px",
                     }}
                     id="link"
                     value={
