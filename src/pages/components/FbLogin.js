@@ -1,9 +1,11 @@
+// eslint-disable-next-line
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import { FaFacebook } from "react-icons/fa";
+import { IconButton } from "@material-ui/core";
 var Airtable = require("airtable");
 
 //
@@ -54,113 +56,127 @@ export default function (props) {
     }
   };
 
+  const loginOnClick = () => {
+    if (props.token) {
+      setDredirect(true);
+    } else {
+      window.FB.login(
+        (response) => {
+          props.setLoading();
+          //console.log(response);
+          if (response.status === "connected") {
+            window.FB.api("/me/", { fields: "name, email" }, (response) => {
+              console.log(response);
+              var tempdata = response.email + "II" + response.id;
+              //check if UID exists
+              base("users")
+                .select({
+                  view: "Grid view",
+                  filterByFormula: `({userID} = ${response.id})`,
+                })
+                .eachPage(
+                  (records, fetchNextPage) => {
+                    if (records.length === 1) {
+                      //user exists
+                      var username = records[0].get("username");
+                      axios({
+                        url:
+                          link +
+                          `?username=${username}&key=${api.apikey}&base=${api.apibase}`,
+                        method: "GET",
+                        mode: "no-cors",
+                        //
+                      })
+                        .then((res) => {
+                          console.log(res);
+                          return res.data;
+                        })
+                        .then((resdata) => {
+                          props.setToken(resdata.token);
+                        });
+                    } else {
+                      //user does not exist
+                      Cookies.set("tempdata", tempdata);
+                      setRedirect(true);
+                    }
+
+                    fetchNextPage();
+                  },
+                  (err) => {
+                    if (err) {
+                      console.error(err);
+                      return;
+                    }
+                  }
+                );
+              //end airtable
+            });
+          }
+        },
+        { scope: "email" }
+      );
+    } //end else
+  };
+
   useEffect(() => {
     if (props.token) {
       setButtontext(props.token.username);
     }
   });
 
-  return (
-    <div>
-      {setupredirect()}
-      <a
-        class="btn btn-block btn-social btn-facebook"
-        variant={props.text ? "dark" : "primary"}
-        style={
-          props.text
-            ? {
-                fontSize: "1em",
-                width: "fit-content",
-                margin: "auto",
-                color: "white",
-              }
-            : props.token
-            ? {
-                fontSize: "1.3em",
-                width: "fit-content",
-                margin: "auto",
-                color: "white",
-                fontFamily: "serif",
-              }
-            : {
-                fontSize: "1.3em",
-                fontFamily: "serif",
-                width: "fit-content",
-                margin: "auto",
-                color: "white",
-              }
-        }
-        onClick={
-          () => {
-            if (props.token) {
-              setDredirect(true);
-            } else {
-              window.FB.login(
-                (response) => {
-                  props.setLoading();
-                  //console.log(response);
-                  if (response.status === "connected") {
-                    window.FB.api(
-                      "/me/",
-                      { fields: "name, email" },
-                      (response) => {
-                        console.log(response);
-                        var tempdata = response.email + "II" + response.id;
-                        //check if UID exists
-                        base("users")
-                          .select({
-                            view: "Grid view",
-                            filterByFormula: `({userID} = ${response.id})`,
-                          })
-                          .eachPage(
-                            (records, fetchNextPage) => {
-                              if (records.length === 1) {
-                                //user exists
-                                var username = records[0].get("username");
-                                axios({
-                                  url:
-                                    link +
-                                    `?username=${username}&key=${api.apikey}&base=${api.apibase}`,
-                                  method: "GET",
-                                  mode: "no-cors",
-                                  //
-                                })
-                                  .then((res) => {
-                                    console.log(res);
-                                    return res.data;
-                                  })
-                                  .then((resdata) => {
-                                    props.setToken(resdata.token);
-                                  });
-                              } else {
-                                //user does not exist
-                                Cookies.set("tempdata", tempdata);
-                                setRedirect(true);
-                              }
-
-                              fetchNextPage();
-                            },
-                            (err) => {
-                              if (err) {
-                                console.error(err);
-                                return;
-                              }
-                            }
-                          );
-                        //end airtable
-                      }
-                    );
-                  }
-                },
-                { scope: "email" }
-              );
-            } //end else
-          } //end onClick
-        }
+  if (props.text === "login") {
+    return (
+      <Button
+        onClick={loginOnClick}
+        style={{
+          marginLeft: "5px",
+          marginRight: "5px",
+          backgroundColor: "#0000",
+          borderColor: "#0000",
+          color: "black",
+        }}
       >
-        <FaFacebook style={{ margin: "auto" }} />
-        {props.text ? props.text : buttontext}
-      </a>
-    </div>
-  );
+        {setupredirect()}
+        login
+      </Button>
+    );
+  } else {
+    return (
+      <div>
+        {setupredirect()}
+        <a
+          class="btn btn-block btn-social btn-facebook"
+          variant={props.text ? "dark" : "primary"}
+          style={
+            props.text
+              ? {
+                  fontSize: "1em",
+                  width: "fit-content",
+                  margin: "auto",
+                  color: "white",
+                }
+              : props.token
+              ? {
+                  fontSize: "1.3em",
+                  width: "fit-content",
+                  margin: "auto",
+                  color: "white",
+                  fontFamily: "serif",
+                }
+              : {
+                  fontSize: "1.3em",
+                  fontFamily: "serif",
+                  width: "fit-content",
+                  margin: "auto",
+                  color: "white",
+                }
+          }
+          onClick={loginOnClick}
+        >
+          <FaFacebook style={{ margin: "auto" }} />
+          {props.text ? props.text : buttontext}
+        </a>
+      </div>
+    );
+  }
 }

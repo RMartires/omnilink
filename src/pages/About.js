@@ -29,19 +29,19 @@ function About(props) {
           </Row>
         </Col>
         <Col xs={12} sm={6}>
-          <h2>
+          <h3>
             any feedback hit me up{" "}
             <a href="https://twitter.com/RohitMartires" target="_blank">
               @RohitMartires
             </a>
-          </h2>
-          <h3>
+          </h3>
+          <h5>
             {" "}
             Are you an agency, lets talk 👉
             <a href="mailto:rohitmartires14@gmail.com" target="_blank">
               Email
             </a>
-          </h3>
+          </h5>
         </Col>
       </Row>
     </div>

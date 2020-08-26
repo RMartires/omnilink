@@ -22,6 +22,7 @@ import Overlay from "react-bootstrap/Overlay";
 import ThemeSelector from "./components/ThemeSelector";
 
 import classes from "./Home.module.css";
+import cardclasses from "./components/ThemeSelector2.module.css";
 
 import Validate from "react-validate-form";
 var Airtable = require("airtable");
@@ -273,8 +274,6 @@ class Home extends Component {
             <div
               style={{
                 height: "fitContent",
-                backgroundColor: "black",
-                color: "white",
                 textAlign: "center",
                 margin: "0px",
                 display: "flex",
@@ -285,7 +284,11 @@ class Home extends Component {
               <a
                 href="/"
                 target="_blank"
-                style={{ color: "white", height: "fitContent" }}
+                style={{
+                  color: "white",
+                  height: "fitContent",
+                  textDecoration: "underline",
+                }}
               >
                 Creat your own linnkninja page
               </a>

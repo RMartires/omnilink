@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
@@ -24,17 +25,11 @@ function ToolBar(props) {
   const buttons = props.buttons.map((but) => {
     if (but == "login") {
       return (
-        <FbLogin
-          text={"login"}
-          color={"black"}
-          setToken={props.setToken}
-          token={props.token}
-        />
+        <FbLogin text={"login"} setToken={props.setToken} token={props.token} />
       );
     } else {
       return (
         <Button
-          variant="dark"
           onClick={() => {
             // setPage(`/home/#${but}`);
             // setPageredirect(true);
@@ -43,6 +38,9 @@ function ToolBar(props) {
           style={{
             marginLeft: "5px",
             marginRight: "5px",
+            backgroundColor: "#0000",
+            borderColor: "#0000",
+            color: "black",
           }}
         >
           {but}
@@ -55,10 +53,22 @@ function ToolBar(props) {
     <Row className="no-gutters">
       <Col>
         <Navbar
-          style={{ backgroundColor: "black", paddingRight: "0px" }}
-          className="justify-content-end"
+          style={{
+            backgroundColor: "#0000",
+            paddingRight: "0px",
+            justifyContent: "space-between",
+          }}
         >
-          {buttons}
+          <p
+            style={{
+              marginTop: "auto",
+              marginBottom: "auto",
+              fontSize: "1.3rem",
+            }}
+          >
+            linnkninja
+          </p>
+          <div style={{ display: "flex" }}>{buttons}</div>
           {redirect()}
         </Navbar>
       </Col>

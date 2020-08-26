@@ -1,7 +1,8 @@
+// eslint-disable-next-line
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Login from "./Login";
-import productimage from "../assets/product2.png";
+import productimage from "../assets/product3.png";
 
 //section images
 import features from "../assets/featuresSection.png";
@@ -19,12 +20,17 @@ import Footer from "./components/Footer";
 import About from "./About";
 import FbLogin from "./components/FbLogin";
 import LoadingScreen from "./components/LoadingScreen";
+//BGsvgs
+import topFringe from "../assets/topFringe.svg";
+import backdrop_top from "../assets/backdrop_top.svg";
+import backdrop_bottom from "../assets/backdrop_bottom.svg";
 
 //import animations//
 import Linkanywhere from "./components/animations/Linkanywhere/Linkanywhere";
 import Manythemes from "./components/animations/Manythemes";
 import Analytics from "./components/animations/Analytics";
 import Easysetup from "./components/animations/Easysetup";
+import easymanage from "../assets/easymanage.svg";
 
 class Main extends Component {
   state = {
@@ -48,14 +54,29 @@ class Main extends Component {
 
     return (
       <div>
+        {/* topfringe */}
+        <img
+          className={classes1.topfringe}
+          style={{
+            width: "100%",
+            margin: "0 auto",
+            position: "absolute",
+          }}
+          src={topFringe}
+        />
+        {/* toolbar */}
         <ToolBar
           buttons={["login", "about"]}
           setToken={this.props.setToken}
           token={this.props.token}
         />
-        <div className={classes1.box}></div>
         {loadingsc()}
-        <Container fluid style={this.state.loading ? { display: "none" } : {}}>
+        <Container
+          fluid
+          style={
+            this.state.loading ? { display: "none" } : { marginBottom: "50px" }
+          }
+        >
           <section id="intro" className={classes1.content}>
             <Row
               // className={classes1.firstrow}
@@ -68,11 +89,12 @@ class Main extends Component {
                   className={classes1.mainpartimage}
                 ></img>
               </Col>
-              <Col className={classes1.omnilink} xs={12} sm={6}>
-                <h1 style={{ fontSize: "5em", fontFamily: "Risque" }}>
-                  linnkninja
-                </h1>
-                <h4>Link Different😜</h4>
+              <Col className={classes1.omnilink} xs={12} sm={5}>
+                <h1>Share them links</h1>
+                <h4>
+                  help your audience find you and your work across all platforms
+                </h4>
+                <h6>-Link Different😜</h6>
                 {/* <Login size="md" text={"instagram login"} /> */}
                 <FbLogin
                   setToken={this.props.setToken}
@@ -84,15 +106,40 @@ class Main extends Component {
               </Col>
             </Row>
           </section>
+        </Container>
+        {/* backdrop */}
+        <img
+          style={{
+            width: "100%",
+            margin: "0 auto",
+            position: "absolute",
+            height: "60vh",
+          }}
+          src={backdrop_top}
+        />
+        <Container
+          fluid
+          style={
+            this.state.loading
+              ? { display: "none", padding: "0px" }
+              : { padding: "0px" }
+          }
+        >
           <section id="features">
             <h1
               style={{ marginBottom: "100px" }}
               className={classes1.sectionname}
             >
-              what we do
+              Features
             </h1>
-            <div className={classes1.content}>
-              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+            <div
+              className={classes1.content}
+              style={{ backgroundColor: "#d3def0", maxWidth: "unset" }}
+            >
+              <Row
+                style={{ textAlign: "center", margin: "0px" }}
+                className={classes1.therow}
+              >
                 <Col xs={12} sm={6}>
                   <Linkanywhere />
                 </Col>
@@ -104,20 +151,24 @@ class Main extends Component {
                   </p>
                 </Col>
               </Row>
-              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Row
+                style={{ textAlign: "center", margin: "0px" }}
+                className={classes1.therow}
+              >
                 <Col xs={12} sm={6}>
-                  <Easysetup />
+                  <img src={easymanage} className={classes1.easymanage} />
                 </Col>
                 <Col xs={12} sm={6}>
-                  <h4 className={classes1.headings}>Easy setup</h4>
+                  <h4 className={classes1.headings}>Easy manage</h4>
                   <p className={classes1.features}>
-                    It takes like two clicks to create a link account. Just
-                    authorize with your instagram account add the links and
-                    paste the link in any of your profiles.
+                    manage all links with ease using the drag and drop menu
                   </p>
                 </Col>
               </Row>
-              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Row
+                style={{ textAlign: "center", margin: "0px" }}
+                className={classes1.therow}
+              >
                 <Col xs={12} sm={6}>
                   <Manythemes />
                 </Col>
@@ -129,7 +180,10 @@ class Main extends Component {
                   </p>
                 </Col>
               </Row>
-              <Row style={{ textAlign: "center" }} className={classes1.therow}>
+              <Row
+                style={{ textAlign: "center", margin: "0px" }}
+                className={classes1.therow}
+              >
                 <Col xs={12} sm={6}>
                   <Analytics />
                 </Col>
@@ -143,6 +197,18 @@ class Main extends Component {
               </Row>
             </div>
           </section>
+        </Container>
+        <img
+          style={{
+            width: "100%",
+            margin: "0 auto",
+            position: "absolute",
+            height: "20vh",
+            zIndex: "-1",
+          }}
+          src={backdrop_bottom}
+        />
+        <Container fluid style={this.state.loading ? { display: "none" } : {}}>
           <section id="about" className={classes1.about}>
             <h1 className={classes1.sectionname}>About</h1>
             <div className={classes1.content}>
