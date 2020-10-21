@@ -34,7 +34,7 @@ class App extends Component {
       accent1: "#FFDC80", //#FCAF45
       accent2: "#FCAF45", //#F77737
     },
-    FBloaded: false,
+    FBloaded: true,
   };
 
   componentDidMount() {
@@ -45,33 +45,6 @@ class App extends Component {
         this.setToken(token, true);
       }
     }
-    //FB SDK
-    window.fbAsyncInit = () => {
-      window.FB.init({
-        appId: process.env.REACT_APP_FBid,
-        cookie: true, // enable cookies to allow the server to access
-        // the session
-        xfbml: true, // parse social plugins on this page
-        version: process.env.REACT_APP_FBver, // use version 2.1
-      });
-
-      // window.FB.getLoginStatus(function (response) {
-      //   console.log(response);
-      // });
-      this.setState({ FBloaded: true });
-    };
-
-    console.log("Loading fb api");
-    // Load the SDK asynchronously
-    (function (d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, "script", "facebook-jssdk");
   }
 
   setToken = (token, fromcookie) => {
@@ -129,43 +102,39 @@ class App extends Component {
 
     return (
       <div className="App" id="app">
-        {this.state.FBloaded ? (
-          <ThemeProvider theme={{ color: "mediumseagreen" }}>
-            {redirect()}
-            <Switch>
-              <Route
-                path="/privacy"
-                component={() => {
-                  return <PrivacyPolicy />;
-                }}
-              />
-              <Route
-                path="/setup"
-                component={() => {
-                  return <Setup />;
-                }}
-              />
-              <Route
-                path="/About"
-                component={() => {
-                  return <About />;
-                }}
-              />
-              <Route path="/login/:type" component={loadinglogin} />
-              <Route path="/:username" component={tohome} />
-              <Route
-                path=""
-                component={() => {
-                  return (
-                    <Main setToken={this.setToken} token={this.state.token} />
-                  );
-                }}
-              />
-            </Switch>
-          </ThemeProvider>
-        ) : (
-          <LoadingScreen onlyspinner={true} />
-        )}
+        <ThemeProvider theme={{ color: "mediumseagreen" }}>
+          {redirect()}
+          <Switch>
+            <Route
+              path="/privacy"
+              component={() => {
+                return <PrivacyPolicy />;
+              }}
+            />
+            <Route
+              path="/setup"
+              component={() => {
+                return <Setup />;
+              }}
+            />
+            <Route
+              path="/About"
+              component={() => {
+                return <About />;
+              }}
+            />
+            <Route path="/login/:type" component={loadinglogin} />
+            <Route path="/:username" component={tohome} />
+            <Route
+              path=""
+              component={() => {
+                return (
+                  <Main setToken={this.setToken} token={this.state.token} />
+                );
+              }}
+            />
+          </Switch>
+        </ThemeProvider>
       </div>
     );
   }
