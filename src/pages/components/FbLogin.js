@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import { FaFacebook } from "react-icons/fa";
-import { IconButton } from "@material-ui/core";
+import FBlogo from "../../assets/Facebook_logo.png";
 var Airtable = require("airtable");
 
 //
@@ -142,11 +142,9 @@ export default function (props) {
     );
   } else {
     return (
-      <div>
+      <div style={{ marginTop: "20px" }}>
         {setupredirect()}
-        <a
-          class="btn btn-block btn-social btn-facebook"
-          variant={props.text ? "dark" : "primary"}
+        <Button
           style={
             props.text
               ? {
@@ -154,6 +152,9 @@ export default function (props) {
                   width: "fit-content",
                   margin: "auto",
                   color: "white",
+                  backgroundColor: "#1977F3",
+                  borderColor: "#1977F3",
+                  borderRadius: "50px",
                 }
               : props.token
               ? {
@@ -161,21 +162,36 @@ export default function (props) {
                   width: "fit-content",
                   margin: "auto",
                   color: "white",
-                  fontFamily: "serif",
+                  backgroundColor: "#1977F3",
+                  borderColor: "#1977F3",
+                  borderRadius: "50px",
                 }
               : {
                   fontSize: "1.3em",
-                  fontFamily: "serif",
                   width: "fit-content",
                   margin: "auto",
                   color: "white",
+                  backgroundColor: "#1977F3",
+                  borderColor: "#1977F3",
+                  borderRadius: "50px",
                 }
           }
           onClick={loginOnClick}
         >
-          <FaFacebook style={{ margin: "auto" }} />
-          {props.text ? props.text : buttontext}
-        </a>
+          <div style={{ display: "flex" }}>
+            <img
+              src={FBlogo}
+              style={{
+                marginBottom: "auto",
+                marginRight: "5px",
+                width: "22px",
+              }}
+            />
+            <p style={{ margin: "auto", fontSize: "1.1rem" }}>
+              {props.text ? props.text : buttontext}
+            </p>
+          </div>
+        </Button>
       </div>
     );
   }

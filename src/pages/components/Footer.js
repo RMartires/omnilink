@@ -6,20 +6,28 @@ import Col from "react-bootstrap/Col";
 export default function Footer(props) {
   return (
     <Row
-      style={{ backgroundColor: "black", height: "10vh", textAlign: "center" }}
+      style={{ backgroundColor: "white", height: "10vh", textAlign: "center" }}
       className="align-items-center"
     >
       <Col>
-        <a href="/#intro">Home</a>
+        <a style={{ color: "black" }} href="/#intro">
+          Home
+        </a>
       </Col>
       <Col>
-        <a href="/#features">Features</a>
+        <a style={{ color: "black" }} href="/#features">
+          Features
+        </a>
       </Col>
       <Col>
-        <a href="/#about">About</a>
+        <a style={{ color: "black" }} href="/#about">
+          About
+        </a>
       </Col>
       <Col>
-        <a href="/privacy">Privacy</a>
+        <a style={{ color: "black" }} href="/privacy">
+          Privacy
+        </a>
       </Col>
     </Row>
   );

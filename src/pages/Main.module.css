@@ -90,7 +90,7 @@ body {
 }
 
 .omnilink > h1::after {
-  background: #2196f3;
+  background: #1977f3;
   content: "";
   height: 4px;
   width: 60%;
@@ -126,7 +126,14 @@ body {
 
 /* section features */
 .sectionname {
-  font-size: 4.5em;
+  font-size: 4.5rem;
+  text-align: center;
+  font-family: "work_sanslight";
+  position: relative;
+}
+
+.setupsection {
+  font-size: 3rem;
   text-align: center;
   font-family: "work_sanslight";
   position: relative;

@@ -5,6 +5,14 @@ body {
   background: $color-background;
 }
 
+.error {
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: $color-loader;
+  letter-spacing: 0.2em;
+}
+
 .loader {
   width: 250px;
   height: 50px;

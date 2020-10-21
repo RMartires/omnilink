@@ -151,7 +151,7 @@ class App extends Component {
                   return <About />;
                 }}
               />
-              <Route path="/login" component={loadinglogin} />
+              <Route path="/login/:type" component={loadinglogin} />
               <Route path="/:username" component={tohome} />
               <Route
                 path=""
