@@ -5,6 +5,7 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Modal } from "react-bootstrap";
 import { FaInstagram, FaTwitter } from "react-icons/fa";
 
 import { obtainOauthRequestToken } from "react-twitter-login/dist/services/oauth1";
@@ -39,6 +40,8 @@ function clickInstagram() {
   window.location.href = url;
 }
 
+function modalInstagram() {}
+
 async function clickTwitter() {
   var requestTokenData = await obtainOauthRequestToken({
     method: "POST",
@@ -54,8 +57,35 @@ async function clickTwitter() {
 }
 
 export default function Setup() {
+  const [instaTest, setInstaTest] = useState(false);
+
   return (
     <Container style={{ height: "100vh", maxWidth: "1200px" }} fluid>
+      <Modal
+        show={instaTest}
+        onHide={() => {
+          setInstaTest(false);
+        }}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Alert !!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Psst. instagram setup is still in testing phase, only continue if
+            your instagram account has testing access for linnkninja. <br />{" "}
+            ping me{" "}
+            <a href="https://twitter.com/RohitMartires" target="_blank">
+              @RohitMartires
+            </a>{" "}
+            for access
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={clickInstagram}>Continue</Button>
+        </Modal.Footer>
+      </Modal>
       <Row style={{ height: "100%" }} className="justify-content-center">
         <img
           style={{
@@ -94,7 +124,9 @@ export default function Setup() {
 
           <a
             class="btn btn-block btn-social btn-instagram btn-lg"
-            onClick={clickInstagram}
+            onClick={() => {
+              setInstaTest(true);
+            }}
             style={{
               fontSize: "1.1em",
               width: "75%",
