@@ -6,7 +6,11 @@ import Col from "react-bootstrap/Col";
 export default function Footer(props) {
   return (
     <Row
-      style={{ backgroundColor: "white", height: "10vh", textAlign: "center" }}
+      style={{
+        backgroundColor: "#eaecfa",
+        height: "10vh",
+        textAlign: "center",
+      }}
       className="align-items-center"
     >
       <Col>
