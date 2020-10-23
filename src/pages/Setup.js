@@ -16,17 +16,19 @@ import classes from "./Main.module.css";
 
 import backdrop_bottom from "../assets/backdrop_bottom.svg";
 
-var clientid, redirect_uri, TCoustomerKey, TCoustomerSecret;
+var clientid, redirect_uri, TCoustomerKey, TCoustomerSecret, Tredirect_url;
 if (process.env.NODE_ENV == "production") {
   clientid = process.env.REACT_APP_IN_CLIENT_ID;
   redirect_uri = process.env.REACT_APP_IN_REDIRECT_URI;
   TCoustomerKey = process.env.REACT_APP_T_COUSTOMER_KEY;
   TCoustomerSecret = process.env.REACT_APP_T_COUSTOMER_SECRET;
+  Tredirect_url = process.env.REACT_APP_T_REDIRECT_URL;
 } else {
   clientid = window._env.REACT_APP_IN_CLIENT_ID;
   redirect_uri = window._env.REACT_APP_IN_REDIRECT_URI;
-  TCoustomerKey = process.env.REACT_APP_T_COUSTOMER_KEY;
-  TCoustomerSecret = process.env.REACT_APP_T_COUSTOMER_SECRET;
+  TCoustomerKey = window._env.REACT_APP_T_COUSTOMER_KEY;
+  TCoustomerSecret = window._env.REACT_APP_T_COUSTOMER_SECRET;
+  Tredirect_url = window._env.REACT_APP_T_REDIRECT_URL;
 }
 
 function clickInstagram() {
@@ -46,7 +48,7 @@ async function clickTwitter() {
   var requestTokenData = await obtainOauthRequestToken({
     method: "POST",
     apiUrl: "https://api.twitter.com/oauth/request_token",
-    callbackUrl: redirect_uri + "t",
+    callbackUrl: Tredirect_url,
     consumerKey: TCoustomerKey,
     consumerSecret: TCoustomerSecret,
   });
