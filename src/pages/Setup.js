@@ -74,12 +74,12 @@ export default function Setup() {
         <Modal.Body>
           <p>
             Psst. instagram setup is still in testing phase, only continue if
-            your instagram account has testing access for linnkninja. <br />{" "}
-            ping me{" "}
+            your instagram account has testing access for linnkninja. <br /> you
+            can ping me{" "}
             <a href="https://twitter.com/RohitMartires" target="_blank">
               @RohitMartires
             </a>{" "}
-            for access
+            for access 🙌
           </p>
         </Modal.Body>
         <Modal.Footer>

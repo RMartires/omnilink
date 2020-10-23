@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 //
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Image from "react-bootstrap/Image";
+// import Container from "react-bootstrap/Container";
+// import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import ImagePicker from "react-image-picker";
 import axios from "axios";
@@ -23,7 +23,7 @@ export default function SetupScreen2(props) {
     console.log(username + " " + email + " " + userID);
     var api;
     var link;
-    if (process.env.NODE_ENV == "production") {
+    if (process.env.NODE_ENV === "production") {
       // apikey.set("apikey", process.env.REACT_APP_ATapikey);
       // apikey.set("apibase", process.env.REACT_APP_ATbase);
       api = {

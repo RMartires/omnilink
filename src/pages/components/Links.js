@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
-import { FaEllipsisV, FaChevronDown, FaBars } from "react-icons/fa";
+import { FaChevronDown, FaBars } from "react-icons/fa";
 
 import cardclasses from "./ThemeSelector2.module.css";
 import classes from "../Home.module.css";
@@ -15,9 +15,9 @@ const Link = (props) => {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
 
-  const handleclick = (event) => {
-    console.log(event);
-  };
+  // const handleclick = (event) => {
+  //   console.log(event);
+  // };
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a

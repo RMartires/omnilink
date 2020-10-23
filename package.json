@@ -37,6 +37,7 @@
     "react-dom": "^16.13.1",
     "react-facebook-sdk": "^1.1.1",
     "react-floating-action-button": "^1.0.5",
+    "react-hook-form": "^6.9.5",
     "react-icons": "^3.10.0",
     "react-image-picker": "^1.1.1",
     "react-instagram-login": "^1.4.0",
