@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import Validate from "react-validate-form";
+import { useForm } from "react-hook-form";
 
 var Airtable = require("airtable");
 var base;
@@ -22,47 +22,31 @@ if (process.env.NODE_ENV == "production") {
 }
 
 function CoustomModal(props) {
-  const [link, setLink] = useState("undefined");
-  const [title, setTitle] = useState("undefined");
+  const { register, handleSubmit, watch, errors } = useForm();
 
-  useEffect(() => {
-    setLink(props.link);
-    setTitle(props.title);
-  }, []);
-
-  const handlechange = (e) => {
-    if (e.target.name == "title") {
-      setTitle(e.target.value);
-    } else if (e.target.name == "link") {
-      setLink(e.target.value);
-    }
-    // console.log(link + " " + title);
-  };
-
-  const send = (allValid) => {
-    if (allValid) {
-      base("links").update(
-        [
-          {
-            id: props.recordid,
-            fields: {
-              links: link,
-              users: [props.token.recordid],
-              title: title,
-            },
+  const send = (data) => {
+    console.log(data);
+    base("links").update(
+      [
+        {
+          id: props.recordid,
+          fields: {
+            links: data.link,
+            users: [props.token.recordid],
+            title: data.title,
           },
-        ],
-        function (err, records) {
-          if (err) {
-            console.error(err);
-            return;
-          } else {
-            props.setEdit(false);
-            props.refreshlinks(true);
-          }
+        },
+      ],
+      function (err, records) {
+        if (err) {
+          console.error(err);
+          return;
+        } else {
+          props.setEdit(false);
+          props.refreshlinks(true);
         }
-      );
-    }
+      }
+    );
   };
 
   const dele = (e) => {
@@ -84,102 +68,65 @@ function CoustomModal(props) {
     <Container fluid>
       <Row>
         <Col>
-          <Validate validations={{ email: ["required"] }}>
-            {({ validate, errorMessages, allValid }) => (
-              <Modal
-                show={edit}
-                onHide={() => {
+          <Modal
+            show={edit}
+            onHide={() => {
+              props.setEdit(false);
+            }}
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Edit</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <form onSubmit={handleSubmit(send)}>
+                <lable className="form-lable">Title</lable>
+                <input
+                  className="form-control"
+                  ref={register({ required: true })}
+                  name="title"
+                  defaultValue={props.title}
+                />
+                {errors.title && (
+                  <p style={{ color: "red" }}>❌ title is required</p>
+                )}
+                <lable className="form-lable">Link</lable>
+                <input
+                  className="form-control"
+                  ref={register({ required: true })}
+                  name="link"
+                  defaultValue={props.link}
+                />
+                {errors.link && (
+                  <p style={{ color: "red" }}>❌ link is required</p>
+                )}
+                <input
+                  type="submit"
+                  id="submit_add"
+                  style={{ display: "none" }}
+                ></input>
+              </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => {
                   props.setEdit(false);
                 }}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
               >
-                <Modal.Header closeButton>
-                  <Modal.Title>Edit</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form>
-                    <Form.Group controlId="titleEdit">
-                      <Form.Label>Title</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="title"
-                        placeholder="Enter title"
-                        onChange={(e) => {
-                          handlechange(e);
-                          validate(e);
-                          // console.log(errorMessages);
-                        }}
-                        required
-                        isInvalid={
-                          errorMessages.title
-                            ? errorMessages.title.length == 1
-                              ? true
-                              : false
-                            : false
-                        }
-                        isValid={
-                          errorMessages.title
-                            ? errorMessages.title.length == 1
-                              ? false
-                              : true
-                            : false
-                        }
-                        value={title}
-                      />
-                    </Form.Group>
-                    <Form.Group controlId="linkEdit">
-                      <Form.Label>Link</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="link"
-                        placeholder="Enter Link"
-                        onChange={(e) => {
-                          handlechange(e);
-                          validate(e);
-                          // console.log(errorMessages);
-                        }}
-                        requried
-                        isInvalid={
-                          errorMessages.link
-                            ? errorMessages.link.length == 1
-                              ? true
-                              : false
-                            : false
-                        }
-                        isValid={
-                          errorMessages.link
-                            ? errorMessages.link.length == 1
-                              ? false
-                              : true
-                            : false
-                        }
-                        value={link}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      props.setEdit(false);
-                    }}
-                  >
-                    Close
-                  </Button>
-                  <Button
-                    variant="primary"
-                    onClick={(e) => {
-                      send(allValid);
-                    }}
-                  >
-                    Save Changes
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-            )}
-          </Validate>
+                Close
+              </Button>
+              <Button
+                variant="primary"
+                onClick={(e) => {
+                  document.getElementById("submit_add").click();
+                }}
+              >
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
           {/* del */}
           <Modal
             show={del}

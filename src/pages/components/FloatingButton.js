@@ -7,7 +7,7 @@ import BsButton from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 
-import Validate from "react-validate-form";
+import { useForm } from "react-hook-form";
 
 var Airtable = require("airtable");
 var base;
@@ -22,57 +22,44 @@ if (process.env.NODE_ENV == "production") {
 }
 
 export default function FloatingButton(props) {
-  const [link, setLink] = useState(undefined);
-  const [title, setTitle] = useState(undefined);
   const [addmodal, setAddmodal] = useState(false);
-  const [validated, setValidated] = useState(false);
 
-  const handlechange = (e) => {
-    if (e.target.name == "title") {
-      setTitle(e.target.value);
-    } else if (e.target.name == "link") {
-      setLink(e.target.value);
-    }
-  };
+  const { register, handleSubmit, watch, errors } = useForm();
 
-  const handleSubmit = (allValid) => {
-    if (allValid) {
-      console.log(title + "" + link);
-      base("users").find(props.token.recordid, function (err, record) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        var maxorder = record.get("maxorder");
-        //got maxorder now create new record yo!
-        console.log("f");
-        base("links").create(
-          [
-            {
-              fields: {
-                links: link,
-                users: [props.token.recordid],
-                title: title,
-                order: maxorder + 1,
-              },
+  const Submit = async (data) => {
+    console.log(data);
+    base("users").find(props.token.recordid, function (err, record) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      var maxorder = record.get("maxorder");
+      //got maxorder now create new record yo!
+      console.log("f");
+      base("links").create(
+        [
+          {
+            fields: {
+              links: data.link,
+              users: [props.token.recordid],
+              title: data.title,
+              order: maxorder + 1,
             },
-          ],
-          function (err, records) {
-            if (err) {
-              console.error(err);
-              return;
-            } else {
-              setAddmodal(false);
-              setTitle(undefined);
-              setLink(undefined);
-              props.refreshlinks(true);
-            }
+          },
+        ],
+        function (err, records) {
+          if (err) {
+            console.error(err);
+            return;
+          } else {
+            setAddmodal(false);
+            props.refreshlinks(true);
           }
-        );
+        }
+      );
 
-        //end of record creation
-      });
-    }
+      //end of record creation
+    });
   };
 
   return (
@@ -86,102 +73,62 @@ export default function FloatingButton(props) {
           <FaPlus />
         </Button>
       </Container>
-      <Validate validations={{ email: ["required"] }}>
-        {({ validate, errorMessages, allValid }) => (
-          <Modal
-            show={addmodal}
-            onHide={() => {
+      <Modal
+        show={addmodal}
+        onHide={() => {
+          setAddmodal(false);
+        }}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Add link</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit(Submit)}>
+            <lable className="form-lable">Title</lable>
+            <input
+              className="form-control"
+              ref={register({ required: true })}
+              name="title"
+            />
+            {errors.title && (
+              <p style={{ color: "red" }}>❌ title is required</p>
+            )}
+            <lable className="form-lable">Link</lable>
+            <input
+              className="form-control"
+              ref={register({ required: true })}
+              name="link"
+            />
+            {errors.link && <p style={{ color: "red" }}>❌ link is required</p>}
+            <input
+              type="submit"
+              id="submit_add"
+              style={{ display: "none" }}
+            ></input>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <BsButton
+            variant="secondary"
+            onClick={() => {
               setAddmodal(false);
             }}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
           >
-            <Modal.Header closeButton>
-              <Modal.Title>Add link</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group controlId="titleEdit">
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="title"
-                    placeholder="Enter title"
-                    onChange={(e) => {
-                      handlechange(e);
-                      validate(e);
-                      // console.log(errorMessages);
-                    }}
-                    required
-                    isInvalid={
-                      errorMessages.title
-                        ? errorMessages.title.length == 1
-                          ? true
-                          : false
-                        : false
-                    }
-                    isValid={
-                      errorMessages.title
-                        ? errorMessages.title.length == 1
-                          ? false
-                          : true
-                        : false
-                    }
-                    value={title}
-                  />
-                </Form.Group>
-                <Form.Group controlId="linkEdit">
-                  <Form.Label>Link</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="link"
-                    placeholder="Enter Link"
-                    onChange={(e) => {
-                      handlechange(e);
-                      validate(e);
-                      // console.log(errorMessages);
-                    }}
-                    required
-                    isInvalid={
-                      errorMessages.link
-                        ? errorMessages.link.length == 1
-                          ? true
-                          : false
-                        : false
-                    }
-                    isValid={
-                      errorMessages.link
-                        ? errorMessages.link.length == 1
-                          ? false
-                          : true
-                        : false
-                    }
-                    value={link}
-                  />
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <BsButton
-                variant="secondary"
-                onClick={() => {
-                  setAddmodal(false);
-                }}
-              >
-                Close
-              </BsButton>
-              <BsButton
-                variant="primary"
-                onClick={() => {
-                  handleSubmit(allValid);
-                }}
-              >
-                Add
-              </BsButton>
-            </Modal.Footer>
-          </Modal>
-        )}
-      </Validate>
+            Close
+          </BsButton>
+          <BsButton
+            variant="success"
+            type="submit"
+            onClick={() => {
+              document.getElementById("submit_add").click();
+            }}
+          >
+            Add
+          </BsButton>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
