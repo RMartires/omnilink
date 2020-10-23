@@ -41,7 +41,7 @@ const footer = (onlyspinner) => {
 
 function LoadingScreen(props) {
   return (
-    <Container fluid>
+    <Container fluid style={{ backgroundColor: "#fff" }}>
       <Row style={props.onlyspinner ? { height: "100vh" } : { height: "95vh" }}>
         <img
           style={{
